@@ -13,78 +13,83 @@ import edu.kit.cloudSimStorage.cloudBroker.StorageBroker;
 import edu.kit.cloudSimStorage.cloudBroker.StorageMetaBroker;
 import edu.kit.cloudSimStorage.cloudFactory.StorageCloudFactory;
 import edu.kit.cloudSimStorage.cloudOperations.*;
-import edu.kit.cloudSimStorage.helper.FileSizeHelper;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
-import edu.kit.cloudSimStorage.monitoring.LogDeflector;
-import edu.kit.cloudSimStorage.monitoring.OperationTimeTraceSample;
-import edu.kit.cloudSimStorage.monitoring.TrackableResource;
-import edu.kit.cloudSimStorage.helper.Tuple;
-import edu.kit.cloudSimStorage.monitoring.report.CSVGenerator;
-import edu.kit.cloudSimStorage.monitoring.report.GraphGenerator;
-import edu.kit.cloudSimStorage.monitoring.report.ReportGenerator;
+import edu.kit.cloudSimStorage.helper.*;
+import edu.kit.cloudSimStorage.monitoring.*;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.report.*;
+
 import org.cloudbus.cloudsim.core.CloudSim;
+
+import org.apache.commons.cli.*;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 
-import static edu.kit.cloudSimStorage.helper.TimeHelper.timeToString;
-
 /** @author Tobias Sturm, 6/7/13 1:26 PM */
 public class Main {
 	public static void main(String[] args) throws Exception {
+		Options options = new Options();
+		options.addOption(OptionBuilder
+				.withArgName("input-directory")
+				.withDescription("directory that contains simulation scenario. " +
+						"Use file extentions '" + SharedConstants.CLOUD_FILE_EXTENTION + "'" +
+						" and  '" + SharedConstants.SEQUENCE_FILE_EXTENTION + "'")
+				.create("i")
+		);
+		options.addOption(OptionBuilder
+				.withArgName("output-directory")
+				.withDescription("directory for log outputs")
+				.create("o")
+		);
+		options.addOption(OptionBuilder
+				.withDescription("enable cloud dumps at end of simulation")
+				.create("clouddump")
+		);
+		options.addOption(OptionBuilder
+				.withDescription("enable csv outputs at end of simulation")
+				.create("csv")
+		);
+		options.addOption(OptionBuilder
+				.withDescription("enable graph outputs at end of simulation")
+				.create("graphs")
+		);
+		options.addOption(OptionBuilder
+				.withDescription("enable log outputs at end of simulation")
+				.create("logs")
+		);
+		options.addOption(OptionBuilder
+				.withDescription("number of sequences")
+				.create("n")
+		);
+
+		CommandLineParser parser = new BasicParser();
+		CommandLine cmd = parser.parse( options, args);
+
 		//read parameters
-		File outputDir = new File(".");
-		File inputDir = new File(".");
-		int nSequences = -1;
-		boolean generateDump = true;
-		boolean generateGraphs = true;
-		boolean generateCSV = true;
-		boolean preventLogging = false;
-		for(int i = 0; i < args.length; i++) {
-			if((args[i].toLowerCase().equals("-o") || args[i].toLowerCase().equals("--output")) && args.length > i) {
-				File tmp = new File(args[i+1]);
-				if(!tmp.exists() && tmp.mkdirs()) {
-					System.err.println("Could not create output directory '" + tmp.getPath() + "'. Use './' default");
-				}
-				outputDir = tmp;
-				i++;
-			} else if((args[i].toLowerCase().equals("-i") || args[i].toLowerCase().equals("--input"))  && args.length > i) {
-				File tmp = new File(args[i+1]);
-				if(!tmp.exists() ) {
-					System.err.println("Could not open input directory '" + tmp.getPath() + "'.");
-					return;
-				}
-				inputDir = tmp;
-				i++;
-			} else if((args[i].toLowerCase().equals("-n") || args[i].toLowerCase().equals("--numsequences"))  && args.length > i) {
-				if(args[i+1].toLowerCase() != "all")
-					nSequences = Integer.parseInt(args[i+1]);
-				i++;
-			} else if (args[i].toLowerCase().equals("-nodump")) {
-				generateDump = false;
-			} else if (args[i].toLowerCase().equals("-nocsv")) {
-				generateCSV = false;
-			} else if (args[i].toLowerCase().equals("-nographs")) {
-				generateGraphs = false;
-			} else if (args[i].toLowerCase().equals("-nologs" )) {
-				preventLogging = true;
-			} else {
-				System.out.print("unknown parameter '" + args[i] + "'!\n" +
-						"Usage:\n" +
-						"   -o  --output        | set the output directory [./]\n" +
-						"   -i  --input         | set the input directory [./]\n" +
-						"   -n  --nsequences    | set the number of sequences to read (number or 'all') [all]\n" +
-						"   -noDump             | no cloud dumps\n" +
-						"   -noCSV              | no csv output of monitoring\n" +
-						"   -noGraphs           | no graphical output\n" +
-						"   -noLogs             | no logging files\n\n" +
-						"Use file extentions '.cloud.xml' and  '.usageSequence.xml'!");
-				return;
-			}
+		File outputDir = new File(cmd.hasOption("i") ? cmd.getOptionValue("i") : ".");
+		File inputDir = new File(cmd.hasOption("o") ? cmd.getOptionValue("o") : ".");
+		if(!inputDir.exists() && inputDir.mkdirs()) {
+			System.err.println("Could not create input directory '" + inputDir.getPath() + "'");
 		}
+		if(!outputDir.exists() && outputDir.mkdirs()) {
+			System.err.println("Could not create output directory '" + outputDir.getPath() + "'");
+		}
+		int nSequences = -1;
+		if(cmd.hasOption("n"))
+		{
+			try
+			{
+				nSequences = Integer.parseInt(cmd.getOptionValue("n"));
+			}
+			catch(NumberFormatException nfe){ }
+		}
+		boolean generateDump = cmd.hasOption("clouddump");
+		boolean generateGraphs = cmd.hasOption("graphs");;
+		boolean generateCSV = cmd.hasOption("csv");;
+		boolean preventLogging = cmd.hasOption("logs");;
+
 		System.out.printf("take '%s' as input%n", inputDir.getPath());
 		System.out.printf("take '%s' as output%n", outputDir.getPath());
 		if(nSequences != -1)
@@ -124,7 +129,6 @@ public class Main {
 
 		List<UsageSequence> sequences = new ArrayList<>();
 		for(File f : getFilesThatEndWithSorted(SharedConstants.SEQUENCE_FILE_EXTENTION, inputDir)) {
-			if(!isScientific(f)) continue;
 			//take only first n sequences. won't interrupt if set to -1 (=all sequences)
 			if(nSequences == 0)
 				break;
@@ -161,7 +165,6 @@ public class Main {
 		if(generateCSV)
 			csvGenerator.generate(outputDir);
 
-		//Custom generators
 
 		//dump request statistics
 		FileWriter writer = new FileWriter(outputDir.getPath() + "/" + "requests.stats.csv");
@@ -230,24 +233,6 @@ public class Main {
 		}
 		CSVGenerator.writeTrackSequence(outputDir, "storage.stats", labels, cloudStorage);
 
-	}
-
-	private static boolean isScientific(File f) {
-		boolean result = false;
-		try {
-			Scanner in = new Scanner(new FileReader(f));
-			while(in.hasNext() && !result) {
-				if(in.nextLine().contains("SLA storage costs"))
-					result = true;
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();  //TODO handle exception
-		}
-		return result;
-	}
-
-	private static void printTrackHistory(String caption, TupleSequence<Double> history) {
-		printTrackHistory(caption, history, true);
 	}
 
 	private static void printTrackHistory(String caption, TupleSequence<Double> history, boolean scale) {

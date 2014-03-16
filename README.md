@@ -9,9 +9,10 @@ More work to be done ... To be continued
 
 Requirements
 ------------
-* Java 7
+* Java 7 Update 21
 * CloudSim (tested with [version 3.0.3](http://code.google.com/p/cloudsim/downloads/list)) (patched)
 * [Simple 2.7.1](http://simple.sourceforge.net/download.php)
+* [Apache Commons CLI](http://commons.apache.org/proper/commons-cli/index.html)
 * and [commons-math3-3.2](http://commons.apache.org/proper/commons-math/download_math.cgi)
 
 Patched Cloudsim
