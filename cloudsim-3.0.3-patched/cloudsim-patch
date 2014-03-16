@@ -1,0 +1,18 @@
+diff -r ./org/cloudbus/cloudsim/NetworkTopology.java ../../StorageCloudSim/cloudsim-3.0.3-patched/org/cloudbus/cloudsim/NetworkTopology.java
+235a236,251
+> 	 * Returns the Bandwidth between two nodes or 0 if network is not enabled.
+> 	 *
+> 	 * The bandwidth depends has not to be unidirectional ({@code getBandwidth(a,b) != getBandwidth(b,a)}).
+> 	 *
+> 	 * @param srcID ID of the source node
+> 	 * @param destID ID of the destination node
+> 	 * @return communication bandwidth between the two nodes
+> 	 */
+> 	public static double getBandwidth(int srcID, int destID) {
+> 		if(!networkEnabled || bwMatrix.length < srcID || bwMatrix[srcID].length < destID)
+> 			return 0.0;
+> 
+> 		return bwMatrix[srcID][destID];
+> 	}
+> 
+> 	/**
