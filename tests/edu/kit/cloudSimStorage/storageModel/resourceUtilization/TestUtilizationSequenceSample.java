@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /** @author Tobias Sturm, 6/22/13 3:49 PM */
-public class UtilizationSequenceSampleTest {
+public class TestUtilizationSequenceSample {
 	private static final double DELTA = 0.00001;
 	/*
 		s1 is from 0 to 100, value 10

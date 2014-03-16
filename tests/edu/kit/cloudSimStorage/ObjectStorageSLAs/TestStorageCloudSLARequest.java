@@ -19,7 +19,7 @@ import static edu.kit.cloudSimStorage.helper.FileSizeHelper.Magnitude.*;
 import static org.junit.Assert.*;
 
 /** @author Tobias Sturm, 8/5/13 4:17 PM */
-public class StorageCloudSLARequestTest {
+public class TestStorageCloudSLARequest {
 
 	@Test
 	public void testSerializeDeserializeEmptySLA() throws Exception {

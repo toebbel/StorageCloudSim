@@ -17,7 +17,7 @@ import static edu.kit.cloudSimStorage.helper.FileSizeHelper.toBytes;
 import static org.junit.Assert.assertEquals;
 
 /** @author Tobias Sturm, 6/21/13 4:59 PM */
-public class TimeawareResourceLimitationTest {
+public class TestTimeawareResourceLimitation {
 	private static final double DELTA = 0.00001;
 	TimeawareResourceLimitation r;
 	double maxRate;

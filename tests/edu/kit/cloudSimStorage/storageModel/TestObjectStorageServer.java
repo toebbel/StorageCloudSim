@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 import static edu.kit.cloudSimStorage.TestHelper.*;
 
 /** @author Tobias Sturm, 6/7/13 4:50 PM */
-public class ObjectStorageServerTest {
+public class TestObjectStorageServer {
 
 	ObjectStorageServer candidate;
 	IObjectStorageDrive driveA, driveB, driveC;

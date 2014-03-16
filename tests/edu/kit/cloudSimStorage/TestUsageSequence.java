@@ -23,7 +23,7 @@ import static edu.kit.cloudSimStorage.cloudBroker.UserRequest.blocking;
 import static org.junit.Assert.*;
 
 /** @author Tobias Sturm, 8/5/13 5:32 PM */
-public class UsageSequenceTest {
+public class TestUsageSequence {
 	@Test
 	public void testSerializeDeserializeEmptySequence() throws Exception {
 		UsageSequence candidate = new UsageSequence(0, new StorageCloudSLARequest(), Collections.EMPTY_LIST);

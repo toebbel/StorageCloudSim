@@ -17,7 +17,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /** @author Tobias Sturm, 6/22/13 4:05 PM */
-public class UtilizationSequenceTest {
+public class TestUtilizationSequence {
 	private static final double DELTA = 0.00001;
 
 	/*

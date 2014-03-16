@@ -20,7 +20,7 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 
 /** @author Tobias Sturm, 9/4/13 6:54 PM */
-public class SampleCombinatorTest {
+public class TestSampleCombinator {
 	TupleSequence<Double> a, b, c, empty;
 
 	@Before
