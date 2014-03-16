@@ -1,3 +1,9 @@
+# Storage Cloud Sim specific stuff
+*.log
+buildTex.sh
+requests.stats.csv
+
+
 #Licence of the file _.gitignore_
 #Copyright (c) 2013 GitHub, Inc.
 
@@ -72,6 +78,7 @@ tramp
 *.ipr
 *.iws
 .idea/
+StorageCloudSim.eml
 
 # Netbeans #
 nbproject/private/
