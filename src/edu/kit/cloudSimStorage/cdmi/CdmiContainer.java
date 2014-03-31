@@ -32,7 +32,7 @@ import java.util.List;
  * Time: 12:58 PM
  */
 public abstract class CdmiContainer<T extends CdmiEntity> extends CdmiEntity implements TrackableResource {
-	protected Hashtable<CdmiId, CdmiEntity> children;
+	protected Hashtable<CdmiId, T> children;
 	protected Hashtable<String, CdmiId> childrenNameIdMapping;
 	protected CdmiMetadata metadata;
 
@@ -71,7 +71,7 @@ public abstract class CdmiContainer<T extends CdmiEntity> extends CdmiEntity imp
 	 */
 	public Hashtable<CdmiId, T> getChildren() {
 		//noinspection unchecked
-		return (Hashtable<CdmiId, T>) children;
+		return children;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public abstract class CdmiContainer<T extends CdmiEntity> extends CdmiEntity imp
 		if (!children.containsKey(id))
 			throw new EntityNotFoundException("Could not find child with id " + id + " in container " + this.getEntityId());
 		//noinspection unchecked
-		return (T) children.get(id);
+		return children.get(id);
 	}
 
 	/**
@@ -197,7 +197,6 @@ public abstract class CdmiContainer<T extends CdmiEntity> extends CdmiEntity imp
 	public void deleteChild(CdmiId id) {
 		if (!containsChild(id))
 			throw new EntityNotFoundException("Could not find child with id " + id + " in container " + this.getEntityId());
-		CdmiEntity child = children.get(id);
 		childrenNameIdMapping.remove(children.get(id).getEntityName());
 		children.remove(id);
 
