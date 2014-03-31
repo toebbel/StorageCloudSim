@@ -12,6 +12,7 @@ package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
 import edu.kit.cloudSimStorage.helper.TupleSequence;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -182,5 +183,81 @@ public class TupleSequenceOperationsTest {
 		assertEquals((Double)1.0, a.get(3).y);
 		assertEquals((Double)1.0, a.get(4).y);
 		assertEquals((Double)2.0, a.get(5).y);
+	}
+
+
+	@Test
+	public void testAlignThreeLists()
+	{
+		TupleSequence<Double>a = new TupleSequence<>();
+		TupleSequence<Double>b = new TupleSequence<>();
+		TupleSequence<Double>c = new TupleSequence<>();
+
+		a.add(1, 1.1);
+		b.add(1, 3.1);
+
+		b.add(2, 2.1);
+		c.add(2, 3.1);
+
+		a.add(5, 1.2);
+
+		b.add(7, 2.2);
+		c.add(7, 3.3);
+
+		b.add(8, 2.4);
+
+		List<TupleSequence<Double>> tmp = new ArrayList<>();
+		tmp.add(a);
+		tmp.add(b);
+		tmp.add(c);
+		tmp = TupleSequenceOperations.align(tmp, 0.1);
+		a = tmp.get(0);
+		b = tmp.get(1);
+		c = tmp.get(2);
+
+		assertEquals(5, a.size());
+		assertEquals(5, b.size());
+		assertEquals(5, c.size());
+
+		assertEquals((Long)1l, a.get(0).x);
+		assertEquals((Long)1l, b.get(0).x);
+		assertEquals((Long)1l, c.get(0).x);
+
+		assertEquals((Long)2l, a.get(1).x);
+		assertEquals((Long)2l, b.get(1).x);
+		assertEquals((Long)2l, c.get(1).x);
+
+		assertEquals((Long)5l, a.get(2).x);
+		assertEquals((Long)5l, b.get(2).x);
+		assertEquals((Long)5l, c.get(2).x);
+
+		assertEquals((Long)7l, a.get(3).x);
+		assertEquals((Long)7l, b.get(3).x);
+		assertEquals((Long)7l, c.get(3).x);
+
+		assertEquals((Long)8l, a.get(4).x);
+		assertEquals((Long)8l, b.get(4).x);
+		assertEquals((Long)8l, c.get(4).x);
+
+		assertEquals((Double)1.1, a.get(0).y);
+		assertEquals((Double)3.1, b.get(0).y);
+		assertEquals((Double)0.1, c.get(0).y); //nullValue
+
+		assertEquals((Double)1.1, a.get(1).y);
+		assertEquals((Double)2.1, b.get(1).y);
+		assertEquals((Double)3.1, c.get(1).y);
+
+		assertEquals((Double)1.2, a.get(2).y);
+		assertEquals((Double)2.1, b.get(2).y);
+		assertEquals((Double)3.1, c.get(2).y);
+
+		assertEquals((Double)1.2, a.get(3).y);
+		assertEquals((Double)2.2, b.get(3).y);
+		assertEquals((Double)3.3, c.get(3).y);
+
+		assertEquals((Double)1.2, a.get(4).y);
+		assertEquals((Double)2.4, b.get(4).y);
+		assertEquals((Double)3.3, c.get(4).y);
+
 	}
 }

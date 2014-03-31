@@ -18,6 +18,25 @@ import java.util.List;
 /** @author Tobias Sturm, 3/31/14 1:35 PM */
 public class TupleSequenceOperations {
 
+	public static <T> List<TupleSequence<T>> align(List<TupleSequence<T>> inputs, T nullValue) {
+		if(inputs.size() < 2)
+			return inputs;
+
+		//instead of aligning every list with every other (n^2) it is sufficient to align all lists with
+		//one partner list (where the partner is the same for all other lists). When we then align all lists
+		// a second time with that partner, we achieved the same as we would with the n^2 solution, but we need only 2*n
+		for(int n = 0; n < 2; n++)
+		{
+			for(int i = 1; i < inputs.size(); i++)
+			{
+				List<TupleSequence<T>> two_aligned = align(inputs.get(0), inputs.get(i), nullValue);
+				inputs.set(i, two_aligned.get(1));
+				inputs.set(0, two_aligned.get(0));
+			}
+		}
+		return inputs;
+	}
+
 	public static <T> List<TupleSequence<T>> align(TupleSequence<T> a, TupleSequence<T> b, T nullValue) {
 		assert isSorted(a) && isSorted(b);
 
@@ -35,7 +54,7 @@ public class TupleSequenceOperations {
 				if (indexA == a.size()) {
 					for (; indexB < b.size(); indexB++) {
 						resultA.add(b.get(indexB).x, a.get(indexA - 1).y);
-						resultB.add(a.get(indexB));
+						resultB.add(b.get(indexB));
 					}
 				} else if (indexB == b.size()) {
 					for (; indexA < a.size(); indexA++) {
