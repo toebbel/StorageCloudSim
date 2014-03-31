@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage.cdmi;
 
 import edu.kit.cloudSimStorage.helper.FileSizeHelper;
 import edu.kit.cloudSimStorage.exceptions.EntityNameException;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
 import edu.kit.cloudSimStorage.monitoring.TrackableResource;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleCombinator;

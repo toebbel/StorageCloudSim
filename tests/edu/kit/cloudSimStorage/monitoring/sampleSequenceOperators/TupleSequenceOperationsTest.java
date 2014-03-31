@@ -9,7 +9,7 @@
  */
 package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
 
-import edu.kit.cloudSimStorage.helper.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import org.junit.Test;
 
 import java.util.ArrayList;

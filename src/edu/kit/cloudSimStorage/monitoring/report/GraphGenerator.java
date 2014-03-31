@@ -10,11 +10,10 @@
 package edu.kit.cloudSimStorage.monitoring.report;
 
 import edu.kit.cloudSimStorage.StorageCloud;
-import edu.kit.cloudSimStorage.UsageSequence;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.TrackableResource;
-import edu.kit.cloudSimStorage.helper.Tuple;
+import edu.kit.cloudSimStorage.monitoring.Tuple;
 
 import java.io.File;
 import java.io.IOException;

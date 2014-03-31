@@ -11,11 +11,8 @@ package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 import edu.kit.cloudSimStorage.cloudOperations.CloudRequest;
-import edu.kit.cloudSimStorage.helper.Tuple;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
-
-import java.util.ArrayList;
-import java.util.List;
+import edu.kit.cloudSimStorage.monitoring.Tuple;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 
 /** @author Tobias Sturm, 6/30/13 4:08 PM */
 public class SampleFilter<T>{

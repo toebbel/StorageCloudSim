@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.helper;
+package edu.kit.cloudSimStorage.monitoring;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -9,7 +9,7 @@
  */
 package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
 
-import edu.kit.cloudSimStorage.helper.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 
 /** @author Tobias Sturm, 6/24/13 4:42 PM */
 class Min extends SampleCombinator {

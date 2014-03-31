@@ -12,7 +12,7 @@ package edu.kit.cloudSimStorage.storageModel;
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
 import edu.kit.cloudSimStorage.cdmi.CdmiId;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
 import edu.kit.cloudSimStorage.monitoring.TrackableResource;
 import edu.kit.cloudSimStorage.monitoring.TrackableResourceAliasing;

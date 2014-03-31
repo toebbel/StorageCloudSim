@@ -10,7 +10,7 @@
 package edu.kit.cloudSimStorage.cdmi;
 
 import edu.kit.cloudSimStorage.helper.FileSizeHelper;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
 import edu.kit.cloudSimStorage.monitoring.TrackableResourceAliasing;
 import edu.kit.cloudSimStorage.policies.DefaultObjectToServerAllocation;

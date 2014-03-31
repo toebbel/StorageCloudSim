@@ -9,8 +9,6 @@
  */
 package edu.kit.cloudSimStorage.monitoring;
 
-import edu.kit.cloudSimStorage.helper.TupleSequence;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

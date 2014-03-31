@@ -15,7 +15,7 @@ import edu.kit.cloudSimStorage.UsageSequence;
 import edu.kit.cloudSimStorage.cloudOperations.CloudDiscoverRequest;
 import edu.kit.cloudSimStorage.cloudOperations.CloudDiscoveryResponse;
 import edu.kit.cloudSimStorage.cloudOperations.CloudRequest;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.EventTracker;
 import edu.kit.cloudSimStorage.monitoring.TrackableResource;
 import edu.kit.cloudSimStorage.monitoring.TrackableResourceAliasing;

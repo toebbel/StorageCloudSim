@@ -9,11 +9,6 @@
  */
 package edu.kit.cloudSimStorage.monitoring;
 
-import edu.kit.cloudSimStorage.helper.Tuple;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
-
-import java.util.List;
-
 /** @author Tobias Sturm, 6/24/13 2:08 PM */
 public interface TrackableResource {
 

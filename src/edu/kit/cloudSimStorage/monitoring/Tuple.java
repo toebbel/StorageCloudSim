@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.helper;
+package edu.kit.cloudSimStorage.monitoring;
 
 /** @author Tobias Sturm, 6/23/13 6:20 PM */
 public class Tuple<X extends Comparable, Y> implements Comparable<Tuple<? extends Comparable, ?>> {

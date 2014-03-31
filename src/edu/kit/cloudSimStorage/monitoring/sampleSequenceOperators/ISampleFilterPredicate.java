@@ -9,7 +9,7 @@
  */
 package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
 
-import edu.kit.cloudSimStorage.helper.Tuple;
+import edu.kit.cloudSimStorage.monitoring.Tuple;
 
 public interface ISampleFilterPredicate <T extends Tuple<Long, ?>> {
 	boolean match(T t);

@@ -12,7 +12,7 @@ package edu.kit.cloudSimStorage;
 import edu.kit.cloudSimStorage.cdmi.*;
 import edu.kit.cloudSimStorage.cloudOperations.*;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
-import edu.kit.cloudSimStorage.helper.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.*;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleCombinator;
 import edu.kit.cloudSimStorage.policies.ChooseStorageBlobWithLowestUtilization;
