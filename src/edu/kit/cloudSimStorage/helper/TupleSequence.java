@@ -29,6 +29,10 @@ public class TupleSequence<T> extends ArrayList<Tuple<Long, T>> {
 		super(original);
 	}
 
+	public void add(long x, T y)
+	{
+		super.add(new Tuple<>(x, y));
+	}
 
 	@Override
 	public String toString() {
