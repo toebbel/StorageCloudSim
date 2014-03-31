@@ -26,7 +26,7 @@ public class TupleSequenceOperationsTest {
 		TupleSequence<Double>a = new TupleSequence<>();
 		TupleSequence<Double>b = new TupleSequence<>();
 
-		TupleSequenceOperations.align(a, b, 0.0);
+		TupleSequence.align(a, b, 0.0);
 		assertEquals(0, a.size());
 		assertEquals(0, b.size());
 	}
@@ -41,7 +41,7 @@ public class TupleSequenceOperationsTest {
 
 		TupleSequence<Double>b = new TupleSequence<>();
 
-		List<TupleSequence<Double>> result = TupleSequenceOperations.align(a, b, 0.0);
+		List<TupleSequence<Double>> result = TupleSequence.align(a, b, 0.0);
 		a = result.get(0);
 		b = result.get(1);
 
@@ -68,7 +68,7 @@ public class TupleSequenceOperationsTest {
 		b.add(1, 2.0);
 		b.add(3, 2.1);
 
-		List<TupleSequence<Double>> result = TupleSequenceOperations.align(a, b, 0.0);
+		List<TupleSequence<Double>> result = TupleSequence.align(a, b, 0.0);
 		a = result.get(0);
 		b = result.get(1);
 
@@ -102,7 +102,7 @@ public class TupleSequenceOperationsTest {
 		b.add(4, 2.4);
 		b.add(6, 2.6);
 
-		List<TupleSequence<Double>> result = TupleSequenceOperations.align(a, b, 0.0);
+		List<TupleSequence<Double>> result = TupleSequence.align(a, b, 0.0);
 		a = result.get(0);
 		b = result.get(1);
 
@@ -147,7 +147,7 @@ public class TupleSequenceOperationsTest {
 		b.add(4, 10.11);
 		b.add(6, 0.0);
 
-		List<TupleSequence<Double>> result = TupleSequenceOperations.align(a, b, 0.1);
+		List<TupleSequence<Double>> result = TupleSequence.align(a, b, 0.1);
 		a = result.get(0);
 		b = result.get(1);
 
@@ -210,7 +210,7 @@ public class TupleSequenceOperationsTest {
 		tmp.add(a);
 		tmp.add(b);
 		tmp.add(c);
-		tmp = TupleSequenceOperations.align(tmp, 0.1);
+		tmp = TupleSequence.align(tmp, 0.1);
 		a = tmp.get(0);
 		b = tmp.get(1);
 		c = tmp.get(2);
