@@ -19,6 +19,11 @@ public class Tuple<X extends Comparable, Y> implements Comparable<Tuple<? extend
 		this.y = y;
 	}
 
+	public Tuple(X x, Class<Y> yType) throws InstantiationException, IllegalAccessException {
+		this.x = x;
+		this.y = yType.newInstance();
+	}
+
 	@Override
 	public int compareTo(Tuple<? extends Comparable, ?> o) {
 		return x.compareTo(o.x);
