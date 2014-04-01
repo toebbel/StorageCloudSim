@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
+package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations;
 
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 

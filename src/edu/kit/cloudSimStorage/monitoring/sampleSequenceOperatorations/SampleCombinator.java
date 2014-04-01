@@ -7,11 +7,11 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
+package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations;
 
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleKeyUniquifyPolicies.*;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleKeyUniquifyPolicies.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

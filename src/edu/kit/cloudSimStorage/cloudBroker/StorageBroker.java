@@ -16,7 +16,7 @@ import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 import edu.kit.cloudSimStorage.cloudOperations.*;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.*;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleFilter;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleFilter;
 import org.cloudbus.cloudsim.core.CloudSimTags;
 import org.cloudbus.cloudsim.core.SimEntity;
 import org.cloudbus.cloudsim.core.SimEvent;

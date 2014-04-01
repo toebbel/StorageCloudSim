@@ -1,4 +1,4 @@
-package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleKeyUniquifyPolicies;
+package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleKeyUniquifyPolicies;
 
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 

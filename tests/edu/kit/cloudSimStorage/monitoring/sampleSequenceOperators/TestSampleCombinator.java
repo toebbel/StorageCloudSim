@@ -11,6 +11,7 @@ package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
 
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
 import org.junit.Before;
 import org.junit.Test;
 

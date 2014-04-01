@@ -10,8 +10,8 @@
 package edu.kit.cloudSimStorage.monitoring;
 
 import edu.kit.cloudSimStorage.helper.TimeHelper;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleCombinator;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleFilter;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleFilter;
 
 import java.util.*;
 

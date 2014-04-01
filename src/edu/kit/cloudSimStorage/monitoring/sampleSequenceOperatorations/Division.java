@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
+package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations;
 
 /** @author Tobias Sturm, 6/24/13 5:40 PM */
 class Division extends SampleCombinator {

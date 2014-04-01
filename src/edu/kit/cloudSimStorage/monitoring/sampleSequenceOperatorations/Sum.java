@@ -7,37 +7,29 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
+package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations;
 
-import edu.kit.cloudSimStorage.monitoring.TupleSequence;
-
-/** @author Tobias Sturm, 6/24/13 4:42 PM */
-class Min extends SampleCombinator {
-	 double val = Double.MAX_VALUE;
+/** @author Tobias Sturm, 6/24/13 4:40 PM */
+class Sum extends SampleCombinator {
+	double sum = 0;
 
 	@Override
 	protected void reset() {
-		val = Double.MAX_VALUE;
+		sum = 0;
 	}
 
 	@Override
 	public void addSample(double val) {
-		val = Math.min(val, this.val);
+		sum += val;
 	}
 
 	@Override
 	protected double getNeutralValue() {
-		return Double.MAX_VALUE;
+		return 0;
 	}
 
 	@Override
 	public double getResult() {
-		return val;
+		return sum;
 	}
-
-	@Override
-	protected void prepareStream(TupleSequence<Double> input){
-		SampleCombinator.uniquifyIndex_takeMinValue(input);
-	}
-
 }

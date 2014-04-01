@@ -14,7 +14,7 @@ import edu.kit.cloudSimStorage.exceptions.EntityNameException;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
 import edu.kit.cloudSimStorage.monitoring.TrackableResource;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
 
 import java.util.ArrayList;
 import java.util.HashMap;

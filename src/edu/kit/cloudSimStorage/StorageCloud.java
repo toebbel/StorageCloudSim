@@ -14,7 +14,7 @@ import edu.kit.cloudSimStorage.cloudOperations.*;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.*;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
 import edu.kit.cloudSimStorage.policies.ChooseStorageBlobWithLowestUtilization;
 import edu.kit.cloudSimStorage.storageModel.ObjectStorageBlob;
 import edu.kit.cloudSimStorage.storageModel.StorageBlobLocation;

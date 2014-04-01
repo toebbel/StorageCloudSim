@@ -15,7 +15,7 @@ import edu.kit.cloudSimStorage.cloudFactory.StorageCloudFactory;
 import edu.kit.cloudSimStorage.cloudOperations.*;
 import edu.kit.cloudSimStorage.helper.*;
 import edu.kit.cloudSimStorage.monitoring.*;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
 import edu.kit.cloudSimStorage.monitoring.report.*;
 
 import org.cloudbus.cloudsim.core.CloudSim;

@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage.monitoring;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
 
 import java.util.ArrayList;
 import java.util.Collections;
