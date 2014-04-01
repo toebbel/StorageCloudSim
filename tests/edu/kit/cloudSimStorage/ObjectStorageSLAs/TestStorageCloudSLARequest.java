@@ -9,6 +9,7 @@
  */
 package edu.kit.cloudSimStorage.ObjectStorageSLAs;
 
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA.RateCharacteristicsWithInverse;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -31,7 +32,7 @@ public class TestStorageCloudSLARequest {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toString().getBytes());
 		outputStream.writeTo(System.out);
 
-		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserialize(inputStream);
+		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserializer(inputStream);
 		assertEquals(deserialized, candidate);
 	}
 
@@ -46,7 +47,7 @@ public class TestStorageCloudSLARequest {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toString().getBytes());
 		outputStream.writeTo(System.out);
 
-		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserialize(inputStream);
+		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserializer(inputStream);
 		assertEquals(deserialized, candidate);
 	}
 
@@ -61,7 +62,7 @@ public class TestStorageCloudSLARequest {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toString().getBytes());
 		outputStream.writeTo(System.out);
 
-		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserialize(inputStream);
+		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserializer(inputStream);
 		assertEquals(deserialized, candidate);
 	}
 

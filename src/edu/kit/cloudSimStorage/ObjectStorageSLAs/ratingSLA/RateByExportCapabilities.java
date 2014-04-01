@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.ObjectStorageSLAs;
+package edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Default;
@@ -20,7 +20,7 @@ import static edu.kit.cloudSimStorage.CdmiCloudCharacteristics.*;
  * Rates every cloud with a +1 if a export capability is present, -1 of not.
  * Rates the capabilities NFS, webdav and iscsi.
  *
- * See {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.RateBoolCharacteristics} for details.
+ * See {@link RateBoolCharacteristics} for details.
  *
  * @author Tobias Sturm, 6/29/13 12:53 PM */
 @Default

@@ -7,14 +7,14 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.ObjectStorageSLAs;
+package edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
- * Creates the sum of two {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.SLARating} instances.
+ * Creates the sum of two {@link SLARating} instances.
  * @author Tobias Sturm, 6/29/13 2:18 PM */
 @Root
 public class RakingSum extends SLARating {

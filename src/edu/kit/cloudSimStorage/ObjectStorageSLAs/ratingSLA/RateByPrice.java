@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.ObjectStorageSLAs;
+package edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Default;
@@ -20,7 +20,7 @@ import static edu.kit.cloudSimStorage.CdmiCloudCharacteristics.UPLOAD_COSTS;
  * Helper class for more convenience.
  *
  * Rates a cloud using 1/(price per stored GB) + 1/(price per uploaded GB) + 1/(price per downloaded GB)
- * See {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.RateCharacteristicsWithInverse} for details.
+ * See {@link RateCharacteristicsWithInverse} for details.
  *
  * @author Tobias Sturm, 6/29/13 12:53 PM */
 @Default

@@ -11,6 +11,10 @@ package edu.kit.cloudSimStorage.ObjectStorageSLAs;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.*;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA.RakingSum;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA.RateByExportCapabilities;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA.RateByPrice;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA.SLARating;
 import edu.kit.cloudSimStorage.monitoring.ILoggable;
 import org.simpleframework.xml.*;
 import org.simpleframework.xml.core.Persister;
@@ -203,7 +207,7 @@ public class StorageCloudSLARequest implements ILoggable {
 		serializer.write(this, out);
 	}
 
-	public static StorageCloudSLARequest deserialize(InputStream in) throws Exception {
+	public static StorageCloudSLARequest deserializer(InputStream in) throws Exception {
 		Serializer serializer = new Persister();
 		return serializer.read(StorageCloudSLARequest.class, in);
 	}
@@ -238,7 +242,7 @@ public class StorageCloudSLARequest implements ILoggable {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			this.serialize(outputStream);
 			ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toString().getBytes());
-			return StorageCloudSLARequest.deserialize(inputStream);
+			return StorageCloudSLARequest.deserializer(inputStream);
 		} catch (Exception e) {
 			throw new IllegalStateException("cloud not clone SLA request due to IO exception: " + e);
 		}
