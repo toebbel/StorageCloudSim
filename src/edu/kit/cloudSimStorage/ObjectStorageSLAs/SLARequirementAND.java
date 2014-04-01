@@ -13,7 +13,11 @@ import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-/** @author Tobias Sturm, 6/26/13 6:07 PM */
+/**
+ * Used to logical link two {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.SLARequirement}s with each other.
+ *
+ * Both requirements must be fulfilled to match a {@link edu.kit.cloudSimStorage.StorageCloud} against a {@link edu.kit.cloudSimStorage.UsageSequence}'s attached SLA
+ * @author Tobias Sturm, 6/26/13 6:07 PM */
 @Root
 public class SLARequirementAND extends SLARequirement {
 	@Element(name = "a", required = true)

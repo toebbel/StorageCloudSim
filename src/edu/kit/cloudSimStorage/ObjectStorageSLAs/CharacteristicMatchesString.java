@@ -14,7 +14,13 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 
-/** @author Tobias Sturm, 6/26/13 6:24 PM */
+/**
+ * Represents a {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.SLARequirement} that must be met by a Cloud before the attached {@link edu.kit.cloudSimStorage.UsageSequence} can be dispatched to it.
+ *
+ * Requires a certain characteristic to be equal to some given string.
+ * The characteristics key is case sensitive where as the value is case in-sensitive
+ *
+ * @author Tobias Sturm, 6/26/13 6:24 PM */
 @Root
 public class CharacteristicMatchesString extends SLARequirement {
 	@Attribute(name="key", required = true)
@@ -26,13 +32,13 @@ public class CharacteristicMatchesString extends SLARequirement {
 	public CharacteristicMatchesString(@Attribute(name="key") String key, @Attribute(name="value") String value) {
 		super();
 		this.key = key;
-		this.value = value;
+		this.value = value.toLowerCase();
 		description = key + "==" + value;
 	}
 
 	@Override
 	public boolean match(CdmiCloudCharacteristics characteristics) {
-		boolean result = characteristics.contains(key) && characteristics.get(key).equals(value);
+		boolean result = characteristics.contains(key) && characteristics.get(key).toLowerCase().equals(value);
 		return logAndReturn(result, characteristics.getCloudID());
 	}
 }

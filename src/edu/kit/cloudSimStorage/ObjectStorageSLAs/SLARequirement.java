@@ -15,7 +15,10 @@ import org.simpleframework.xml.Root;
 
 import java.util.logging.Logger;
 
-/** @author Tobias Sturm, 6/26/13 5:24 PM */
+/**
+ * Represents a SLA requirement that must be met by a Cloud before the attached {@link edu.kit.cloudSimStorage.UsageSequence} can be dispatched to it.
+ *
+ * @author Tobias Sturm, 6/26/13 5:24 PM */
 @Root
 public abstract class SLARequirement {
 

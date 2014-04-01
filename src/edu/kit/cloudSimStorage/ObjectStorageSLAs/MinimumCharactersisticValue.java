@@ -13,7 +13,15 @@ import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Default;
 
-/** @author Tobias Sturm, 6/26/13 5:39 PM */
+/**
+ * Represents a {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.SLARequirement} that must be met by a Cloud before the attached {@link edu.kit.cloudSimStorage.UsageSequence} can be dispatched to it.
+ *
+ * Requires some numerical value of a characteristic to be greater or equal than the given level.
+ * Can be used for example to model the requirement 'bandwith must be greater than x'
+ *
+ * The existence of the characteristic key is always mandatory.
+ *
+ * @author Tobias Sturm, 6/26/13 5:39 PM */
 @Default
 public class MinimumCharactersisticValue extends SLARequirement {
 

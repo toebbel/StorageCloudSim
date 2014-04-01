@@ -13,7 +13,12 @@ import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
-/** @author Tobias Sturm, 6/26/13 5:39 PM */
+/**
+ * Represents a {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.SLARequirement} that must be met by a Cloud before the attached {@link edu.kit.cloudSimStorage.UsageSequence} can be dispatched to it.
+ *
+ * Requires a cloud to not support a given capability or property. The key that describes the capability must be either not present or it's value must not be true to match this requirement.
+ *
+ * @author Tobias Sturm, 6/26/13 5:39 PM */
 @Root
 public class DoesNotSupportCapability extends SLARequirement {
 	@Attribute(name="capability_key")
