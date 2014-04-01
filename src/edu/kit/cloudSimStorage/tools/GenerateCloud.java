@@ -35,6 +35,13 @@ public class GenerateCloud {
 		double downloadPrice = 0.1;
 		double storagePrice = 0.1;
 
+		double diskReadLacenty = 8.5;
+		double diskWriteLacenty = 9.5;
+		double diskWriteBandwidth = 210; //MB/s
+		double diskReadBandwidth = 210; //MB/s
+		double diskCapacity = 1024; //GB
+		int diskTotalIOLimitation = 210; //in MB/s
+
 		for(int i = 0; i < args.length; i++) {
 			if((args.length >= i) && args[i].toLowerCase().equals("-n") || args[i].toLowerCase().equals("--name")) {
 				cloudName = args[i+1];
@@ -63,6 +70,24 @@ public class GenerateCloud {
 			} else if((args.length >= i) && args[i].toLowerCase().equals("-b") || args[i].toLowerCase().equals("--serverbandwidth")) {
 				serverBandwidth = Integer.parseInt(args[i+1]);
 				i++;
+			} else if ((args.length >= i) && args[i].toLowerCase().equals("-hr") || args[i].toLowerCase().equals("--hddreadbandwidth")) {
+				diskReadBandwidth = Integer.parseInt(args[i + 1]);
+				i++;
+			} else if ((args.length >= i) && args[i].toLowerCase().equals("-hw") || args[i].toLowerCase().equals("--hddwritebandwidth")) {
+				diskWriteBandwidth = Integer.parseInt(args[i + 1]);
+				i++;
+			} else if ((args.length >= i) && args[i].toLowerCase().equals("-d") || args[i].toLowerCase().equals("--diskcapacity")) {
+				diskCapacity = Double.parseDouble(args[i + 1]);
+				i++;
+			} else if ((args.length >= i) && args[i].toLowerCase().equals("-drl") || args[i].toLowerCase().equals("--diskreadlatency")) {
+				diskReadLacenty = Double.parseDouble(args[i + 1]);
+				i++;
+			} else if ((args.length >= i) && args[i].toLowerCase().equals("-dwl") || args[i].toLowerCase().equals("--diskwritelatency")) {
+				diskWriteLacenty = Double.parseDouble(args[i + 1]);
+				i++;
+			} else if ((args.length >= i) && args[i].toLowerCase().equals("-dio") || args[i].toLowerCase().equals("--diskiolimit")) {
+				diskTotalIOLimitation = Integer.parseInt(args[i + 1]);
+				i++;
 			} else if((args.length >= i) && args[i].toLowerCase().equals("-f") || args[i].toLowerCase().equals("--file")) {
 				String filename = args[i + 1];
 				if(!filename.endsWith(CLOUD_FILE_EXTENTION))
@@ -74,28 +99,34 @@ public class GenerateCloud {
 			} else {
 				System.err.println("Unrecognized parameter '" + args[i] + "'\n\n" +
 						"Usage:\n" +
-						"-n  | --name           name of the cloud [default-cloud]\n" +
-						"-r  | --rootUrl        [cloud.org/]\n" +
-						"-l  | --location       [us]\n" +
-						"-s  | --servers        number of servers [1]\n" +
-						"-d  | --disks          disks per server [3]\n" +
-						"-up | --uploadprice    cents/GB [0.1]\n" +
-						"-dp | --downloadprice   cents/GB [0.1]\n" +
-						"-pp | --storageprice    cents/GB/period [0.1]\n" +
-						"-b  | --serverbandwidth of servers in MB/s [128]\n" +
-						"-f  | --file            output file\n" +
-						"    | --std             use std output\n");
+						"-n  | --name              name of the cloud [default-cloud]\n" +
+						"-r  | --rootUrl           [cloud.org/]\n" +
+						"-l  | --location          [us]\n" +
+						"-s  | --servers           number of servers [1]\n" +
+						"-d  | --disks             disks per server [3]\n" +
+						"-up | --uploadprice       cents/GB [0.1]\n" +
+						"-dp | --downloadprice     cents/GB [0.1]\n" +
+						"-pp | --storageprice      cents/GB/period [0.1]\n" +
+						"-b  | --serverbandwidth   of servers in MB/s [128]\n" +
+						"-hr | --hddreadbandwidth  of disks in MB/s [210]\n" +
+						"-hw | --hddwritebandwidth of disks in MB/s [210]\n" +
+						"-d  | --diskcapacity      in GB [1024]\n" +
+						"-drl| --diskreadlatency   in ms [8.5]\n" +
+						"-dwl| --diskwritelatency  in ms [8.5]\n" +
+						"-dio| --diskiolimit       in MB/s [210]\n" +
+						"-f  | --file              output file\n" +
+						"    | --std               use std output for Cloud XML\n");
 				return;
 			}
 		}
 
 		if(out == null) {
-			System.err.println("no output specified. Will use './cloudname'");
+			System.err.println("no output specified. Will use './cloudname" + CLOUD_FILE_EXTENTION + "'");
 			out = new FileOutputStream(cloudName + CLOUD_FILE_EXTENTION);
 		}
 
 		GenericDrive drive = new GenericDrive("generic");
-		drive.init(toBytes(2, TERA_BYTE), toBytes(156, MEGA_BYTE), toBytes(156, MEGA_BYTE), 9.5, 8.5, FirstFitAllocation.create(210, MEGA_BYTE));
+		drive.init(toBytes(diskCapacity, GIGA_BYTE), toBytes(diskWriteBandwidth, MEGA_BYTE), toBytes(diskReadBandwidth, MEGA_BYTE), diskWriteLacenty, diskReadLacenty, FirstFitAllocation.create(diskTotalIOLimitation, MEGA_BYTE));
 
 		CloudModel m = StorageCloudFactory.createModel(cloudName, rootUrl, location, servers, harddrivesPerServer, drive, uploadPrice,downloadPrice,storagePrice, serverBandwidth);
 
