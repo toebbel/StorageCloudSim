@@ -12,7 +12,14 @@ package edu.kit.cloudSimStorage.cloudOperations;
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
-/** @author Tobias Sturm, 5/22/13 2:23 PM */
+/**
+ * Requests a PUT container operation
+ *
+ * Containers can't be nested, therefore every container is created as direct child of the user's root contianer
+ *
+ * Response is modeled as {@link edu.kit.cloudSimStorage.cloudOperations.PutContainerResponse}
+ *
+ * @author Tobias Sturm, 5/22/13 2:23 PM */
 public class PutContainerRequest extends CloudRequest {
 	protected CdmiMetadata metadata;
 	protected String containerName;

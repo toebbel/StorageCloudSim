@@ -15,7 +15,10 @@ import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @author Tobias Sturm, 6/5/13 5:41 PM */
+/**
+ * Cloud internal representation of a {@link edu.kit.cloudSimStorage.cloudOperations.GetContainerRequest}
+ *
+ * @author Tobias Sturm, 6/5/13 5:41 PM */
 public class GetContainerScheduleEntry extends CloudScheduleEntry<GetContainerRequest> {
 	private CdmiMetadata metadata;
 	private List<CdmiId> childrenIDs;

@@ -11,7 +11,11 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
-/** @author Tobias Sturm, 6/26/13 3:55 PM */
+/**
+ * CDMI request for retrieving the characteristics of a Cloud.
+ * Response is sent via {@link edu.kit.cloudSimStorage.cloudOperations.CloudDiscoveryResponse}
+ *
+ * @author Tobias Sturm, 6/26/13 3:55 PM */
 public class CloudDiscoverRequest extends CloudRequest {
 	public CloudDiscoverRequest(int user) {
 		super(CdmiOperationVerbs.GET, "cloud_charactersitics", user, 0, CloudRequest.GET);

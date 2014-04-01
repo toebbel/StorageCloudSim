@@ -11,7 +11,10 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiObjectContainer;
 
-/** @author Tobias Sturm, 6/5/13 3:37 PM */
+/**
+ * Cloud internal representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.PutContainerRequest}
+ *
+ * @author Tobias Sturm, 6/5/13 3:37 PM */
 public class PutContainerScheduleEntry extends CloudScheduleEntry<PutContainerRequest> {
 
 

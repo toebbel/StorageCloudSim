@@ -11,7 +11,11 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
-/** @author Tobias Sturm, 5/27/13 4:29 PM */
+/**
+ * Requests a container from the cloud.
+ *
+ * Response is modeled with {@link edu.kit.cloudSimStorage.cloudOperations.GetContainerResponse}
+ * @author Tobias Sturm, 5/27/13 4:29 PM */
 public class GetContainerRequest extends CloudRequest {
 
 	private String containerName;

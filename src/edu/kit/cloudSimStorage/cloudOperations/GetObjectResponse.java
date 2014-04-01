@@ -11,7 +11,13 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
 
-/** @author Tobias Sturm, 6/5/13 5:35 PM */
+/**
+ * Response of a {@link edu.kit.cloudSimStorage.cloudOperations.GetObjectRequest}.
+ *
+ * Contains a {@link edu.kit.cloudSimStorage.cdmi.CdmiDataObject} that carries information about the
+ * object that is stored in the {@link edu.kit.cloudSimStorage.StorageCloud}
+ *
+ * @author Tobias Sturm, 6/5/13 5:35 PM */
 public class GetObjectResponse extends CloudResponse<GetObjectRequest> {
 
 	public CdmiDataObject getObject() {

@@ -12,7 +12,11 @@ package edu.kit.cloudSimStorage.cloudOperations;
 import edu.kit.cloudSimStorage.cdmi.CdmiId;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
-/** @author Tobias Sturm, 5/27/13 4:31 PM */
+/**
+ * Requests an object from the Cloud.
+ *
+ * Response is modeled in {@link edu.kit.cloudSimStorage.cloudOperations.GetObjectResponse}
+ * @author Tobias Sturm, 5/27/13 4:31 PM */
 public class GetObjectRequest extends CloudRequest {
 	public CdmiId getRequestedID() {
 		return requestedID;

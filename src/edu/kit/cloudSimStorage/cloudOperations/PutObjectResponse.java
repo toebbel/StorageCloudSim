@@ -11,7 +11,10 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
 
-/** @author Tobias Sturm, 5/22/13 3:10 PM */
+/**
+ * Response to a {@link edu.kit.cloudSimStorage.cloudOperations.PutObjectRequest}
+ *
+ * @author Tobias Sturm, 5/22/13 3:10 PM */
 public class PutObjectResponse extends CloudResponse<PutObjectRequest> {
 	protected CdmiDataObject object;
 

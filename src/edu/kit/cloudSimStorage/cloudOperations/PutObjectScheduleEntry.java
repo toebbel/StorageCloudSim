@@ -15,7 +15,10 @@ import edu.kit.cloudSimStorage.storageModel.StorageBlobLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @author Tobias Sturm, 5/27/13 5:01 PM */
+/**
+ * Cloud internal representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.PutObjectRequest}
+ *
+ * @author Tobias Sturm, 5/27/13 5:01 PM */
 public class PutObjectScheduleEntry extends CloudScheduleEntry<PutObjectRequest> {
 
 	CdmiDataObject object;

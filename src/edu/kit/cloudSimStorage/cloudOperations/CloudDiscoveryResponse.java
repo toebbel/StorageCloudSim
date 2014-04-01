@@ -11,7 +11,10 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 
-/** @author Tobias Sturm, 6/26/13 3:59 PM */
+/**
+ * CDMI response for with characteristics of a Cloud.
+ * Requested with a {@link edu.kit.cloudSimStorage.cloudOperations.CloudDiscoverRequest}
+ * @author Tobias Sturm, 6/26/13 3:59 PM */
 public class CloudDiscoveryResponse extends CloudResponse<CloudDiscoverRequest>{
 
 	CdmiCloudCharacteristics characteristics;

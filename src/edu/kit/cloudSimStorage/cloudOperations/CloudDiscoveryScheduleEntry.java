@@ -11,7 +11,10 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 
-/** @author Tobias Sturm, 6/26/13 4:00 PM */
+/**
+ * Cloud internal state of a {@link edu.kit.cloudSimStorage.cloudOperations.CloudDiscoverRequest}
+ *
+ * @author Tobias Sturm, 6/26/13 4:00 PM */
 public class CloudDiscoveryScheduleEntry extends CloudScheduleEntry<CloudDiscoverRequest> {
 
 	CdmiCloudCharacteristics characteristics;

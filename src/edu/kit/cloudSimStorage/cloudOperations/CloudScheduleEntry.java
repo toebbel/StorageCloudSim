@@ -12,21 +12,35 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.monitoring.OperationTimeTraceSample;
 
-/** @author Tobias Sturm, 5/27/13 4:25 PM */
+/**
+ * Cloud internal state representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.CloudRequest}
+ * @author Tobias Sturm, 5/27/13 4:25 PM */
 public class CloudScheduleEntry<T extends CloudRequest> extends OperationTimeTraceSample {
 
 	T request;
 	int inquiringPartner = 0;
 
-
+	/**
+	 * The request that is associated with this schedule entry
+	 * @return the request of this schedule entry
+	 */
 	public T getRequest() {
 		return request;
 	}
 
+	/**
+	 * The user that created the request
+	 * @return user id
+	 */
 	public int getInquiringPartner() {
 		return inquiringPartner;
 	}
 
+	/**
+	 * Creates an instance of {@link edu.kit.cloudSimStorage.cloudOperations.CloudScheduleEntry} with a given request and user
+	 * @param request request that will be processed
+	 * @param inquiringPartner user that created the request
+	 */
 	public CloudScheduleEntry(T request, int inquiringPartner) {
 		super(request.toString());
 		assert request != null;
@@ -35,10 +49,18 @@ public class CloudScheduleEntry<T extends CloudRequest> extends OperationTimeTra
 		this.inquiringPartner = inquiringPartner;
 	}
 
+	/**
+	 * Generates a response for the request of this schedule entry
+	 * @return the response
+	 */
 	public CloudResponse<T> generateResponse() {
 		return new CloudResponse<>(request);
 	}
 
+	/**
+	 * Returns the operation id that is associated with this request / response
+	 * @return
+	 */
 	public String getOperationID() {
 		return getRequest().getOperationID();
 	}

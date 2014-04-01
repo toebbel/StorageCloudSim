@@ -12,7 +12,10 @@ package edu.kit.cloudSimStorage.cloudOperations;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 import edu.kit.cloudSimStorage.monitoring.OperationTimeTraceSample;
 
-/** @author Tobias Sturm, 5/16/13 5:33 PM */
+/**
+ * General model for CloudRequests. Instances of this class are sent to the {@link edu.kit.cloudSimStorage.StorageCloud}
+ *
+ * @author Tobias Sturm, 5/16/13 5:33 PM */
 public class CloudRequest extends OperationTimeTraceSample {
 
 	private final int tag;
@@ -29,6 +32,7 @@ public class CloudRequest extends OperationTimeTraceSample {
 	/** The string that requests the resource to PUT/DELETE/GET */
 	protected String requestString;
 
+	/** The CDMI operation verb */
 	CdmiOperationVerbs verb;
 
 	public CloudRequest(CdmiOperationVerbs verb, String requestString, int user, long size, int tag) {
@@ -41,7 +45,10 @@ public class CloudRequest extends OperationTimeTraceSample {
 		this.tag = tag;
 	}
 
-
+	/**
+	 * The cmdi operation verb associated with this request
+	 * @return the operation verb
+	 */
 	public CdmiOperationVerbs getVerb() {
 		return verb;
 	}
@@ -90,6 +97,10 @@ public class CloudRequest extends OperationTimeTraceSample {
 	public static final int SUCC = offset + 4; //send to sender if operation succeeded
 	public static final int FAIL = offset + 5; //send to sender if operation failed
 
+	/**
+	 * The tag associated with this operation
+	 * @return the tag
+	 */
 	public int getTag() {
 		return tag;
 	}

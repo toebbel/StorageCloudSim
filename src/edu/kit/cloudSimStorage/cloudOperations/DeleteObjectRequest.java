@@ -12,7 +12,11 @@ package edu.kit.cloudSimStorage.cloudOperations;
 import edu.kit.cloudSimStorage.cdmi.CdmiId;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
-/** @author Tobias Sturm, 6/5/13 3:09 PM */
+/**
+ * Requests a DELETE object
+ *
+ * Response is modeled with a generic {@link edu.kit.cloudSimStorage.cloudOperations.CloudResponse}
+ * @author Tobias Sturm, 6/5/13 3:09 PM */
 public class DeleteObjectRequest extends CloudRequest {
 	private String objectName, containerName;
 	private CdmiId cdmiID;

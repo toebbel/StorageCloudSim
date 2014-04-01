@@ -11,7 +11,10 @@ package edu.kit.cloudSimStorage.cloudOperations;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
 
-/** @author Tobias Sturm, 6/5/13 5:37 PM */
+/**
+ * Cloud internal state of a {@link edu.kit.cloudSimStorage.cloudOperations.GetObjectRequest}
+ *
+ * @author Tobias Sturm, 6/5/13 5:37 PM */
 public class GetObjectScheduleEntry extends CloudScheduleEntry<GetObjectRequest> {
 	private CdmiDataObject object;
 

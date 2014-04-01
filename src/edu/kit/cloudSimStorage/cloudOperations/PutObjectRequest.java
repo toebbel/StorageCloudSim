@@ -12,7 +12,14 @@ package edu.kit.cloudSimStorage.cloudOperations;
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
-/** @author Tobias Sturm, 5/22/13 2:21 PM */
+/**
+ * Requests a PUT object operation
+ *
+ * The name of the object can be empyt.
+ *
+ * Response is modeled as {@link edu.kit.cloudSimStorage.cloudOperations.PutObjectResponse}
+ *
+ * @author Tobias Sturm, 5/22/13 2:21 PM */
 public class PutObjectRequest extends CloudRequest {
 	protected String containerName;
 	protected String objectName;

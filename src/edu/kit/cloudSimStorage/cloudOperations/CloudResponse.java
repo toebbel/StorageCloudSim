@@ -9,14 +9,26 @@
  */
 package edu.kit.cloudSimStorage.cloudOperations;
 
-/** @author Tobias Sturm, 5/27/13 4:22 PM */
+/**
+ * General model for responses to {@link edu.kit.cloudSimStorage.cloudOperations.CloudRequest}
+ *
+ * @author Tobias Sturm, 5/27/13 4:22 PM */
 public class CloudResponse<T extends CloudRequest> {
+
 	private T request;
 
+	/**
+	 * Creates a response for a given request
+	 * @param request
+	 */
 	public CloudResponse(T request) {
 		this.request = request;
 	}
 
+	/**
+	 * The operation ID that is associated with this request/repsonse
+	 * @return
+	 */
 	public String getOperationID() {
 		return request.getOperationID();
 	}

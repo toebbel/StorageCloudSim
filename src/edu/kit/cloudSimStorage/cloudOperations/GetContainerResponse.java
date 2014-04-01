@@ -13,7 +13,12 @@ import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
 
 import java.util.List;
 
-/** @author Tobias Sturm, 5/22/13 12:40 PM */
+/**
+ * Models the response of a {@link edu.kit.cloudSimStorage.cloudOperations.GetContainerRequest}
+ *
+ * The response contains the metadata of a container. The list of children is optional.
+ *
+ * @author Tobias Sturm, 5/22/13 12:40 PM */
 public class GetContainerResponse extends CloudResponse<GetContainerRequest> {
 	protected List<String> children;
 	protected CdmiMetadata metadata;
