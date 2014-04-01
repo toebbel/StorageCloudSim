@@ -13,9 +13,18 @@ import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
-/** @author Tobias Sturm, 6/26/13 6:03 PM */
+/**
+ * Rates a cloud by characteristics that have bool values.
+ *
+ * Assigns a positive score if value is present and positive
+ * Ageings a negative score if value is present and negative
+ * Assigns a neutral score if value is not present.
+ *
+ * All three values can be choose independently.
+ *
+ * @author Tobias Sturm, 6/26/13 6:03 PM */
 @Root
-public class RateBoolCharacteristics extends SLACloudRater {
+public class RateBoolCharacteristics extends SLARating {
 	@Attribute(name = "positive")
 	private double positiveScore;
 	@Attribute(name = "negative")

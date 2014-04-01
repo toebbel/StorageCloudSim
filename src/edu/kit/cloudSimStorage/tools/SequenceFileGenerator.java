@@ -10,7 +10,7 @@
 package edu.kit.cloudSimStorage.tools;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
-import edu.kit.cloudSimStorage.ObjectStorageSLAs.MinimumCharactersisticValue;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.MinimumCharactersisticValue;
 import edu.kit.cloudSimStorage.ObjectStorageSLAs.RateCharacteristicsWithInverse;
 import edu.kit.cloudSimStorage.ObjectStorageSLAs.StorageCloudSLARequest;
 import edu.kit.cloudSimStorage.SharedConstants;

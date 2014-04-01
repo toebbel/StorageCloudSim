@@ -10,6 +10,7 @@
 package edu.kit.cloudSimStorage.ObjectStorageSLAs;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.*;
 import edu.kit.cloudSimStorage.monitoring.ILoggable;
 import org.simpleframework.xml.*;
 import org.simpleframework.xml.core.Persister;
@@ -33,7 +34,7 @@ public class StorageCloudSLARequest implements ILoggable {
 	SLARequirement requirements;
 
 	@Element(required=false)
-	SLACloudRater ratings;
+	SLARating ratings;
 	Logger logger;
 
 	public StorageCloudSLARequest() {
@@ -51,7 +52,7 @@ public class StorageCloudSLARequest implements ILoggable {
 		return this;
 	}
 
-	public StorageCloudSLARequest addRating(SLACloudRater rater) {
+	public StorageCloudSLARequest addRating(SLARating rater) {
 		if(ratings == null)
 			ratings = rater;
 		else

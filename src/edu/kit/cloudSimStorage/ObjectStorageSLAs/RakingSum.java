@@ -13,15 +13,17 @@ import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-/** @author Tobias Sturm, 6/29/13 2:18 PM */
+/**
+ * Creates the sum of two {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.SLARating} instances.
+ * @author Tobias Sturm, 6/29/13 2:18 PM */
 @Root
-public class RakingSum extends SLACloudRater {
+public class RakingSum extends SLARating {
 	@Element(name = "a", required = true)
-	SLACloudRater a;
+	SLARating a;
 	@Element(name = "b", required = true)
-	SLACloudRater b;
+	SLARating b;
 
-	public RakingSum(@Element(name = "a") SLACloudRater a, @Element(name = "b") SLACloudRater b) {
+	public RakingSum(@Element(name = "a") SLARating a, @Element(name = "b") SLARating b) {
 		this.a = a;
 		this.b = b;
 	}

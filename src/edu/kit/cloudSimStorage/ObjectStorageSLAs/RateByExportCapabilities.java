@@ -14,9 +14,17 @@ import org.simpleframework.xml.Default;
 
 import static edu.kit.cloudSimStorage.CdmiCloudCharacteristics.*;
 
-/** @author Tobias Sturm, 6/29/13 12:53 PM */
+/**
+ * Helper class for more convenience.
+ *
+ * Rates every cloud with a +1 if a export capability is present, -1 of not.
+ * Rates the capabilities NFS, webdav and iscsi.
+ *
+ * See {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.RateBoolCharacteristics} for details.
+ *
+ * @author Tobias Sturm, 6/29/13 12:53 PM */
 @Default
-public class RateByExportCapabilities extends SLACloudRater {
+public class RateByExportCapabilities extends SLARating {
 
 	public RateByExportCapabilities() {
 		description = "+1 for every export capability, -1 otherwise";

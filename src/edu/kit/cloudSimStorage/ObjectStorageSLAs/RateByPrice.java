@@ -16,9 +16,15 @@ import static edu.kit.cloudSimStorage.CdmiCloudCharacteristics.DOWNLOAD_COSTS;
 import static edu.kit.cloudSimStorage.CdmiCloudCharacteristics.STORAGE_COSTS;
 import static edu.kit.cloudSimStorage.CdmiCloudCharacteristics.UPLOAD_COSTS;
 
-/** @author Tobias Sturm, 6/29/13 12:53 PM */
+/**
+ * Helper class for more convenience.
+ *
+ * Rates a cloud using 1/(price per stored GB) + 1/(price per uploaded GB) + 1/(price per downloaded GB)
+ * See {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.RateCharacteristicsWithInverse} for details.
+ *
+ * @author Tobias Sturm, 6/29/13 12:53 PM */
 @Default
-public class RateByPrice extends SLACloudRater {
+public class RateByPrice extends SLARating {
 
 	public RateByPrice() {
 		description = "rate 1/price for up and download and storage costs";

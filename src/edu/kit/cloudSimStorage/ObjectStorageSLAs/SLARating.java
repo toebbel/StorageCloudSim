@@ -13,6 +13,11 @@ import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+/**
+ * A SLARating assigns a score to a given {@link edu.kit.cloudSimStorage.CdmiCloudCharacteristics} instance.
+ *
+ * If a {@link edu.kit.cloudSimStorage.cloudBroker.StorageMetaBroker} must choose one {@link edu.kit.cloudSimStorage.StorageCloud} amongst different Clouds, and more than one cloud matches all hard SLAs ({@link edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SLARequirement}), one Cloud must be chosen amongst them. Therefore a score is calculated for every cloud, using one or more instances of this class. The cloud with the higest score is then used to dispatch the {@link edu.kit.cloudSimStorage.UsageSequence}.
+ */
 @Root
 public abstract class SLARating {
 
@@ -23,7 +28,7 @@ public abstract class SLARating {
 	 * Calculates a score for a candidate, based on a it's characteristics
 	 *
 	 * @param candidate the candidate to evaluate
-	 * @return
+	 * @return score for the candidate.
 	 */
 	public abstract double score(CdmiCloudCharacteristics candidate);
 

@@ -14,9 +14,15 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Default;
 import org.simpleframework.xml.Element;
 
-/** @author Tobias Sturm, 6/26/13 5:58 PM */
+/**
+ * Rates a given characteristic with a scale.
+ *
+ * Can be used to model 'score clouds with bandwith in MB/s * 50'
+ * If the certain key is not given in the presented {@link edu.kit.cloudSimStorage.CdmiCloudCharacteristics} instance, a default score is assigned.
+ *
+ * @author Tobias Sturm, 6/26/13 5:58 PM */
 @Default
-public class RateCharacteristicsWithScale extends SLACloudRater {
+public class RateCharacteristicsWithScale extends SLARating {
 	@Attribute(name = "key")
 	private String key;
 	@Attribute(name = "scale")
