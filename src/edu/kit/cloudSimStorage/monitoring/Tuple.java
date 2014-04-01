@@ -9,6 +9,8 @@
  */
 package edu.kit.cloudSimStorage.monitoring;
 
+import java.util.Comparator;
+
 /** @author Tobias Sturm, 6/23/13 6:20 PM */
 public class Tuple<X extends Comparable, Y> implements Comparable<Tuple<? extends Comparable, ?>> {
 	public final X x;
@@ -29,6 +31,7 @@ public class Tuple<X extends Comparable, Y> implements Comparable<Tuple<? extend
 		return x.compareTo(o.x);
 	}
 
+
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof Tuple && ((Tuple) obj).compareTo(this) == 0 && ((Tuple) obj).y.equals(y);
@@ -37,5 +40,15 @@ public class Tuple<X extends Comparable, Y> implements Comparable<Tuple<? extend
 	@Override
 	public String toString() {
 		return "(" + x + "|" + y + ")";
+	}
+
+
+	public static <T extends Comparable<T>> Comparator<? super Tuple<?, T>> ValueComparator() {
+		return new Comparator<Tuple<?, T>>() {
+			@Override
+			public int compare(Tuple<?, T> o1, Tuple<?, T> o2) {
+				return o1.y.compareTo(o2.y);
+			}
+		};
 	}
 }
