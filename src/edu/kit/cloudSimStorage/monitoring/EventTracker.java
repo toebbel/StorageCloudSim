@@ -39,7 +39,7 @@ public class EventTracker<T> implements TraceableResource {
 
 
 	public TupleSequence<Double> getEventsPerTime(long timeDistance) {
-		return SequenceOperations.samplesPerTime(timeDistance, forgetType(new TupleSequence<>(events)));
+		return SequenceOperations.samplesPerTime(timeDistance, forgetType(events));
 	}
 
 	public TupleSequence<Double> forgetType(TupleSequence<T> in) {
