@@ -9,15 +9,12 @@
  */
 package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations;
 
-import edu.kit.cloudSimStorage.monitoring.TupleSequence;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
-
 /** @author Tobias Sturm, 6/24/13 4:42 PM */
-public class Min extends SequenceOperations {
+public class Min extends SequenceValueOperation {
 	 double val = Double.MAX_VALUE;
 
 	@Override
-	protected void reset() {
+	public void reset() {
 		val = Double.MAX_VALUE;
 	}
 
@@ -27,18 +24,8 @@ public class Min extends SequenceOperations {
 	}
 
 	@Override
-	protected double getNeutralValue() {
-		return Double.MAX_VALUE;
-	}
-
-	@Override
 	public double getResult() {
 		return val;
-	}
-
-	@Override
-	protected void prepareStream(TupleSequence<Double> input){
-		SequenceOperations.uniquifyIndex_takeMinValue(input);
 	}
 
 }

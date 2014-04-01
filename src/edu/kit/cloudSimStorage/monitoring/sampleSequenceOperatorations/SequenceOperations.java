@@ -14,10 +14,10 @@ import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleKeyUniquifyPolicies.*;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations.Division;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations.Min;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations.SequenceValueOperation;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations.Sum;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -25,90 +25,81 @@ import java.util.PriorityQueue;
 WARNING! This class has NOT been tested and may contain bugs
  */
 /** @author Tobias Sturm, 6/24/13 4:40 PM */
-public abstract class SequenceOperations {
+public class SequenceOperations {
 
+	/**
+	 * Calculates the sum of each group of {@link edu.kit.cloudSimStorage.monitoring.Tuple}s that have the same X value in multiple {@link edu.kit.cloudSimStorage.monitoring.TupleSequence}s.
+	 *
+	 * If a sequence contains multiple samples with the same X value, the sum of these values will be taken into account.
+	 *
+	 * @param inputs
+	 * @return one sequence of tuples where each tuple is the sum  of all input sequences for it's index
+	 */
 	public static TupleSequence<Double> sum(List<TupleSequence<Double>> inputs) {
-		return fold(inputs, new Sum());
+		for(int i = 0; i < inputs.size(); i++)
+			inputs.set(i, UniquifyPolicy.uniquifyIndex(inputs.get(i), ValueSumPolicy.class));
+		return fold(TupleSequence.align(inputs, 0.0), new Sum());
 	}
 
-	public static TupleSequence<Double> fold(List<TupleSequence<Double>> inputs, SequenceOperations combinator) {
-		if (inputs == null || inputs.isEmpty())
-			return new TupleSequence<>();
-
-		//append a sample at the end of every input. Determine latest timestamp, append last value of each list again with that timestamp.
-		long lastTimestamp = Long.MIN_VALUE;
-		long firstTimestamp = Long.MAX_VALUE;
-		for (TupleSequence<Double> l : inputs) {
-			Collections.sort(l);
-			if (!l.isEmpty()) {
-				lastTimestamp = Math.max(l.get(l.size() - 1).x, lastTimestamp);
-				firstTimestamp = Math.min(l.get(0).x, firstTimestamp);
-			}
-		}
-
-		for (TupleSequence<Double> l : inputs) {
-			l.add(0, new Tuple<>(firstTimestamp, combinator.getNeutralValue()));
-			l.add(new Tuple<>(lastTimestamp, l.get(l.size() - 1).y));
-			combinator.prepareStream(l);
-		}
-
-		TupleSequence<Double> result = new TupleSequence<>();
-		int[] is = new int[inputs.size()];
-
-		while (hasItemsLeft(inputs, is)) {
-			int smallestTimestampIndex = 0;
-			long smallestTimestamp = Long.MAX_VALUE;
-			for (int i = 0; i < inputs.size(); i++) {
-				if (inputs.get(i).get(is[i]).x < smallestTimestamp) {
-					smallestTimestamp = inputs.get(i).get(is[i]).x;
-					smallestTimestampIndex = i;
-				}
-			}
-
-			for (int i = 0; i < inputs.size(); i++) {
-				combinator.addSample(inputs.get(i).get(is[i]).y);
-			}
-			is[smallestTimestampIndex] += 1;
-			result.add(new Tuple<>(smallestTimestamp, combinator.getResult()));
-			combinator.reset();
-		}
-
-		return result;
-	}
-
-	protected void prepareStream(TupleSequence<Double> input){
-		SequenceOperations.uniquifyIndex_takeLast(input);
-	}
-
-	protected abstract double getNeutralValue();
-
-	protected abstract double getResult();
-
-	protected abstract void addSample(double val);
-
-	private static boolean hasItemsLeft(List<TupleSequence<Double>> inputs, int[] is) {
-		boolean hasItemsLeft = true;
-
-		for (int i = 0; i < is.length; i++) {
-			if (is[i] >= inputs.get(i).size())
-				hasItemsLeft = false;
-		}
-		return hasItemsLeft;
-	}
-
-	protected abstract void reset();
-
+	/**
+	 * Selects the min of each group of {@link edu.kit.cloudSimStorage.monitoring.Tuple}s that have the same X value in multiple {@link edu.kit.cloudSimStorage.monitoring.TupleSequence}s.
+	 *
+	 * If a sequence contains multiple samples with the minimum of these will be taken into account
+	 *
+	 * @param inputs set of input sequences
+	 * @return one sequence of tuples where each tuple is the minimum of all input sequences for it's index
+	 */
 	public static TupleSequence<Double> min(List<TupleSequence<Double>> inputs) {
-		return fold(inputs, new Min());
+		for(int i = 0; i < inputs.size(); i++)
+			inputs.set(i, uniquifyIndex_takeMinValue(inputs.get(i)));
+		return fold(TupleSequence.align(inputs, 0.0), new Min());
 	}
 
+	/**
+	 * Divides one tuple sequence from another.
+	 *
+	 * If a sequence contains multiple samples for one X value, the last will be chosen.
+	 *
+	 * @param dividend the dividend
+	 * @param divisor the divisor
+	 * @return tuple-wise division of the two inputs
+	 */
 	public static TupleSequence<Double> divide(TupleSequence<Double> dividend, TupleSequence<Double> divisor) {
 		List<TupleSequence<Double>> list = new ArrayList<>();
 
-		list.add(dividend);
-		list.add(divisor);
+		list.add(uniquifyIndex_takeLast(dividend));
+		list.add(uniquifyIndex_takeLast(divisor));
 
-		return fold(list, new Division());
+		return fold(TupleSequence.align(list, 1.0), new Division());
+	}
+
+	public static TupleSequence<Double> fold(List<TupleSequence<Double>> inputs, SequenceValueOperation combinator) {
+		if (inputs == null || inputs.isEmpty())
+			return new TupleSequence<>();
+
+		//check if sequences have same lengths
+		for(TupleSequence<Double> seq : inputs)
+		{
+			if (seq.size() != inputs.get(0).size())
+			{
+				throw new IllegalStateException("can't fold tuple sequences with different length. Use align before!");
+			}
+		}
+
+		//combine every tuple sample with partners from each stream
+		TupleSequence<Double> result = new TupleSequence<>();
+		for(int tupleIndex = 0; tupleIndex < inputs.get(0).size(); tupleIndex++)
+		{
+			long sampleXValue = inputs.get(0).get(tupleIndex).x;
+			for(TupleSequence<Double> seq : inputs)
+			{
+				assert sampleXValue == seq.get(tupleIndex).x : "Samples in sequences have different X values and are therefore not aligned!";
+				combinator.addSample(seq.get(tupleIndex).y);
+			}
+			result.add(sampleXValue, combinator.getResult());
+			combinator.reset();
+		}
+		return result;
 	}
 
 	public static TupleSequence<Double> getTotalNumOfEvents(TupleSequence<?> samples) {
@@ -132,7 +123,7 @@ public abstract class SequenceOperations {
 		 *
 		 * @param timeDistance equidistant size of time buckets.
 		 * @param samples the sample sequence
-		 * @return list of samples, each in given distance, containt the number of events that occured inside that time slot
+		 * @return list of samples, each in given distance, contains the number of events that occurred inside that time slot
 		 */
 		public static TupleSequence<Double> samplesPerTime(long timeDistance, TupleSequence<Double> samples) {
 			assert timeDistance > 0;

@@ -9,14 +9,12 @@
  */
 package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations;
 
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
-
 /** @author Tobias Sturm, 6/24/13 4:40 PM */
-public class Sum extends SequenceOperations {
+public class Sum extends SequenceValueOperation {
 	double sum = 0;
 
 	@Override
-	protected void reset() {
+	public void reset() {
 		sum = 0;
 	}
 
@@ -25,10 +23,6 @@ public class Sum extends SequenceOperations {
 		sum += val;
 	}
 
-	@Override
-	protected double getNeutralValue() {
-		return 0;
-	}
 
 	@Override
 	public double getResult() {

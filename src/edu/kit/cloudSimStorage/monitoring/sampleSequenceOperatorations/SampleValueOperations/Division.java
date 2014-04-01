@@ -9,24 +9,22 @@
  */
 package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations;
 
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
-
 /** @author Tobias Sturm, 6/24/13 5:40 PM */
-public class Division extends SequenceOperations {
+public class Division extends SequenceValueOperation {
 
 	double dividend= 0;
 	double result = 0;
 	boolean hasDividend = false;
 
 	@Override
-	protected void reset() {
+	public void reset() {
 		dividend = 0;
 		result = 0;
 		hasDividend = false;
 	}
 
 	@Override
-	protected void addSample(double val) {
+	public void addSample(double val) {
 		if(hasDividend) {
 			if(val == 0)
 				result = dividend > 0 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
@@ -39,12 +37,7 @@ public class Division extends SequenceOperations {
 	}
 
 	@Override
-	protected double getNeutralValue() {
-		return 1;
-	}
-
-	@Override
-	protected double getResult() {
+	public double getResult() {
 		assert hasDividend;
 		hasDividend = false;
 		return result;
