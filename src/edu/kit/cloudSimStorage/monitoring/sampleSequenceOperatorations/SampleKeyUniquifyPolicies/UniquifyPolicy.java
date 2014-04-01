@@ -34,6 +34,9 @@ public abstract class UniquifyPolicy<T>
 
 	public static <T> TupleSequence<T> uniquifyIndex(TupleSequence<T> sampleStream, Class<? extends UniquifyPolicy> uniquifyPolicy) {
 
+		if(sampleStream == null || sampleStream.size() == 0)
+			return sampleStream;
+
 		try {
 			UniquifyPolicy bucket = uniquifyPolicy.newInstance();
 			long lastIndex = sampleStream.get(0).x;
