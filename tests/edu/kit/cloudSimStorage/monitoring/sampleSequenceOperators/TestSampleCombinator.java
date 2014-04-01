@@ -48,6 +48,36 @@ public class TestSampleCombinator {
 	}
 
 	@Test
+	public void testSum_emptyInput()  {
+		TupleSequence<Double> expected = new TupleSequence<>();
+		List<TupleSequence<Double>> in = new ArrayList<>();
+
+		assertEquals(expected, SequenceOperations.sum(in));
+	}
+
+	@Test
+	public void testSum_emptyLists()  {
+		TupleSequence<Double> expected = new TupleSequence<>();
+		List<TupleSequence<Double>> in = new ArrayList<>();
+		in.add(new TupleSequence<Double>());
+		in.add(new TupleSequence<Double>());
+
+		assertEquals(expected, SequenceOperations.sum(in));
+	}
+
+	@Test
+	public void testSum_oneList()  {
+		TupleSequence<Double> expected = new TupleSequence<>();
+		expected.add(0l,1.0);
+		expected.add(5l,3.0);
+
+		List<TupleSequence<Double>> in = new ArrayList<>();
+		in.add(a);
+
+		assertEquals(expected, SequenceOperations.sum(in));
+	}
+
+	@Test
 	public void testSum() throws Exception {
 		TupleSequence<Double> expected = new TupleSequence<>();
 		List<TupleSequence<Double>> in = new ArrayList<>();
