@@ -9,7 +9,7 @@
  */
 package edu.kit.cloudSimStorage;
 
-import edu.kit.cloudSimStorage.ObjectStorageSLAs.StorageCloudSLARequest;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.StorageCloudSLARequirements;
 import edu.kit.cloudSimStorage.cloudBroker.UserRequest;
 import edu.kit.cloudSimStorage.monitoring.ILoggable;
 import org.simpleframework.xml.*;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 @Root
 public class UsageSequence implements ILoggable {
 	@Element(name="SLA")
-	private StorageCloudSLARequest SLA;
+	private StorageCloudSLARequirements SLA;
 
 	@ElementList(name="request")
 	private List<UserRequest> requests;
@@ -40,7 +40,7 @@ public class UsageSequence implements ILoggable {
 		return Logger.getLogger(LOGGER_PREFIX + sequenceID);
 	}
 
-	public UsageSequence(@Attribute(name="sequenceID") int sequenceID, @Element(name="SLA") StorageCloudSLARequest SLA, @ElementList(name="request") List<UserRequest> userRequests) {
+	public UsageSequence(@Attribute(name="sequenceID") int sequenceID, @Element(name="SLA") StorageCloudSLARequirements SLA, @ElementList(name="request") List<UserRequest> userRequests) {
 		this.SLA = SLA;
 		this.id = sequenceID;
 		this.requests = userRequests;
@@ -48,7 +48,7 @@ public class UsageSequence implements ILoggable {
 	}
 
 
-	public StorageCloudSLARequest getSLA() {
+	public StorageCloudSLARequirements getSLA() {
 		return SLA;
 	}
 

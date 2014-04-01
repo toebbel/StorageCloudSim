@@ -9,7 +9,7 @@
  */
 package edu.kit.cloudSimStorage;
 
-import edu.kit.cloudSimStorage.ObjectStorageSLAs.StorageCloudSLARequest;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.StorageCloudSLARequirements;
 import edu.kit.cloudSimStorage.cloudBroker.UserRequest;
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 public class TestUsageSequence {
 	@Test
 	public void testSerializeDeserializeEmptySequence() throws Exception {
-		UsageSequence candidate = new UsageSequence(0, new StorageCloudSLARequest(), Collections.EMPTY_LIST);
+		UsageSequence candidate = new UsageSequence(0, new StorageCloudSLARequirements(), Collections.EMPTY_LIST);
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		candidate.serialize(outputStream);
@@ -40,7 +40,7 @@ public class TestUsageSequence {
 
 	@Test
 	public void testSerializeDeserialize() throws Exception {
-		StorageCloudSLARequest sla = new StorageCloudSLARequest();
+		StorageCloudSLARequirements sla = new StorageCloudSLARequirements();
 		sla.rateByPrice();
 		sla.hasNoObjectSizeLimit();
 		sla.canCreateContainers();

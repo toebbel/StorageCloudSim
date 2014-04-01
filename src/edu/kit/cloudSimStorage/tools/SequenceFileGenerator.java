@@ -10,9 +10,9 @@
 package edu.kit.cloudSimStorage.tools;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
+import edu.kit.cloudSimStorage.ObjectStorageSLAs.StorageCloudSLARequirements;
 import edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.MinimumCharactersisticValue;
 import edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA.RateCharacteristicsWithInverse;
-import edu.kit.cloudSimStorage.ObjectStorageSLAs.StorageCloudSLARequest;
 import edu.kit.cloudSimStorage.SharedConstants;
 import edu.kit.cloudSimStorage.UsageSequence;
 import edu.kit.cloudSimStorage.UsageSequenceGenerator;
@@ -62,13 +62,13 @@ public class SequenceFileGenerator {
 			System.out.println("use for traffic size distribution: alpha = 3, beta = 2 scale = 1GB");
 		}
 
-		StorageCloudSLARequest slas[] = new StorageCloudSLARequest[2];
+		StorageCloudSLARequirements slas[] = new StorageCloudSLARequirements[2];
 		UsageSequenceGenerator generators[] = new UsageSequenceGenerator[2];
 		String names[] = new String[2];
 		FileWriter statWriter[] = new FileWriter[3]; //last one is for common stats
 
 		//some default Cloud user
-		slas[0] = new StorageCloudSLARequest();
+		slas[0] = new StorageCloudSLARequirements();
 		slas[0].canCreateContainers().canDeleteContainers().rateByPrice();
 		generators[0] = new UsageSequenceGenerator();
 		generators[0].setDownUpDistribution(new UniformDistr(0,0.75));
@@ -76,7 +76,7 @@ public class SequenceFileGenerator {
 
 
 		//big data storage space (write only)
-		slas[1] = new StorageCloudSLARequest();
+		slas[1] = new StorageCloudSLARequirements();
 		slas[1].canCreateContainers().canDeleteContainers().addRating(new RateCharacteristicsWithInverse(CdmiCloudCharacteristics.UPLOAD_COSTS, "lowest upload costs", Double.NEGATIVE_INFINITY)).addRating(new RateCharacteristicsWithInverse(CdmiCloudCharacteristics.STORAGE_COSTS, "lowest storage costs", Double.NEGATIVE_INFINITY)).hasNoContainerSizeLimit();
 		generators[1] = new UsageSequenceGenerator();
 		generators[1].setDownUpDistribution(new UniformDistr(0,0.1)); //uploads only
@@ -114,7 +114,7 @@ public class SequenceFileGenerator {
 		Random rnd = new Random();
 		for(int i = 0; i < numSequences; i++) {
 			int chosenModel = rnd.nextInt(2);
-			StorageCloudSLARequest sla = slas[chosenModel];
+			StorageCloudSLARequirements sla = slas[chosenModel];
 			UsageSequenceGenerator gen = generators[chosenModel];
 
 			long traffic = (long) (trafficSize.sample() * scales[chosenModel]);
@@ -124,7 +124,7 @@ public class SequenceFileGenerator {
 				statWriter[chosenModel].write(r.getSize() + "\t" + r.getDelay() + "\t" + r.getOpCode() + "\n");
 			}
 
-			StorageCloudSLARequest customSLA = sla.clone();
+			StorageCloudSLARequirements customSLA = sla.clone();
 			long requiredSpace = requiredStorageSpace(requests);
 			long disturbedSpace = requiredSpace + (long)(requiredSpace / 100.0 * slaSpaceDisturbance * (rnd.nextDouble() * 2  - 1));
 			customSLA.minCapacity(disturbedSpace);

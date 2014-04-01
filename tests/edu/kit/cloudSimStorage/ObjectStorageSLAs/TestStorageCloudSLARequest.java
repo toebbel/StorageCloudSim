@@ -24,7 +24,7 @@ public class TestStorageCloudSLARequest {
 
 	@Test
 	public void testSerializeDeserializeEmptySLA() throws Exception {
-		StorageCloudSLARequest candidate = new StorageCloudSLARequest();
+		StorageCloudSLARequirements candidate = new StorageCloudSLARequirements();
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		candidate.serialize(outputStream);
@@ -32,13 +32,13 @@ public class TestStorageCloudSLARequest {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toString().getBytes());
 		outputStream.writeTo(System.out);
 
-		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserializer(inputStream);
+		StorageCloudSLARequirements deserialized = StorageCloudSLARequirements.deserializer(inputStream);
 		assertEquals(deserialized, candidate);
 	}
 
 	@Test
 	public void testSerializeDeserializeOneRequirementOneRating() throws Exception {
-		StorageCloudSLARequest candidate = new StorageCloudSLARequest();
+		StorageCloudSLARequirements candidate = new StorageCloudSLARequirements();
 		candidate.canCreateContainers().rateByPrice();
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -47,13 +47,13 @@ public class TestStorageCloudSLARequest {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toString().getBytes());
 		outputStream.writeTo(System.out);
 
-		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserializer(inputStream);
+		StorageCloudSLARequirements deserialized = StorageCloudSLARequirements.deserializer(inputStream);
 		assertEquals(deserialized, candidate);
 	}
 
 	@Test
 	public void testSerializeDeserializeAllSLAs() throws Exception {
-		StorageCloudSLARequest candidate = new StorageCloudSLARequest();
+		StorageCloudSLARequirements candidate = new StorageCloudSLARequirements();
 		candidate.rateByPrice().canCreateContainers().maxObjectSizeAtLeast(1).maxDownloadCost(1).canDeleteContainers().canModifyMetadata().hasNoContainerSizeLimit().hasNoObjectSizeLimit().locationIs("de").maxContainerSizeAtLeast((long) fromBytes(2, GIGA_BYTE)).maxStorageCost(0.1).rateByCapabilities().addRating(new RateCharacteristicsWithInverse("some key", "some descritption", 1, 4));
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -62,7 +62,7 @@ public class TestStorageCloudSLARequest {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toString().getBytes());
 		outputStream.writeTo(System.out);
 
-		StorageCloudSLARequest deserialized = StorageCloudSLARequest.deserializer(inputStream);
+		StorageCloudSLARequirements deserialized = StorageCloudSLARequirements.deserializer(inputStream);
 		assertEquals(deserialized, candidate);
 	}
 

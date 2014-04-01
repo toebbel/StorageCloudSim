@@ -31,9 +31,11 @@ import java.util.logging.Logger;
 import static edu.kit.cloudSimStorage.cdmi.CdmiMetadata.LOCATION;
 import static edu.kit.cloudSimStorage.cdmi.CdmiMetadata.MAX_OBJECT_SIZE;
 
-/** @author Tobias Sturm, 6/26/13 5:05 PM */
+/**
+ *
+ * @author Tobias Sturm, 6/26/13 5:05 PM */
 @Root
-public class StorageCloudSLARequest implements ILoggable {
+public class StorageCloudSLARequirements implements ILoggable {
 	@Element(required=false)
 	SLARequirement requirements;
 
@@ -41,13 +43,13 @@ public class StorageCloudSLARequest implements ILoggable {
 	SLARating ratings;
 	Logger logger;
 
-	public StorageCloudSLARequest() {
+	public StorageCloudSLARequirements() {
 		requirements = null;
 		ratings = null;
 		logger = Logger.getLogger("SLARequest" + java.util.UUID.randomUUID().toString());
 	}
 
-	public StorageCloudSLARequest addRequirement(SLARequirement req) {
+	public StorageCloudSLARequirements addRequirement(SLARequirement req) {
 		if(requirements == null)
 			requirements = req;
 		else
@@ -56,7 +58,7 @@ public class StorageCloudSLARequest implements ILoggable {
 		return this;
 	}
 
-	public StorageCloudSLARequest addRating(SLARating rater) {
+	public StorageCloudSLARequirements addRating(SLARating rater) {
 		if(ratings == null)
 			ratings = rater;
 		else
@@ -97,37 +99,37 @@ public class StorageCloudSLARequest implements ILoggable {
 	}
 
 
-	public StorageCloudSLARequest minBandiwdth(double minBandwidth) {
+	public StorageCloudSLARequirements minBandiwdth(double minBandwidth) {
 		addRequirement(new MinimumCharactersisticValue(CdmiCloudCharacteristics.MIN_BANDWIDTH, minBandwidth));
 		return this;
 	}
 
-	public StorageCloudSLARequest maxLatency(double maxLatency) {
+	public StorageCloudSLARequirements maxLatency(double maxLatency) {
 		addRequirement(new MaximumCharacteristicsValue(CdmiCloudCharacteristics.MIN_BANDWIDTH, maxLatency, true));
 		return this;
 	}
 
-	public StorageCloudSLARequest maxStorageCost(double maxStorageCost) {
+	public StorageCloudSLARequirements maxStorageCost(double maxStorageCost) {
 		addRequirement(new MaximumCharacteristicsValue(CdmiCloudCharacteristics.MAX_LATENCY, maxStorageCost, true));
 		return this;
 	}
 
-	public StorageCloudSLARequest maxUploadCost(double maxStorageCost) {
+	public StorageCloudSLARequirements maxUploadCost(double maxStorageCost) {
 		addRequirement(new MaximumCharacteristicsValue(CdmiCloudCharacteristics.UPLOAD_COSTS, maxStorageCost, true));
 		return this;
 	}
 
-	public StorageCloudSLARequest maxDownloadCost(double maxStorageCost) {
+	public StorageCloudSLARequirements maxDownloadCost(double maxStorageCost) {
 		addRequirement(new MaximumCharacteristicsValue(CdmiCloudCharacteristics.DOWNLOAD_COSTS, maxStorageCost, true));
 		return this;
 	}
 
-	public StorageCloudSLARequest minCapacity(long capacity) {
+	public StorageCloudSLARequirements minCapacity(long capacity) {
 		addRequirement(new MinimumCharactersisticValue(CdmiCloudCharacteristics.AVAILABLE_CAPACITY, capacity));
 		return this;
 	}
 
-	public StorageCloudSLARequest maxContainerSizeAtLeast(long capacity) {
+	public StorageCloudSLARequirements maxContainerSizeAtLeast(long capacity) {
 		addRequirement(new SLARequirementOR(
 				new DoesNotSupportCapability(CdmiCloudCharacteristics.MAX_CONTAINER_SIZE),
 				new MinimumCharactersisticValue(CdmiCloudCharacteristics.MAX_CONTAINER_SIZE, capacity)
@@ -135,7 +137,7 @@ public class StorageCloudSLARequest implements ILoggable {
 		return this;
 	}
 
-	public StorageCloudSLARequest maxObjectSizeAtLeast(long capacity) {
+	public StorageCloudSLARequirements maxObjectSizeAtLeast(long capacity) {
 		addRequirement(new SLARequirementOR(
 				new DoesNotSupportCapability(MAX_OBJECT_SIZE),
 				new MinimumCharactersisticValue(MAX_OBJECT_SIZE, capacity)
@@ -143,12 +145,12 @@ public class StorageCloudSLARequest implements ILoggable {
 		return this;
 	}
 
-	public StorageCloudSLARequest locationIs(String location) {
+	public StorageCloudSLARequirements locationIs(String location) {
 		addRequirement(new CharacteristicMatchesString(LOCATION, location));
 		return this;
 	}
 
-	public StorageCloudSLARequest locationIsIn(List<String> locations) {
+	public StorageCloudSLARequirements locationIsIn(List<String> locations) {
 		if(locations.size() == 1)
 			return locationIs(locations.get(0));
 		addRequirement(locationIsIn(locations.subList(1, locations.size() - 1), new CharacteristicMatchesString(LOCATION, locations.get(0))));
@@ -163,7 +165,7 @@ public class StorageCloudSLARequest implements ILoggable {
 		return locationIsIn(locations, tmp);
 	}
 
-	public StorageCloudSLARequest hasNoObjectSizeLimit() {
+	public StorageCloudSLARequirements hasNoObjectSizeLimit() {
 		addRequirement(new SLARequirementOR(
 				new DoesNotSupportCapability(MAX_OBJECT_SIZE),
 				new MinimumCharactersisticValue(MAX_OBJECT_SIZE, Long.MAX_VALUE)
@@ -171,7 +173,7 @@ public class StorageCloudSLARequest implements ILoggable {
 		return this;
 	}
 
-	public StorageCloudSLARequest hasNoContainerSizeLimit() {
+	public StorageCloudSLARequirements hasNoContainerSizeLimit() {
 		addRequirement(new SLARequirementOR(
 				new DoesNotSupportCapability(CdmiCloudCharacteristics.MAX_CONTAINER_SIZE),
 				new MinimumCharactersisticValue(CdmiCloudCharacteristics.MAX_CONTAINER_SIZE, Long.MAX_VALUE)
@@ -179,17 +181,17 @@ public class StorageCloudSLARequest implements ILoggable {
 		return this;
 	}
 
-	public StorageCloudSLARequest canCreateContainers() {
+	public StorageCloudSLARequirements canCreateContainers() {
 		addRequirement(new SupportsCapability(CdmiCloudCharacteristics.CAPABILITY_CREATE_CONTAINER));
 		return this;
 	}
 
-	public StorageCloudSLARequest canDeleteContainers() {
+	public StorageCloudSLARequirements canDeleteContainers() {
 		addRequirement(new SupportsCapability(CdmiCloudCharacteristics.CAPABILITY_DELETE_CONTAINER));
 		return this;
 	}
 
-	public StorageCloudSLARequest canModifyMetadata() {
+	public StorageCloudSLARequirements canModifyMetadata() {
 		addRequirement(new SLARequirementAND(
 				new SupportsCapability(CdmiCloudCharacteristics.CAPABILITY_READ_METADATA),
 				new SupportsCapability(CdmiCloudCharacteristics.CAPABILITY_MOD_METADATA)
@@ -197,7 +199,7 @@ public class StorageCloudSLARequest implements ILoggable {
 		return this;
 	}
 
-	public StorageCloudSLARequest rateByPrice() {
+	public StorageCloudSLARequirements rateByPrice() {
 		addRating(new RateByPrice());
 		return this;
 	}
@@ -207,9 +209,9 @@ public class StorageCloudSLARequest implements ILoggable {
 		serializer.write(this, out);
 	}
 
-	public static StorageCloudSLARequest deserializer(InputStream in) throws Exception {
+	public static StorageCloudSLARequirements deserializer(InputStream in) throws Exception {
 		Serializer serializer = new Persister();
-		return serializer.read(StorageCloudSLARequest.class, in);
+		return serializer.read(StorageCloudSLARequirements.class, in);
 	}
 
 	@Override
@@ -226,23 +228,23 @@ public class StorageCloudSLARequest implements ILoggable {
 	public boolean equals(Object obj) {
 		return obj != null && obj.toString().equals(toString());
 		/*return obj.getClass() == this.getClass() &&
-				(requirements == null && ((StorageCloudSLARequest)obj).requirements == null ||
-					requirements.equals(((StorageCloudSLARequest)obj).requirements)) &&
-				(ratings == null && ((StorageCloudSLARequest)obj).ratings == null ||
-						ratings.equals(((StorageCloudSLARequest)obj).ratings));*/
+				(requirements == null && ((StorageCloudSLARequirements)obj).requirements == null ||
+					requirements.equals(((StorageCloudSLARequirements)obj).requirements)) &&
+				(ratings == null && ((StorageCloudSLARequirements)obj).ratings == null ||
+						ratings.equals(((StorageCloudSLARequirements)obj).ratings));*/
 	}
 
-	public StorageCloudSLARequest rateByCapabilities() {
+	public StorageCloudSLARequirements rateByCapabilities() {
 		addRating(new RateByExportCapabilities());
 		return this;
 	}
 
-	public StorageCloudSLARequest clone() throws CloneNotSupportedException {
+	public StorageCloudSLARequirements clone() throws CloneNotSupportedException {
 		try {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			this.serialize(outputStream);
 			ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toString().getBytes());
-			return StorageCloudSLARequest.deserializer(inputStream);
+			return StorageCloudSLARequirements.deserializer(inputStream);
 		} catch (Exception e) {
 			throw new IllegalStateException("cloud not clone SLA request due to IO exception: " + e);
 		}
