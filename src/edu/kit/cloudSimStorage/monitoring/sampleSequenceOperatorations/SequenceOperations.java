@@ -12,6 +12,9 @@ package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations;
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleKeyUniquifyPolicies.*;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations.Division;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations.Min;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations.Sum;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,13 +25,13 @@ import java.util.PriorityQueue;
 WARNING! This class has NOT been tested and may contain bugs
  */
 /** @author Tobias Sturm, 6/24/13 4:40 PM */
-public abstract class SampleCombinator {
+public abstract class SequenceOperations {
 
 	public static TupleSequence<Double> sum(List<TupleSequence<Double>> inputs) {
 		return fold(inputs, new Sum());
 	}
 
-	public static TupleSequence<Double> fold(List<TupleSequence<Double>> inputs, SampleCombinator combinator) {
+	public static TupleSequence<Double> fold(List<TupleSequence<Double>> inputs, SequenceOperations combinator) {
 		if (inputs == null || inputs.isEmpty())
 			return new TupleSequence<>();
 
@@ -74,7 +77,7 @@ public abstract class SampleCombinator {
 	}
 
 	protected void prepareStream(TupleSequence<Double> input){
-		SampleCombinator.uniquifyIndex_takeLast(input);
+		SequenceOperations.uniquifyIndex_takeLast(input);
 	}
 
 	protected abstract double getNeutralValue();

@@ -10,7 +10,7 @@
 package edu.kit.cloudSimStorage.monitoring;
 
 import edu.kit.cloudSimStorage.helper.TimeHelper;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleFilter;
 
 import java.util.*;
@@ -39,7 +39,7 @@ public class EventTracker<T> implements TrackableResource {
 
 
 	public TupleSequence<Double> getEventsPerTime(long timeDistance) {
-		return SampleCombinator.samplesPerTime(timeDistance, forgetType(new TupleSequence<>(events)));
+		return SequenceOperations.samplesPerTime(timeDistance, forgetType(new TupleSequence<>(events)));
 	}
 
 	public TupleSequence<Double> forgetType(TupleSequence<T> in) {
@@ -51,7 +51,7 @@ public class EventTracker<T> implements TrackableResource {
 	}
 
 	public TupleSequence<Double> getTotalNumOfEvents() {
-		return SampleCombinator.getTotalNumOfEvents(events);
+		return SequenceOperations.getTotalNumOfEvents(events);
 	}
 
 	public TupleSequence<Double> getSamples() {

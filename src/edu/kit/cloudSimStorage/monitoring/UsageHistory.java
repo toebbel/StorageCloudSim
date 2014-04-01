@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage.monitoring;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,14 +56,14 @@ public abstract class UsageHistory implements IUsageHistory {
 			case TRAFFIC:
 				sampleStreams.add(getSamples(TRAFFIC_DOWNLOAD));
 				sampleStreams.add(getSamples(TRAFFIC_UPLOAD));
-				return SampleCombinator.sum(sampleStreams);
+				return SequenceOperations.sum(sampleStreams);
 			case NUM_REQUESTS:
 				sampleStreams.add(numLISTQueries.getSamples());
 			case NUM_REQUESTS_OTHER:
 				sampleStreams.add(numPUTQueries.getSamples());
 				sampleStreams.add(numGETQueries.getSamples());
 				sampleStreams.add(numDELETEQueries.getSamples());
-				return SampleCombinator.sum(sampleStreams);
+				return SequenceOperations.sum(sampleStreams);
 			case NUM_REQUESTS_PER_MINUTE:
 			case NUM_REQUESTS_PER_SECOND:
 				sampleStreams.add(numLISTQueries.getSamples());
@@ -73,13 +73,13 @@ public abstract class UsageHistory implements IUsageHistory {
 				sampleStreams.add(numGETQueries.getSamples());
 				sampleStreams.add(numDELETEQueries.getSamples());
 				int time = (key == NUM_REQUESTS_OTHER_PER_MINUTE || key == NUM_REQUESTS_PER_MINUTE) ? 60 * 1000 : 1000;
-				return SampleCombinator.samplesPerTime(time, SampleCombinator.flatten(sampleStreams));
+				return SequenceOperations.samplesPerTime(time, SequenceOperations.flatten(sampleStreams));
 			case NUM_REQUESTS_LIST:
 				return numLISTQueries.getSamples();
 			case NUM_REQUESTS_LIST_PER_MINUTE:
-				return SampleCombinator.samplesPerTime(60 * 1000, numLISTQueries.getSamples());
+				return SequenceOperations.samplesPerTime(60 * 1000, numLISTQueries.getSamples());
 			case NUM_REQUESTS_LIST_PER_SECOND:
-				return SampleCombinator.samplesPerTime(1000, numLISTQueries.getSamples());
+				return SequenceOperations.samplesPerTime(1000, numLISTQueries.getSamples());
 		}
 		return null;
 	}

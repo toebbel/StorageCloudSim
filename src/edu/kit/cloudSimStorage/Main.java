@@ -15,7 +15,7 @@ import edu.kit.cloudSimStorage.cloudFactory.StorageCloudFactory;
 import edu.kit.cloudSimStorage.cloudOperations.*;
 import edu.kit.cloudSimStorage.helper.*;
 import edu.kit.cloudSimStorage.monitoring.*;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 import edu.kit.cloudSimStorage.monitoring.report.*;
 
 import org.cloudbus.cloudsim.core.CloudSim;
@@ -204,9 +204,9 @@ public class Main {
 
 		//dump SLA violations
 		List<TupleSequence<Double>> unaligned = new ArrayList<>();
-		unaligned.add(ReportGenerator.removeDoublicateValues(SampleCombinator.sum(ackRequests), 5));
-		unaligned.add(ReportGenerator.removeDoublicateValues(SampleCombinator.sum(failedRequests), 5));
-		unaligned.add(ReportGenerator.removeDoublicateValues(SampleCombinator.sum(succRequests), 5));
+		unaligned.add(ReportGenerator.removeDoublicateValues(SequenceOperations.sum(ackRequests), 5));
+		unaligned.add(ReportGenerator.removeDoublicateValues(SequenceOperations.sum(failedRequests), 5));
+		unaligned.add(ReportGenerator.removeDoublicateValues(SequenceOperations.sum(succRequests), 5));
 		unaligned.add(ReportGenerator.removeDoublicateValues(meta.getSamples(TrackableResource.NUM_EVENTS_TOTAL)));
 		List<String> labels = new ArrayList<>();
 		labels.add("acked requests");

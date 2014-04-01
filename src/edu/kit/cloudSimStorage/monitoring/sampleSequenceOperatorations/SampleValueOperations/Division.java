@@ -7,10 +7,12 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations;
+package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations;
+
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 
 /** @author Tobias Sturm, 6/24/13 5:40 PM */
-class Division extends SampleCombinator {
+public class Division extends SequenceOperations {
 
 	double dividend= 0;
 	double result = 0;

@@ -14,7 +14,7 @@ import edu.kit.cloudSimStorage.cloudOperations.*;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.*;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 import edu.kit.cloudSimStorage.policies.ChooseStorageBlobWithLowestUtilization;
 import edu.kit.cloudSimStorage.storageModel.ObjectStorageBlob;
 import edu.kit.cloudSimStorage.storageModel.StorageBlobLocation;
@@ -866,16 +866,16 @@ public class StorageCloud extends SimEntity implements TrackableResource, ILogga
 			case AVAILABLE_STORAGE_PHYICAL:
 				for (ObjectStorageServer s : servers.values())
 					sampleStreams.add(s.getSamples(key));
-				return SampleCombinator.sum(sampleStreams);
+				return SequenceOperations.sum(sampleStreams);
 			case USED_STORAGE_VIRTUAL_ABS:
 			case AVAILABLE_STORAGE_VIRTUAL:
 				for(CdmiRootContainer c : userToRootContainerMapping.values())
 					sampleStreams.add(c.getSamples(key));
-				return SampleCombinator.sum(sampleStreams);
+				return SequenceOperations.sum(sampleStreams);
 			case USED_STORAGE_PERCENTAGE_PHYSICAL:
-				return SampleCombinator.divide(getSamples(USED_STORAGE_PHYSICAL_ABS), getSamples(AVAILABLE_STORAGE_PHYICAL));
+				return SequenceOperations.divide(getSamples(USED_STORAGE_PHYSICAL_ABS), getSamples(AVAILABLE_STORAGE_PHYICAL));
 			case USED_STORAGE_PERCENTAGE_VIRTUAL:
-				return SampleCombinator.divide(getSamples(USED_STORAGE_VIRTUAL_ABS), getSamples(AVAILABLE_STORAGE_VIRTUAL));
+				return SequenceOperations.divide(getSamples(USED_STORAGE_VIRTUAL_ABS), getSamples(AVAILABLE_STORAGE_VIRTUAL));
 			case NUM_REQUESTS:
 				return requestTracker.getSamples(NUM_EVENTS_TOTAL);
 			case NUM_REQUESTS_PER_MINUTE:
@@ -886,7 +886,7 @@ public class StorageCloud extends SimEntity implements TrackableResource, ILogga
 				for(int user : userToRootContainerMapping.keySet()) {
 					sampleStreams.add(getUsageFor(user).getSamples(DEBTS));
 				}
-				return SampleCombinator.sum(sampleStreams);
+				return SequenceOperations.sum(sampleStreams);
 		}
 		return null;
 	}

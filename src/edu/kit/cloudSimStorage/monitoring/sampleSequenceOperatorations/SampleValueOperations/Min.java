@@ -7,12 +7,13 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations;
+package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleValueOperations;
 
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 
 /** @author Tobias Sturm, 6/24/13 4:42 PM */
-class Min extends SampleCombinator {
+public class Min extends SequenceOperations {
 	 double val = Double.MAX_VALUE;
 
 	@Override
@@ -37,7 +38,7 @@ class Min extends SampleCombinator {
 
 	@Override
 	protected void prepareStream(TupleSequence<Double> input){
-		SampleCombinator.uniquifyIndex_takeMinValue(input);
+		SequenceOperations.uniquifyIndex_takeMinValue(input);
 	}
 
 }

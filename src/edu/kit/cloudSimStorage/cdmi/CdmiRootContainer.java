@@ -14,7 +14,7 @@ import edu.kit.cloudSimStorage.exceptions.EntityNameException;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
 import edu.kit.cloudSimStorage.monitoring.TrackableResource;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,13 +86,13 @@ public class CdmiRootContainer extends CdmiContainer<CdmiObjectContainer> {
 			case USED_STORAGE_VIRTUAL_ABS:
 				for(TrackableResource c : getChildren().values())
 					sampleStreams.add(c.getSamples(key));
-				return SampleCombinator.sum(sampleStreams);
+				return SequenceOperations.sum(sampleStreams);
 			case AVAILABLE_STORAGE_VIRTUAL:
 				for(TrackableResource c : getChildren().values())
 					sampleStreams.add(c.getSamples(key));
-				sampleStreams.add(SampleCombinator.sum(sampleStreams));
+				sampleStreams.add(SequenceOperations.sum(sampleStreams));
 				sampleStreams.add(virtualStorageHistory.getSamples(AVAILABLE_STORAGE));
-				return SampleCombinator.min(sampleStreams);
+				return SequenceOperations.min(sampleStreams);
 		}
 		return null;
 	}

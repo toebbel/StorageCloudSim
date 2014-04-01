@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
 
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
-import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleCombinator;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,7 +60,7 @@ public class TestSampleCombinator {
 		expected.add(new Tuple<>(3l, 8.0));
 		expected.add(new Tuple<>(5l, 7.0));
 		expected.add(new Tuple<>(6l, 10.0));
-		assertEquals(expected, SampleCombinator.sum(in));
+		assertEquals(expected, SequenceOperations.sum(in));
 	}
 
 	@Test
@@ -78,9 +78,9 @@ public class TestSampleCombinator {
 		TupleSequence<Double> expectedC = new TupleSequence<>();
 		expectedC.add(new Tuple<>(6l,0.0));
 
-		assertEquals(expectedA, SampleCombinator.uniquifyIndex_takeMinValue(a));
-		assertEquals(expectedB, SampleCombinator.uniquifyIndex_takeMinValue(b));
-		assertEquals(expectedC, SampleCombinator.uniquifyIndex_takeMinValue(c));
+		assertEquals(expectedA, SequenceOperations.uniquifyIndex_takeMinValue(a));
+		assertEquals(expectedB, SequenceOperations.uniquifyIndex_takeMinValue(b));
+		assertEquals(expectedC, SequenceOperations.uniquifyIndex_takeMinValue(c));
 	}
 
 	@Test
@@ -98,9 +98,9 @@ public class TestSampleCombinator {
 		TupleSequence<Double> expectedC = new TupleSequence<>();
 		expectedC.add(new Tuple<>(6l,0.0));
 
-		assertEquals(expectedA, SampleCombinator.uniquifyIndex_takeFirst(a));
-		assertEquals(expectedB, SampleCombinator.uniquifyIndex_takeFirst(b));
-		assertEquals(expectedC, SampleCombinator.uniquifyIndex_takeFirst(c));
+		assertEquals(expectedA, SequenceOperations.uniquifyIndex_takeFirst(a));
+		assertEquals(expectedB, SequenceOperations.uniquifyIndex_takeFirst(b));
+		assertEquals(expectedC, SequenceOperations.uniquifyIndex_takeFirst(c));
 	}
 
 	@Test
@@ -118,9 +118,9 @@ public class TestSampleCombinator {
 		TupleSequence<Double> expectedC = new TupleSequence<>();
 		expectedC.add(new Tuple<>(6l,3.0));
 
-		assertEquals(expectedA, SampleCombinator.uniquifyIndex_takeMaxValue(a));
-		assertEquals(expectedB, SampleCombinator.uniquifyIndex_takeMaxValue(b));
-		assertEquals(expectedC, SampleCombinator.uniquifyIndex_takeMaxValue(c));
+		assertEquals(expectedA, SequenceOperations.uniquifyIndex_takeMaxValue(a));
+		assertEquals(expectedB, SequenceOperations.uniquifyIndex_takeMaxValue(b));
+		assertEquals(expectedC, SequenceOperations.uniquifyIndex_takeMaxValue(c));
 	}
 
 	@Test
@@ -138,8 +138,8 @@ public class TestSampleCombinator {
 		TupleSequence<Double> expectedC = new TupleSequence<>();
 		expectedC.add(new Tuple<>(6l,3.0));
 
-		assertEquals(expectedA, SampleCombinator.uniquifyIndex_takeLast(a));
-		assertEquals(expectedB, SampleCombinator.uniquifyIndex_takeLast(b));
-		assertEquals(expectedC, SampleCombinator.uniquifyIndex_takeLast(c));
+		assertEquals(expectedA, SequenceOperations.uniquifyIndex_takeLast(a));
+		assertEquals(expectedB, SequenceOperations.uniquifyIndex_takeLast(b));
+		assertEquals(expectedC, SequenceOperations.uniquifyIndex_takeLast(c));
 	}
 }
