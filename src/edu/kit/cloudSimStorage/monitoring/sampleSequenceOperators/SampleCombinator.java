@@ -11,6 +11,7 @@ package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators;
 
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
+import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleKeyUniquifyPolicies.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,8 +23,6 @@ WARNING! This class has NOT been tested and may contain bugs
  */
 /** @author Tobias Sturm, 6/24/13 4:40 PM */
 public abstract class SampleCombinator {
-
-	private double neutralValue;
 
 	public static TupleSequence<Double> sum(List<TupleSequence<Double>> inputs) {
 		return fold(inputs, new Sum());
@@ -75,7 +74,7 @@ public abstract class SampleCombinator {
 	}
 
 	protected void prepareStream(TupleSequence<Double> input){
-		SampleCombinator.uniquifyTimestamps_takeLast(input);
+		SampleCombinator.uniquifyIndex_takeLast(input);
 	}
 
 	protected abstract double getNeutralValue();
@@ -98,10 +97,6 @@ public abstract class SampleCombinator {
 
 	public static TupleSequence<Double> min(List<TupleSequence<Double>> inputs) {
 		return fold(inputs, new Min());
-	}
-
-	public static TupleSequence<Double> avg(List<TupleSequence<Double>> inputs) {
-		return fold(inputs, new Average());
 	}
 
 	public static TupleSequence<Double> divide(TupleSequence<Double> dividend, TupleSequence<Double> divisor) {
@@ -158,7 +153,6 @@ public abstract class SampleCombinator {
 			//add last bucket
 			if(currentTimeBucket > 0) {
 				result.add(new Tuple<>(sweepLine, currentTimeBucket));
-				sweepLine += timeDistance;
 			}
 
 			return result;
@@ -176,61 +170,6 @@ public abstract class SampleCombinator {
 		return new TupleSequence<>(q);
 	}
 
-	public static List<TupleSequence<Double>>  align(List<TupleSequence<Double>> input) {
-		List<TupleSequence<Double>> sortedInput = new ArrayList<>();
-		for(int i = 0; i < input.size(); i++) {
-			TupleSequence<Double> tmp = input.get(i);
-			Collections.sort(tmp);
-			sortedInput.add(tmp);
-		}
-		List<TupleSequence<Double>> result = new ArrayList<>();
-		List<Integer> atEnd = new ArrayList<>();
-		int smallestSequence;
-		long smallestTimestamp = Long.MAX_VALUE;
-		int[] is = new int[sortedInput.size()];
-		for(int i = 0; i < sortedInput.size(); i++) {
-			result.add(new TupleSequence<Double>());
-			is[i] = 0;
-			if(sortedInput.get(i).size() == 0) {
-				atEnd.add(i);
-				sortedInput.get(i).add(new Tuple<>(0l,0.0));
-			} else {
-				if(sortedInput.get(i).get(0).x < smallestTimestamp) {
-					smallestTimestamp = sortedInput.get(i).get(0).x;
-				}
-			}
-		}
-
-		//add zero to all sortedInput
-		for(int i = 0; i < sortedInput.size(); i++)
-			sortedInput.get(i).add(0, new Tuple<>(smallestTimestamp - 1, 0.0));
-
-		while(atEnd.size() < sortedInput.size()) {
-			//determine sequence with lowest timestamp
-			smallestSequence = 0;
-			smallestTimestamp = Long.MAX_VALUE;
-			for(int i = 0; i < sortedInput.size(); i++)
-				if(!atEnd.contains(i) && sortedInput.get(i).get(is[i]).x < smallestTimestamp) {
-					smallestTimestamp = sortedInput.get(i).get(is[i]).x;
-					smallestSequence = i;
-				}
-
-			//proceed with lowest sequence's index
-			is[smallestSequence]++;
-			if(sortedInput.get(smallestSequence).size() <= is[smallestSequence]) {
-				atEnd.add(smallestSequence);
-				is[smallestSequence] = sortedInput.get(smallestSequence).size() - 1;
-			}
-
-			//write samples of every sequence to result
-			for(int i = 0; i < sortedInput.size(); i++)
-				result.get(i).add(new Tuple<>(smallestTimestamp, sortedInput.get(i).get(is[i]).y));           //add lowest timestamp, but original value
-
-
-		}
-
-		return result;
-	}
 
 	/**
 	 * Replaces adjacent entries of a stream, that have the same timestamps, with the first occuring entry
@@ -241,89 +180,39 @@ public abstract class SampleCombinator {
 	 * @param <T> sampled metric in tuples
 	 * @return sampleStream without multiple entries with the same timestamp
 	 */
-	public static <T> TupleSequence<T> uniquifyTimestamps_takeFirst(TupleSequence<T> sampleStream) {
-		TupleSequence<T> result = new TupleSequence<>();
-		long lastTimestamp = Long.MIN_VALUE;
-		for(Tuple<Long, T> t : sampleStream) {
-			if(t.x != lastTimestamp) {
-				result.add(t);
-				lastTimestamp = t.x;
-			}
-		}
-		return result;
+	public static <T> TupleSequence<T> uniquifyIndex_takeFirst(TupleSequence<T> sampleStream) {
+		return UniquifyPolicy.uniquifyIndex(sampleStream, FirstIndexPolicy.class);
 	}
 
 	/**
-	 * See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}, except that the last instance within a group of entries with the same timestamp will be taken.
-	 * @param sampleStream See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
-	 * @param <T> See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
-	 * @return See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
+	 * See {@link #uniquifyIndex_takeFirst}, except that the last instance within a group of entries with the same timestamp will be taken.
+	 * @param sampleStream See {@link #uniquifyIndex_takeFirst} ()}
+	 * @param <T> See {@link #uniquifyIndex_takeFirst}
+	 * @return See {@link #uniquifyIndex_takeFirst}
 	 */
-	public static <T> TupleSequence<T> uniquifyTimestamps_takeLast(TupleSequence<T> sampleStream) {
-		if(sampleStream.isEmpty())
-			return sampleStream;
-
-		TupleSequence<T> result = new TupleSequence<>();
-		Tuple<Long, T> latest = sampleStream.get(0);
-		for(Tuple<Long, T> t : sampleStream) {
-			if(t.x != latest.x){
-				result.add(latest);
-			}
-			latest = t;
-		}
-		if(result.isEmpty() || result.get(result.size() - 1).x != latest.x) {
-			result.add(latest);
-		}
-		return result;
+	public static <T> TupleSequence<T> uniquifyIndex_takeLast(TupleSequence<T> sampleStream) {
+		return UniquifyPolicy.uniquifyIndex(sampleStream, LastIndexPolicy.class);
 	}
 
-	private static <T extends Comparable<T>> TupleSequence<T> uniquifyTimestamps_takeMinMaxValue(TupleSequence<T> sampleStream, boolean min) {
-		if(sampleStream.isEmpty())
-			return sampleStream;
-
-		TupleSequence<T> result = new TupleSequence<>();
-		long lastTimestamp = sampleStream.get(0).x;
-		T smallestValueInGroup = sampleStream.get(0).y;
-		boolean pending = true;
-		for(Tuple<Long, T> t : sampleStream) {
-			if(t.x == lastTimestamp){
-				pending = true;
-				if(min && smallestValueInGroup.compareTo(t.y) > 0 || !min && smallestValueInGroup.compareTo(t.y) < 0)
-					smallestValueInGroup = t.y;
-			} else {
-				result.add(new Tuple<>(lastTimestamp, smallestValueInGroup));
-				smallestValueInGroup = t.y;
-				lastTimestamp = t.x;
-				pending = true;
-			}
-		}
-
-		if(pending)
-			result.add(new Tuple<>(lastTimestamp, smallestValueInGroup));
-
-		return result;
+	/**
+	 * See {@link #uniquifyIndex_takeFirst}, except that the instance with the smallest value within a group of entries with the same timestamp will be taken.
+	 * @param sampleStream See {@link #uniquifyIndex_takeFirst}
+	 * @param <T> See {@link #uniquifyIndex_takeFirst}
+	 * @return See {@link #uniquifyIndex_takeFirst}
+	 */
+	public static <T extends Comparable<T>> TupleSequence<T> uniquifyIndex_takeMinValue(TupleSequence<T> sampleStream) {
+		return UniquifyPolicy.uniquifyIndex(sampleStream, MinValuePolicy.class);
 	}
 
 
 	/**
-	 * See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}, except that the instance with the smallest value within a group of entries with the same timestamp will be taken.
-	 * @param sampleStream See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
-	 * @param <T> See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
-	 * @return See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
+	 * See {@link #uniquifyIndex_takeFirst}, except that the instance with the biggest value within a group of entries with the same timestamp will be taken.
+	 * @param sampleStream See {@link #uniquifyIndex_takeFirst}
+	 * @param <T> See {@link #uniquifyIndex_takeFirst}
+	 * @return See {@link #uniquifyIndex_takeFirst}
 	 */
-	public static <T extends Comparable<T>> TupleSequence<T> uniquifyTimestamps_takeMinValue(TupleSequence<T> sampleStream) {
-		return uniquifyTimestamps_takeMinMaxValue(sampleStream, true);
-	}
-
-
-	/**
-	 * See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}, except that the instance with the biggest value within a group of entries with the same timestamp will be taken.
-	 * @param sampleStream See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
-	 * @param <T> See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
-	 * @return See {@link SampleCombinator.uniquifyTimestamps_takeFirst()}
-	 */
-	public static <T extends Comparable<T>> TupleSequence<T> uniquifyTimestamps_takeMaxValue(TupleSequence<T> sampleStream) {
-		return uniquifyTimestamps_takeMinMaxValue(sampleStream, false);
+	public static <T extends Comparable<T>> TupleSequence<T> uniquifyIndex_takeMaxValue(TupleSequence<T> sampleStream) {
+		return UniquifyPolicy.uniquifyIndex(sampleStream, MaxValuePolicy.class);
 	}
 }
 

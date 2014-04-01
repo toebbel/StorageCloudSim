@@ -37,7 +37,7 @@ class Min extends SampleCombinator {
 
 	@Override
 	protected void prepareStream(TupleSequence<Double> input){
-		SampleCombinator.uniquifyTimestamps_takeMinValue(input);
+		SampleCombinator.uniquifyIndex_takeMinValue(input);
 	}
 
 }

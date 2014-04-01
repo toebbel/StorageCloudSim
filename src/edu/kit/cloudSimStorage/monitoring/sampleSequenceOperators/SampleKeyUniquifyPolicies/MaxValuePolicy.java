@@ -1,14 +1,18 @@
 package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperators.SampleKeyUniquifyPolicies;
 
 import edu.kit.cloudSimStorage.monitoring.Tuple;
+import edu.kit.cloudSimStorage.monitoring.TupleSequence;
+
+import java.util.Collections;
 
 /**
  * @author Tobias Sturm, 4/1/14 12:02 PM
  */
-public class MaxValuePolicy<T> extends UniquifyPolicy<T>
+public class MaxValuePolicy<T extends Comparable<T>> extends UniquifyPolicy<T>
 {
 	@Override
 	protected Tuple<Long, T> choose() {
-		return elements.get(elements.size() - 1);
+		Collections.sort(elements, Tuple.<T>ValueComparator());
+		return elements.get(elements.size());
 	}
 }
