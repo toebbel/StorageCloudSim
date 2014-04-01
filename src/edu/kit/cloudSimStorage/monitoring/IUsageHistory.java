@@ -12,7 +12,7 @@ package edu.kit.cloudSimStorage.monitoring;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
 /** @author Tobias Sturm, 6/19/13 2:38 PM */
-public interface IUsageHistory extends TrackableResource{
+public interface IUsageHistory extends TraceableResource {
 	/**
 	 * Call for every download operation
 	 *

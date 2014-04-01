@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  * @author Tobias Sturm
  *         created at 4/29/13, 1:00 PM
  */
-public class StorageBroker extends SimEntity implements ILoggable, TrackableResource {
+public class StorageBroker extends SimEntity implements ILoggable, TraceableResource {
 
 	protected static final int WAIT_PROBE_INTERVAL = 500; //simulated ms
 
@@ -44,7 +44,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TrackableReso
 	public static final String NUM_TOTAL_REQUESTS = "# sent requests", NUM_REQUESTS_PER_SECOND = "# sent requests per second", NUM_REQUESTS_PER_MINUTE = "# sent requests per minute"; //to be delegated to EventTracker
 	public static final String NUM_TOTAL_SUCC_REQUESTS = "# succ requests", NUM_TOTAL_ACK_REQUESTS = "# acked requests", NUM_TOTAL_FAILED_REQUESTS = "# failed requests";
 	protected EventTracker<CloudRequest> cloudRequestTracker;
-	TrackableResourceAliasing trackableSubResources;
+	TraceableResourceAliasing trackableSubResources;
 
 
 	//for multi broker usage
@@ -65,7 +65,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TrackableReso
 
 		this.metaBrokerID = metaBroker;
 		init(associatedCloudID);
-		trackableSubResources = new TrackableResourceAliasing();
+		trackableSubResources = new TraceableResourceAliasing();
 
 		trackableSubResources.addMapping(NUM_TOTAL_REQUESTS, NUM_EVENTS_TOTAL, cloudRequestTracker);
 		trackableSubResources.addMapping(NUM_REQUESTS_PER_SECOND, NUM_EVENTS_PER_SECOND, cloudRequestTracker);

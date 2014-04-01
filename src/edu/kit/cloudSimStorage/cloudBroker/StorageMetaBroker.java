@@ -15,10 +15,10 @@ import edu.kit.cloudSimStorage.UsageSequence;
 import edu.kit.cloudSimStorage.cloudOperations.CloudDiscoverRequest;
 import edu.kit.cloudSimStorage.cloudOperations.CloudDiscoveryResponse;
 import edu.kit.cloudSimStorage.cloudOperations.CloudRequest;
+import edu.kit.cloudSimStorage.monitoring.TraceableResource;
+import edu.kit.cloudSimStorage.monitoring.TraceableResourceAliasing;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.EventTracker;
-import edu.kit.cloudSimStorage.monitoring.TrackableResource;
-import edu.kit.cloudSimStorage.monitoring.TrackableResourceAliasing;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.core.SimEntity;
 import org.cloudbus.cloudsim.core.SimEvent;
@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /** @author Tobias Sturm, 6/26/13 3:36 PM */
-public class StorageMetaBroker extends SimEntity implements TrackableResource {
+public class StorageMetaBroker extends SimEntity implements TraceableResource {
 
 	protected HashMap<Integer, Integer> sequenceToCloudMapping, cloudToBrokerMapping, sequenceToBrokerMapping;
 	protected List<StorageBroker> availableBrokers;
@@ -39,7 +39,7 @@ public class StorageMetaBroker extends SimEntity implements TrackableResource {
 	private static final String TOTAL_ACCPECTED_SEQUENCES = "total number of accpected sequences in metabroker";
 	private static final String TOTAL_DECLINED_SEQUENCES = "total number of declined sequences in metabroker";
 	protected EventTracker<DiscoveryState> declinedSequences, accepctedSequences;
-	protected TrackableResourceAliasing trackableSubResources;
+	protected TraceableResourceAliasing trackableSubResources;
 
 
 	/**
@@ -59,7 +59,7 @@ public class StorageMetaBroker extends SimEntity implements TrackableResource {
 		declinedSequences = new EventTracker<>("unsatisyable sequences", "fail tracker");
 		accepctedSequences = new EventTracker<>("accepcted sequences", "accept tracker");
 
-		trackableSubResources = new TrackableResourceAliasing();
+		trackableSubResources = new TraceableResourceAliasing();
 		trackableSubResources.addMapping(TOTAL_DECLINED_SEQUENCES, NUM_EVENTS_TOTAL, declinedSequences);
 		trackableSubResources.addMapping(TOTAL_ACCPECTED_SEQUENCES, NUM_EVENTS_TOTAL, accepctedSequences);
 	}
@@ -160,7 +160,7 @@ public class StorageMetaBroker extends SimEntity implements TrackableResource {
 		return trackableSubResources.getAvailableTrackingKeys();
 	}
 
-	public TrackableResource getStatsforCloudBroker(int cloudID) {
+	public TraceableResource getStatsforCloudBroker(int cloudID) {
 		return getBrokerWithID(cloudToBrokerMapping.get(cloudID));
 	}
 

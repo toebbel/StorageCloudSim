@@ -14,10 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /** @author Tobias Sturm, 9/10/13 9:41 PM */
-public class TrackableResourceCombinator implements TrackableResource {
-	List<TrackableResource> children = new ArrayList<>();
+public class TrackableResourceCombinator implements TraceableResource {
+	List<TraceableResource> children = new ArrayList<>();
 
-	public void addResource(TrackableResource r) {
+	public void addResource(TraceableResource r) {
 		for(String k : r.getAvailableTrackingKeys())
 			if(contains(k, getAvailableTrackingKeys()))
 				throw new IllegalStateException("Can't combine two trackable resources that offer the same key");
@@ -30,7 +30,7 @@ public class TrackableResourceCombinator implements TrackableResource {
 
 	@Override
 	public TupleSequence<Double> getSamples(String key) {
-		for(TrackableResource r : children) {
+		for(TraceableResource r : children) {
 			if(contains(key, r.getAvailableTrackingKeys()))
 				return r.getSamples(key);
 		}
@@ -40,7 +40,7 @@ public class TrackableResourceCombinator implements TrackableResource {
 	@Override
 	public String[] getAvailableTrackingKeys() {
 		List<String> keys = new ArrayList<>();
-		for(TrackableResource r : children) {
+		for(TraceableResource r : children) {
 			keys.addAll(Arrays.asList(r.getAvailableTrackingKeys()));
 		}
 		return keys.toArray(new String[0]);

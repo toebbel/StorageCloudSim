@@ -10,7 +10,7 @@
 package edu.kit.cloudSimStorage.monitoring;
 
 /** @author Tobias Sturm, 6/24/13 2:08 PM */
-public interface TrackableResource {
+public interface TraceableResource {
 
 	/**
 	 * Returns all samples that are collected under the given key.

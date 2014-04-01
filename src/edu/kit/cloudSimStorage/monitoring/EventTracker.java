@@ -17,7 +17,7 @@ import java.util.*;
 
 
 /** @author Tobias Sturm, 6/23/13 6:19 PM */
-public class EventTracker<T> implements TrackableResource {
+public class EventTracker<T> implements TraceableResource {
 	protected TupleSequence<T> events;
 
 	public final String eventNames;
@@ -62,11 +62,11 @@ public class EventTracker<T> implements TrackableResource {
 	public TupleSequence<Double> getSamples(String key) {
 		Collections.sort(events);
 		switch (key) {
-			case TrackableResource.NUM_EVENTS_TOTAL:
+			case TraceableResource.NUM_EVENTS_TOTAL:
 				return getTotalNumOfEvents();
-			case TrackableResource.NUM_EVENTS_PER_MINUTE:
+			case TraceableResource.NUM_EVENTS_PER_MINUTE:
 				return getEventsPerTime(60 * 1000);
-			case TrackableResource.NUM_EVENTS_PER_SECOND:
+			case TraceableResource.NUM_EVENTS_PER_SECOND:
 				return getEventsPerTime(1000);
 			default:
 				return new TupleSequence<>();

@@ -11,8 +11,8 @@ package edu.kit.cloudSimStorage.monitoring.report;
 
 import edu.kit.cloudSimStorage.StorageCloud;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
+import edu.kit.cloudSimStorage.monitoring.TraceableResource;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
-import edu.kit.cloudSimStorage.monitoring.TrackableResource;
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 
 import java.io.File;
@@ -46,7 +46,7 @@ public class GraphGenerator extends ReportGenerator{
 		(new File("buildTex.sh")).setExecutable(true);
 	}
 
-	private static void plotTrackableResourceSamples(TrackableResource resource, String key, StringBuilder texMake, File texDir) throws IOException {
+	private static void plotTrackableResourceSamples(TraceableResource resource, String key, StringBuilder texMake, File texDir) throws IOException {
 		TupleSequence<Double> samples = resource.getSamples(key);
 		if(samples == null || samples.isEmpty())
 			return;

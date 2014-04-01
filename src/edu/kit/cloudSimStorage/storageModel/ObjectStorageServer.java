@@ -12,10 +12,10 @@ package edu.kit.cloudSimStorage.storageModel;
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
 import edu.kit.cloudSimStorage.cdmi.CdmiId;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
+import edu.kit.cloudSimStorage.monitoring.TraceableResource;
+import edu.kit.cloudSimStorage.monitoring.TraceableResourceAliasing;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
-import edu.kit.cloudSimStorage.monitoring.TrackableResource;
-import edu.kit.cloudSimStorage.monitoring.TrackableResourceAliasing;
 import edu.kit.cloudSimStorage.storageModel.resourceUtilization.TimeawareResourceLimitation;
 import org.cloudbus.cloudsim.core.CloudSim;
 
@@ -41,7 +41,7 @@ import static edu.kit.cloudSimStorage.helper.FileSizeHelper.Magnitude.BYTE;
  * Date: 4/26/13
  * Time: 2:24 PM
  */
-public class ObjectStorageServer implements TrackableResource {
+public class ObjectStorageServer implements TraceableResource {
 	/**
 	 * The system-wide unique simulation intern id
 	 * <p/>
@@ -54,7 +54,7 @@ public class ObjectStorageServer implements TrackableResource {
 	private HashMap<String, IObjectStorageDrive> harddrives;
 
 	private StorageUsageHistory totalUsage;
-	private TrackableResourceAliasing trackableSubResources;
+	private TraceableResourceAliasing trackableSubResources;
 
 	private HashMap<CdmiId, List<IObjectStorageDrive>> objectDriveMapping;
 	private long currentCapacity;
@@ -72,7 +72,7 @@ public class ObjectStorageServer implements TrackableResource {
 		this.id = id;
 		this.ioLimitations = ioLimits;
 		totalUsage = new StorageUsageHistory(rootUrl + " " + id, BYTE);
-		trackableSubResources = new TrackableResourceAliasing();
+		trackableSubResources = new TraceableResourceAliasing();
 		trackableSubResources.addMapping(AVAILABLE_STORAGE_PHYICAL, AVAILABLE_STORAGE, totalUsage);
 		trackableSubResources.addMapping(USED_STORAGE_PHYSICAL_ABS, USED_STORAGE_ABS, totalUsage);
 		trackableSubResources.addMapping(USED_STORAGE_PERCENTAGE_PHYSICAL, USED_STORAGE_PERCENTAGE, totalUsage);

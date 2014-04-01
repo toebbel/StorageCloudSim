@@ -12,10 +12,10 @@ package edu.kit.cloudSimStorage.monitoring;
 import java.util.HashMap;
 
 /**
- * This class can be used if one {@link TrackableResource} delegates different offered external tracking keys to multiple children-resources, that deal with different (internal) keys.
+ * This class can be used if one {@link TraceableResource} delegates different offered external tracking keys to multiple children-resources, that deal with different (internal) keys.
  * @author Tobias Sturm, 9/10/13 9:54 PM */
-public class TrackableResourceAliasing implements TrackableResource {
-	private HashMap<String, TrackableResource> externalKeyResourceMapping = new HashMap<>();
+public class TraceableResourceAliasing implements TraceableResource {
+	private HashMap<String, TraceableResource> externalKeyResourceMapping = new HashMap<>();
 	private HashMap<String, String> externalKeyInternalKeyMapping = new HashMap<>();
 
 
@@ -25,7 +25,7 @@ public class TrackableResourceAliasing implements TrackableResource {
 	 * @param internalKey the key that is offered by the child resource (r)
 	 * @param r the child resource
 	 */
-	public void addMapping(String externalKey, String internalKey, TrackableResource r) {
+	public void addMapping(String externalKey, String internalKey, TraceableResource r) {
 		if(externalKeyResourceMapping.containsKey(externalKey) || externalKeyInternalKeyMapping.containsKey(externalKey))
 			throw new IllegalStateException("External key already registered");
 		externalKeyResourceMapping.put(externalKey, r);

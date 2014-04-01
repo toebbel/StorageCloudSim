@@ -15,7 +15,7 @@ import edu.kit.cloudSimStorage.helper.TimeHelper;
 import static edu.kit.cloudSimStorage.helper.FileSizeHelper.Magnitude;
 
 /** @author Tobias Sturm, 6/23/13 6:09 PM */
-public class StorageUsageHistory implements TrackableResource {
+public class StorageUsageHistory implements TraceableResource {
 
 	ResourceUsageHistory availableStorage, usedStorage;
 	Magnitude inputMagnitude;
@@ -23,8 +23,8 @@ public class StorageUsageHistory implements TrackableResource {
 	public StorageUsageHistory(String instanceName, Magnitude inputMagnitude) {
 		this.inputMagnitude = inputMagnitude;
 
-		availableStorage = new ResourceUsageHistory(TrackableResource.AVAILABLE_STORAGE, "Available storage on '" + instanceName + "'", "available storage", "Byte");
-		usedStorage = new ResourceUsageHistory(TrackableResource.USED_STORAGE_ABS, "Used storage on '" + instanceName + "'", "used storage", "Byte");
+		availableStorage = new ResourceUsageHistory(TraceableResource.AVAILABLE_STORAGE, "Available storage on '" + instanceName + "'", "available storage", "Byte");
+		usedStorage = new ResourceUsageHistory(TraceableResource.USED_STORAGE_ABS, "Used storage on '" + instanceName + "'", "used storage", "Byte");
 	}
 
 	public void setUsedStorage(long timestamp, long amount) {
@@ -100,7 +100,7 @@ public class StorageUsageHistory implements TrackableResource {
 
 	@Override
 	public String[] getAvailableTrackingKeys() {
-		return new String[]{TrackableResource.AVAILABLE_STORAGE, TrackableResource.USED_STORAGE_ABS, TrackableResource.USED_STORAGE_PERCENTAGE};
+		return new String[]{TraceableResource.AVAILABLE_STORAGE, TraceableResource.USED_STORAGE_ABS, TraceableResource.USED_STORAGE_PERCENTAGE};
 	}
 
 }

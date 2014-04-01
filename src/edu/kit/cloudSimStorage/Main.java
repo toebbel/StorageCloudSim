@@ -207,7 +207,7 @@ public class Main {
 		unaligned.add(ReportGenerator.removeDoublicateValues(SequenceOperations.sum(ackRequests), 5));
 		unaligned.add(ReportGenerator.removeDoublicateValues(SequenceOperations.sum(failedRequests), 5));
 		unaligned.add(ReportGenerator.removeDoublicateValues(SequenceOperations.sum(succRequests), 5));
-		unaligned.add(ReportGenerator.removeDoublicateValues(meta.getSamples(TrackableResource.NUM_EVENTS_TOTAL)));
+		unaligned.add(ReportGenerator.removeDoublicateValues(meta.getSamples(TraceableResource.NUM_EVENTS_TOTAL)));
 		List<String> labels = new ArrayList<>();
 		labels.add("acked requests");
 		labels.add("failed requests");
@@ -219,7 +219,7 @@ public class Main {
 		List<TupleSequence<Double>> cloudEarnings = new ArrayList<>();
 		labels = new ArrayList<>();
 		for(StorageCloud cloud : clouds) {
-			cloudEarnings.add(ReportGenerator.removeDoublicateValues(ReportGenerator.roundTo(cloud.getSamples(TrackableResource.TOTAL_EARNINGS), 2), 0.01));
+			cloudEarnings.add(ReportGenerator.removeDoublicateValues(ReportGenerator.roundTo(cloud.getSamples(TraceableResource.TOTAL_EARNINGS), 2), 0.01));
 			labels.add(cloud.getName());
 		}
 		CSVGenerator.writeTrackSequence(outputDir, "earnings", labels, cloudEarnings);

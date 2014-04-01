@@ -11,9 +11,9 @@ package edu.kit.cloudSimStorage.monitoring.report;
 
 import edu.kit.cloudSimStorage.cloudOperations.CloudRequest;
 import edu.kit.cloudSimStorage.StorageCloud;
+import edu.kit.cloudSimStorage.monitoring.TraceableResource;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.OperationTimeTraceSample;
-import edu.kit.cloudSimStorage.monitoring.TrackableResource;
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 
 import java.io.File;
@@ -71,7 +71,7 @@ public class CSVGenerator extends ReportGenerator {
 		writeToFile(rootDir, cloudName + "OperationTrace" + FILE_EXTENTION, b.toString());
 	}
 
-	public static void printTrackableObject(File rootDir, String prefix, TrackableResource resource) throws IOException {
+	public static void printTrackableObject(File rootDir, String prefix, TraceableResource resource) throws IOException {
 		for(String key : resource.getAvailableTrackingKeys()) {
 			TupleSequence<Double> samples = resource.getSamples(key);
 			if(samples == null)

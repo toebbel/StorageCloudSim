@@ -13,9 +13,8 @@ import edu.kit.cloudSimStorage.helper.FileSizeHelper;
 import edu.kit.cloudSimStorage.exceptions.EntityAlreadyExistsException;
 import edu.kit.cloudSimStorage.exceptions.EntityNameException;
 import edu.kit.cloudSimStorage.exceptions.EntityNotFoundException;
-import edu.kit.cloudSimStorage.helper.TimeHelper;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
-import edu.kit.cloudSimStorage.monitoring.TrackableResource;
+import edu.kit.cloudSimStorage.monitoring.TraceableResource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +30,7 @@ import java.util.List;
  * Date: 4/26/13
  * Time: 12:58 PM
  */
-public abstract class CdmiContainer<T extends CdmiEntity> extends CdmiEntity implements TrackableResource {
+public abstract class CdmiContainer<T extends CdmiEntity> extends CdmiEntity implements TraceableResource {
 	protected Hashtable<CdmiId, T> children;
 	protected Hashtable<String, CdmiId> childrenNameIdMapping;
 	protected CdmiMetadata metadata;

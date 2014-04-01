@@ -13,8 +13,8 @@ import edu.kit.cloudSimStorage.StorageCloud;
 import edu.kit.cloudSimStorage.UsageSequence;
 import edu.kit.cloudSimStorage.cloudBroker.StorageBroker;
 import edu.kit.cloudSimStorage.helper.FileSizeHelper;
+import edu.kit.cloudSimStorage.monitoring.TraceableResource;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
-import edu.kit.cloudSimStorage.monitoring.TrackableResource;
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 
 import java.io.BufferedWriter;
@@ -58,30 +58,30 @@ public abstract class ReportGenerator {
 	 */
 	protected static Tuple<String, TupleSequence<String>> format(TupleSequence<Double> raw, String key) {
 		switch (key) {
-			case TrackableResource.TRAFFIC:
-			case TrackableResource.USED_BANDWIDTH:
+			case TraceableResource.TRAFFIC:
+			case TraceableResource.USED_BANDWIDTH:
 				return new Tuple<>(key + " in MegaByte", toString(roundTo(changeFileMagnitude(raw, FileSizeHelper.Magnitude.MEGA_BYTE), 0)));
-			case TrackableResource.TOTAL_EARNINGS:
-			case TrackableResource.DEBTS:
+			case TraceableResource.TOTAL_EARNINGS:
+			case TraceableResource.DEBTS:
 				return new Tuple<>(key + " in $", toString(roundTo(changeMagnitude(raw, 0.01), 4)));
-			case TrackableResource.USED_STORAGE_PERCENTAGE:
-			case TrackableResource.USED_BANDWIDTH_PERCENTAGE:
-			case TrackableResource.USED_STORAGE_PERCENTAGE_PHYSICAL:
-			case TrackableResource.USED_STORAGE_PERCENTAGE_VIRTUAL:
+			case TraceableResource.USED_STORAGE_PERCENTAGE:
+			case TraceableResource.USED_BANDWIDTH_PERCENTAGE:
+			case TraceableResource.USED_STORAGE_PERCENTAGE_PHYSICAL:
+			case TraceableResource.USED_STORAGE_PERCENTAGE_VIRTUAL:
 				return new Tuple<>(key + " in % ", toString(roundTo(changeMagnitude(raw, 100), 2)));
-			case TrackableResource.NUM_REQUESTS_LIST:
-			case TrackableResource.NUM_REQUESTS:
-			case TrackableResource.NUM_REQUESTS_OTHER:
+			case TraceableResource.NUM_REQUESTS_LIST:
+			case TraceableResource.NUM_REQUESTS:
+			case TraceableResource.NUM_REQUESTS_OTHER:
 			case StorageBroker.NUM_TOTAL_REQUESTS:
 				return new Tuple<>("total " + key, toString(raw));
-			case TrackableResource.NUM_REQUESTS_LIST_PER_SECOND:
-			case TrackableResource.NUM_REQUESTS_PER_SECOND:
-			case TrackableResource.NUM_REQUESTS_OTHER_PER_SECOND:
+			case TraceableResource.NUM_REQUESTS_LIST_PER_SECOND:
+			case TraceableResource.NUM_REQUESTS_PER_SECOND:
+			case TraceableResource.NUM_REQUESTS_OTHER_PER_SECOND:
 			case StorageBroker.NUM_REQUESTS_PER_SECOND:
 				return new Tuple<>("requests per second " + key, toString(raw));
-			case TrackableResource.NUM_REQUESTS_LIST_PER_MINUTE:
-			case TrackableResource.NUM_REQUESTS_PER_MINUTE:
-			case TrackableResource.NUM_REQUESTS_OTHER_PER_MINUTE:
+			case TraceableResource.NUM_REQUESTS_LIST_PER_MINUTE:
+			case TraceableResource.NUM_REQUESTS_PER_MINUTE:
+			case TraceableResource.NUM_REQUESTS_OTHER_PER_MINUTE:
 			case StorageBroker.NUM_REQUESTS_PER_MINUTE:
 				return new Tuple<>("requests per minute " + key, toString(raw));
 			default:

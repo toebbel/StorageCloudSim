@@ -35,7 +35,7 @@ import static edu.kit.cloudSimStorage.helper.FileSizeHelper.toHumanReadable;
  * Date: 4/26/13
  * Time: 2:20 PM
  */
-public class StorageCloud extends SimEntity implements TrackableResource, ILoggable {
+public class StorageCloud extends SimEntity implements TraceableResource, ILoggable {
 	private Logger logger;
 
 	private final CdmiCloudCharacteristics characteristics;

@@ -15,7 +15,7 @@ import edu.kit.cloudSimStorage.helper.TimeHelper;
 import java.util.Collections;
 
 /** @author Tobias Sturm, 6/23/13 5:43 PM */
-public class ResourceUsageHistory implements TrackableResource {
+public class ResourceUsageHistory implements TraceableResource {
 	private String trackingKey;
 	public final String yAxis;
 	public final String units;

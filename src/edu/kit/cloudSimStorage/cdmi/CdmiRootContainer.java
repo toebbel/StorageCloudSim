@@ -11,9 +11,9 @@ package edu.kit.cloudSimStorage.cdmi;
 
 import edu.kit.cloudSimStorage.helper.FileSizeHelper;
 import edu.kit.cloudSimStorage.exceptions.EntityNameException;
+import edu.kit.cloudSimStorage.monitoring.TraceableResource;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
-import edu.kit.cloudSimStorage.monitoring.TrackableResource;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
 
 import java.util.ArrayList;
@@ -84,11 +84,11 @@ public class CdmiRootContainer extends CdmiContainer<CdmiObjectContainer> {
 			case AVAILABLE_STORAGE_PHYICAL:
 			case USED_STORAGE_PHYSICAL_ABS:
 			case USED_STORAGE_VIRTUAL_ABS:
-				for(TrackableResource c : getChildren().values())
+				for(TraceableResource c : getChildren().values())
 					sampleStreams.add(c.getSamples(key));
 				return SequenceOperations.sum(sampleStreams);
 			case AVAILABLE_STORAGE_VIRTUAL:
-				for(TrackableResource c : getChildren().values())
+				for(TraceableResource c : getChildren().values())
 					sampleStreams.add(c.getSamples(key));
 				sampleStreams.add(SequenceOperations.sum(sampleStreams));
 				sampleStreams.add(virtualStorageHistory.getSamples(AVAILABLE_STORAGE));

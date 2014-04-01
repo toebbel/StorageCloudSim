@@ -10,9 +10,9 @@
 package edu.kit.cloudSimStorage.cdmi;
 
 import edu.kit.cloudSimStorage.helper.FileSizeHelper;
+import edu.kit.cloudSimStorage.monitoring.TraceableResourceAliasing;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.StorageUsageHistory;
-import edu.kit.cloudSimStorage.monitoring.TrackableResourceAliasing;
 import edu.kit.cloudSimStorage.policies.DefaultObjectToServerAllocation;
 import edu.kit.cloudSimStorage.storageModel.DiskProbeType;
 import edu.kit.cloudSimStorage.storageModel.StorageBlobLocation;
@@ -44,7 +44,7 @@ public class CdmiObjectContainer extends CdmiContainer<CdmiDataObject> {
 	/** A list of all servers, this container can store storedObjects on. The key is the SimEntity ID of the server */
 	protected HashMap<String, ObjectStorageServer> associatedServers;
 
-	TrackableResourceAliasing trackableSubResources;
+	TraceableResourceAliasing trackableSubResources;
 	protected StorageUsageHistory physicalStorageHistory;
 
 //    /**
@@ -63,7 +63,7 @@ public class CdmiObjectContainer extends CdmiContainer<CdmiDataObject> {
 	public CdmiObjectContainer(CdmiRootContainer root, String name, CdmiMetadata metadata) {
 		super(root);
 
-		trackableSubResources = new TrackableResourceAliasing();
+		trackableSubResources = new TraceableResourceAliasing();
 		trackableSubResources.addMapping(AVAILABLE_STORAGE_VIRTUAL, AVAILABLE_STORAGE, virtualStorageHistory);
 		trackableSubResources.addMapping(USED_STORAGE_VIRTUAL_ABS, USED_STORAGE_ABS, virtualStorageHistory);
 		trackableSubResources.addMapping(AVAILABLE_STORAGE_PHYICAL, AVAILABLE_STORAGE, physicalStorageHistory);
