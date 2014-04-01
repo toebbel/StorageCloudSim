@@ -7,22 +7,21 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.request;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
 /**
- * Requests a container from the cloud.
+ * Requests a DELETE container
  *
- * Response is modeled with {@link edu.kit.cloudSimStorage.cloudOperations.GetContainerResponse}
- * @author Tobias Sturm, 5/27/13 4:29 PM */
-public class GetContainerRequest extends CloudRequest {
+ * Response is modeled with a generic {@link edu.kit.cloudSimStorage.cloudOperations.response.CloudResponse}
+ * @author Tobias Sturm, 6/5/13 3:11 PM */
+public class DeleteContainerRequest extends CloudRequest {
 
 	private String containerName;
 
-	public GetContainerRequest(String rootUrl, String containerName, int user) {
-		super(CdmiOperationVerbs.GET, rootUrl + containerName, user, 0, CloudRequest.GET);
-
+	public DeleteContainerRequest(String containerName, int user) {
+		super(CdmiOperationVerbs.DELETE, containerName, user, 0, DELETE);
 		this.containerName = containerName;
 	}
 
@@ -30,8 +29,4 @@ public class GetContainerRequest extends CloudRequest {
 		return containerName;
 	}
 
-	@Override
-	public String toString() {
-		return "GET " + containerName + " (get container of user " + user + ")";
-	}
 }

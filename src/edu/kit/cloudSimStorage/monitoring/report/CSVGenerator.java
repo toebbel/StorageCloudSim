@@ -9,7 +9,7 @@
  */
 package edu.kit.cloudSimStorage.monitoring.report;
 
-import edu.kit.cloudSimStorage.cloudOperations.CloudRequest;
+import edu.kit.cloudSimStorage.cloudOperations.request.CloudRequest;
 import edu.kit.cloudSimStorage.StorageCloud;
 import edu.kit.cloudSimStorage.monitoring.TraceableResource;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;

@@ -13,7 +13,9 @@ import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import edu.kit.cloudSimStorage.StorageCloud;
 import edu.kit.cloudSimStorage.cdmi.CdmiId;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
-import edu.kit.cloudSimStorage.cloudOperations.*;
+import edu.kit.cloudSimStorage.cloudOperations.request.*;
+import edu.kit.cloudSimStorage.cloudOperations.response.CloudDiscoveryResponse;
+import edu.kit.cloudSimStorage.cloudOperations.response.CloudResponse;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.*;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SampleFilter;
@@ -41,8 +43,8 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 	//for monitoring
 	protected Logger logger;
 	protected EventTracker<CdmiOperationVerbs> failedRequestsTracker, succRequestTracker, ackRequestTracker;
-	public static final String NUM_TOTAL_REQUESTS = "# sent requests", NUM_REQUESTS_PER_SECOND = "# sent requests per second", NUM_REQUESTS_PER_MINUTE = "# sent requests per minute"; //to be delegated to EventTracker
-	public static final String NUM_TOTAL_SUCC_REQUESTS = "# succ requests", NUM_TOTAL_ACK_REQUESTS = "# acked requests", NUM_TOTAL_FAILED_REQUESTS = "# failed requests";
+	public static final String NUM_TOTAL_REQUESTS = "# sent request", NUM_REQUESTS_PER_SECOND = "# sent request per second", NUM_REQUESTS_PER_MINUTE = "# sent request per minute"; //to be delegated to EventTracker
+	public static final String NUM_TOTAL_SUCC_REQUESTS = "# succ request", NUM_TOTAL_ACK_REQUESTS = "# acked request", NUM_TOTAL_FAILED_REQUESTS = "# failed request";
 	protected EventTracker<CloudRequest> cloudRequestTracker;
 	TraceableResourceAliasing trackableSubResources;
 
@@ -100,10 +102,10 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 		waitingForOperation = "";
 		waitingForDiscovery = false;
 
-		cloudRequestTracker = new EventTracker<>("broker requests", "broker request tracker");
-		failedRequestsTracker = new EventTracker<>("failed requests", "broker failed requests tracker");
-		ackRequestTracker = new EventTracker<>("acked requests", "broker ack requests tracker");
-		succRequestTracker = new EventTracker<>("succeeded requests", "broker succ requests tracker");
+		cloudRequestTracker = new EventTracker<>("broker request", "broker request tracker");
+		failedRequestsTracker = new EventTracker<>("failed request", "broker failed request tracker");
+		ackRequestTracker = new EventTracker<>("acked request", "broker ack request tracker");
+		succRequestTracker = new EventTracker<>("succeeded request", "broker succ request tracker");
 	}
 
 	/**
@@ -142,7 +144,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 	}
 
 	/**
-	 * Starts a new request, starts the trace timer and adds it to the list of running requests
+	 * Starts a new request, starts the trace timer and adds it to the list of running request
 	 *
 	 * Checks if this request has already been started.
 	 * Creates a log entry
@@ -172,7 +174,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 
 		//get next request
 		UserRequest req = userRequests.remove();
-		while(req == null && !userRequests.isEmpty()) //throw away all null requests in queue
+		while(req == null && !userRequests.isEmpty()) //throw away all null request in queue
 			req = userRequests.remove();
 
 		//create Cloud request out of the user request
@@ -229,7 +231,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 
 	@Override
 	public void processEvent(SimEvent ev) {
-		//for pause user requests
+		//for pause user request
 		if (ev.getSource() == getId()) {
 			if (ev.getType() == CloudSimTags.CLOUDLET_PAUSE_ACK)
 				startNextOperation();
@@ -266,7 +268,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 	/**
 	 * This method is called whenever an operation returned from the Cloud.
 	 *
-	 * The request is taken out of the list of running requests, the trace timers are set.
+	 * The request is taken out of the list of running request, the trace timers are set.
 	 * The next operation will be started with respect to any blocking states
 	 * @param opId
 	 */
@@ -337,7 +339,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 
 	/**
 	 * Returns a list of all {@link CloudRequest}, that have been sent
-	 * @return all cloud requests
+	 * @return all cloud request
 	 */
 	public List<CloudRequest> getCloudRequestTraces() {
 		return cloudRequestTracker.getTraces();
@@ -346,7 +348,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 	/**
 	 * Returns a list of all {@link CloudRequest}, that have been sent and match the given {@link CdmiOperationVerbs}
 	 * @param verb the verb of interest
-	 * @return all cloud requests
+	 * @return all cloud request
 	 */
 	public List<CloudRequest> getCloudRequestTraces(final CdmiOperationVerbs verb) {
 		return cloudRequestTracker.getTracesWhere(SampleFilter.cdmiVerbFilter(verb));

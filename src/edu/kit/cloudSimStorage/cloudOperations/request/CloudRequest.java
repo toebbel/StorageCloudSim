@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.request;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 import edu.kit.cloudSimStorage.monitoring.OperationTimeTraceSample;
@@ -29,7 +29,7 @@ public class CloudRequest extends OperationTimeTraceSample {
 	/** The transfer size from and to the StorageCloud that is associated with this associatedRequest */
 	protected long size;
 
-	/** The string that requests the resource to PUT/DELETE/GET */
+	/** The string that request the resource to PUT/DELETE/GET */
 	protected String requestString;
 
 	/** The CDMI operation verb */
@@ -54,7 +54,7 @@ public class CloudRequest extends OperationTimeTraceSample {
 	}
 
 	/**
-	 * The string that requests the resource to PUT/DELETE/GET
+	 * The string that request the resource to PUT/DELETE/GET
 	 *
 	 * @return request string
 	 */

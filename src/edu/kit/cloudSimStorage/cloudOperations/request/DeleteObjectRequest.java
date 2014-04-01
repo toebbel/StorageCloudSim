@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.request;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiId;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
@@ -15,21 +15,21 @@ import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 /**
  * Requests a DELETE object
  *
- * Response is modeled with a generic {@link edu.kit.cloudSimStorage.cloudOperations.CloudResponse}
+ * Response is modeled with a generic {@link edu.kit.cloudSimStorage.cloudOperations.response.CloudResponse}
  * @author Tobias Sturm, 6/5/13 3:09 PM */
 public class DeleteObjectRequest extends CloudRequest {
 	private String objectName, containerName;
 	private CdmiId cdmiID;
 
 	public DeleteObjectRequest(String container, String objectName, int user) {
-		super(CdmiOperationVerbs.DELETE, container + "/" + objectName, user, 0, CloudRequest.DELETE);
+		super(CdmiOperationVerbs.DELETE, container + "/" + objectName, user, 0, DELETE);
 		this.objectName = objectName;
 		this.containerName = container;
 		cdmiID = CdmiId.UNKNOWN;
 	}
 
 	public DeleteObjectRequest(String cdmiId, int user) {
-		super(CdmiOperationVerbs.DELETE, "cdmi_objectid/" + cdmiId, user, 0, CloudRequest.DELETE); //TODO correct CMDI syntax here
+		super(CdmiOperationVerbs.DELETE, "cdmi_objectid/" + cdmiId, user, 0, DELETE); //TODO correct CMDI syntax here
 		this.cdmiID = new CdmiId(cdmiId);
 		this.containerName = "";
 	}

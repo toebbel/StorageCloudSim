@@ -7,12 +7,13 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.response;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiObjectContainer;
+import edu.kit.cloudSimStorage.cloudOperations.request.PutContainerRequest;
 
 /**
- * Response for a {@link edu.kit.cloudSimStorage.cloudOperations.PutContainerRequest}
+ * Response for a {@link edu.kit.cloudSimStorage.cloudOperations.request.PutContainerRequest}
  *
  * @author Tobias Sturm, 5/22/13 2:52 PM */
 public class PutContainerResponse extends CloudResponse<PutContainerRequest> {

@@ -49,15 +49,15 @@ public interface TraceableResource {
 	public static final String TOTAL_EARNINGS = "total earnings";
 
 	public static final String TRAFFIC = "traffic";
-	public static final String NUM_REQUESTS = "# requests";
-	public static final String NUM_REQUESTS_PER_MINUTE = "# requests per minute";
-	public static final String NUM_REQUESTS_PER_SECOND = "# requests per second";
-	public static final String NUM_REQUESTS_LIST = "# list requests";
-	public static final String NUM_REQUESTS_LIST_PER_MINUTE = "# list requests per minute";
-	public static final String NUM_REQUESTS_LIST_PER_SECOND = "# list requests per second";
-	public static final String NUM_REQUESTS_OTHER = "# other requests";
-	public static final String NUM_REQUESTS_OTHER_PER_MINUTE = "# other requests per minute";
-	public static final String NUM_REQUESTS_OTHER_PER_SECOND = "# other requests per second";
+	public static final String NUM_REQUESTS = "# request";
+	public static final String NUM_REQUESTS_PER_MINUTE = "# request per minute";
+	public static final String NUM_REQUESTS_PER_SECOND = "# request per second";
+	public static final String NUM_REQUESTS_LIST = "# list request";
+	public static final String NUM_REQUESTS_LIST_PER_MINUTE = "# list request per minute";
+	public static final String NUM_REQUESTS_LIST_PER_SECOND = "# list request per second";
+	public static final String NUM_REQUESTS_OTHER = "# other request";
+	public static final String NUM_REQUESTS_OTHER_PER_MINUTE = "# other request per minute";
+	public static final String NUM_REQUESTS_OTHER_PER_SECOND = "# other request per second";
 	public static final String TRAFFIC_DOWNLOAD = "traffic (download)";
 	public static final String TRAFFIC_UPLOAD = "traffic (upload)";
 

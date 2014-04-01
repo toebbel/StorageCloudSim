@@ -78,12 +78,12 @@ public abstract class ReportGenerator {
 			case TraceableResource.NUM_REQUESTS_PER_SECOND:
 			case TraceableResource.NUM_REQUESTS_OTHER_PER_SECOND:
 			case StorageBroker.NUM_REQUESTS_PER_SECOND:
-				return new Tuple<>("requests per second " + key, toString(raw));
+				return new Tuple<>("request per second " + key, toString(raw));
 			case TraceableResource.NUM_REQUESTS_LIST_PER_MINUTE:
 			case TraceableResource.NUM_REQUESTS_PER_MINUTE:
 			case TraceableResource.NUM_REQUESTS_OTHER_PER_MINUTE:
 			case StorageBroker.NUM_REQUESTS_PER_MINUTE:
-				return new Tuple<>("requests per minute " + key, toString(raw));
+				return new Tuple<>("request per minute " + key, toString(raw));
 			default:
 				return new Tuple<>(key + " in GigaByte", toString(roundTo(changeFileMagnitude(raw, FileSizeHelper.Magnitude.GIGA_BYTE), 4)));
 		}

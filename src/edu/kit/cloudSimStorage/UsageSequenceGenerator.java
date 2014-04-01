@@ -53,7 +53,7 @@ public class UsageSequenceGenerator {
 	}
 
 	/**
-	 * Sets the distribution for delays between two requests
+	 * Sets the distribution for delays between two request
 	 * @param dist distribution of wait times in ms
 	 * @return instance of this UsageGenerator
 	 */

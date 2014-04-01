@@ -26,7 +26,7 @@ public class UsageSequence implements ILoggable {
 	@Element(name="SLA")
 	private StorageCloudSLARequest SLA;
 
-	@ElementList(name="requests")
+	@ElementList(name="request")
 	private List<UserRequest> requests;
 
 	@Attribute(name="sequenceID")
@@ -40,7 +40,7 @@ public class UsageSequence implements ILoggable {
 		return Logger.getLogger(LOGGER_PREFIX + sequenceID);
 	}
 
-	public UsageSequence(@Attribute(name="sequenceID") int sequenceID, @Element(name="SLA") StorageCloudSLARequest SLA, @ElementList(name="requests") List<UserRequest> userRequests) {
+	public UsageSequence(@Attribute(name="sequenceID") int sequenceID, @Element(name="SLA") StorageCloudSLARequest SLA, @ElementList(name="request") List<UserRequest> userRequests) {
 		this.SLA = SLA;
 		this.id = sequenceID;
 		this.requests = userRequests;

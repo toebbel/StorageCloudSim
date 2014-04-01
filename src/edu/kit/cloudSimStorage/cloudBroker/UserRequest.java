@@ -164,7 +164,7 @@ public class UserRequest {
 	 * The parameter will be modified directly, as well as returned
 	 *
 	 * @param request the request that shall be a blocking call
-	 * @return the modified requests
+	 * @return the modified request
 	 */
 	public static UserRequest blocking(UserRequest request) {
 		assert request.getOpCode() != PAUSE;

@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.request;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
@@ -17,7 +17,7 @@ import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
  *
  * Containers can't be nested, therefore every container is created as direct child of the user's root contianer
  *
- * Response is modeled as {@link edu.kit.cloudSimStorage.cloudOperations.PutContainerResponse}
+ * Response is modeled as {@link edu.kit.cloudSimStorage.cloudOperations.response.PutContainerResponse}
  *
  * @author Tobias Sturm, 5/22/13 2:23 PM */
 public class PutContainerRequest extends CloudRequest {
@@ -25,7 +25,7 @@ public class PutContainerRequest extends CloudRequest {
 	protected String containerName;
 
 	public PutContainerRequest(String containerName, CdmiMetadata metadata, int user) {
-		super(CdmiOperationVerbs.PUT, "/" + containerName + "/", user, 0, CloudRequest.PUT);
+		super(CdmiOperationVerbs.PUT, "/" + containerName + "/", user, 0, PUT);
 		this.containerName = containerName;
 		this.metadata = metadata;
 	}

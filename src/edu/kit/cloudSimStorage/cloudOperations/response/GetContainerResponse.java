@@ -7,14 +7,15 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.response;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
+import edu.kit.cloudSimStorage.cloudOperations.request.GetContainerRequest;
 
 import java.util.List;
 
 /**
- * Models the response of a {@link edu.kit.cloudSimStorage.cloudOperations.GetContainerRequest}
+ * Models the response of a {@link edu.kit.cloudSimStorage.cloudOperations.request.GetContainerRequest}
  *
  * The response contains the metadata of a container. The list of children is optional.
  *

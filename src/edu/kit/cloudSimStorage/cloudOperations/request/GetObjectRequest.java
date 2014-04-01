@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.request;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiId;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
@@ -15,7 +15,7 @@ import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 /**
  * Requests an object from the Cloud.
  *
- * Response is modeled in {@link edu.kit.cloudSimStorage.cloudOperations.GetObjectResponse}
+ * Response is modeled in {@link edu.kit.cloudSimStorage.cloudOperations.response.GetObjectResponse}
  * @author Tobias Sturm, 5/27/13 4:31 PM */
 public class GetObjectRequest extends CloudRequest {
 	public CdmiId getRequestedID() {
@@ -35,7 +35,7 @@ public class GetObjectRequest extends CloudRequest {
 	String requestedContainer;
 
 	public GetObjectRequest(String rootUrl, String containerName, String objectName, int user) {
-		super(CdmiOperationVerbs.GET, rootUrl + containerName + objectName, user, 0, CloudRequest.GET);
+		super(CdmiOperationVerbs.GET, rootUrl + containerName + objectName, user, 0, GET);
 		requestedContainer = containerName;
 		requestedName = objectName;
 		requestedID = CdmiId.UNKNOWN;
@@ -43,7 +43,7 @@ public class GetObjectRequest extends CloudRequest {
 	}
 
 	public GetObjectRequest(String rootUrl, String objectID, int user) {
-		super(CdmiOperationVerbs.GET, rootUrl + "object_by_id/" + objectID, user, 0, CloudRequest.GET);
+		super(CdmiOperationVerbs.GET, rootUrl + "object_by_id/" + objectID, user, 0, GET);
 		requestedName = requestedContainer = "";
 		requestedID = new CdmiId(objectID);
 	}

@@ -7,25 +7,27 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
+import edu.kit.cloudSimStorage.cloudOperations.request.PutObjectRequest;
+import edu.kit.cloudSimStorage.cloudOperations.response.PutObjectResponse;
 import edu.kit.cloudSimStorage.storageModel.StorageBlobLocation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Cloud internal representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.PutObjectRequest}
+ * Cloud internal representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.request.PutObjectRequest}
  *
  * @author Tobias Sturm, 5/27/13 5:01 PM */
-public class PutObjectScheduleEntry extends CloudScheduleEntry<PutObjectRequest> {
+public class PutObjectRequestState extends CloudRequestState<PutObjectRequest> {
 
 	CdmiDataObject object;
 	PutObjectRequestType type;
 	private List<StorageBlobLocation> usedLocations;
 
-	public PutObjectScheduleEntry(PutObjectRequest request, int requestor) {
+	public PutObjectRequestState(PutObjectRequest request, int requestor) {
 		super(request, requestor);
 		usedLocations = new ArrayList<>();
 	}

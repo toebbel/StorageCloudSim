@@ -7,23 +7,26 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiId;
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
+import edu.kit.cloudSimStorage.cloudOperations.response.CloudResponse;
+import edu.kit.cloudSimStorage.cloudOperations.request.GetContainerRequest;
+import edu.kit.cloudSimStorage.cloudOperations.response.GetContainerResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Cloud internal representation of a {@link edu.kit.cloudSimStorage.cloudOperations.GetContainerRequest}
+ * Cloud internal representation of a {@link edu.kit.cloudSimStorage.cloudOperations.request.GetContainerRequest}
  *
  * @author Tobias Sturm, 6/5/13 5:41 PM */
-public class GetContainerScheduleEntry extends CloudScheduleEntry<GetContainerRequest> {
+public class GetContainerRequestState extends CloudRequestState<GetContainerRequest> {
 	private CdmiMetadata metadata;
 	private List<CdmiId> childrenIDs;
 
-	public GetContainerScheduleEntry(GetContainerRequest request, int requestor) {
+	public GetContainerRequestState(GetContainerRequest request, int requestor) {
 		super(request, requestor);
 	}
 

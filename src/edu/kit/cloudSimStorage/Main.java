@@ -12,7 +12,9 @@ package edu.kit.cloudSimStorage;
 import edu.kit.cloudSimStorage.cloudBroker.StorageBroker;
 import edu.kit.cloudSimStorage.cloudBroker.StorageMetaBroker;
 import edu.kit.cloudSimStorage.cloudFactory.StorageCloudFactory;
-import edu.kit.cloudSimStorage.cloudOperations.*;
+import edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState.CloudRequestState;
+import edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState.GetObjectRequestState;
+import edu.kit.cloudSimStorage.cloudOperations.response.GetObjectResponse;
 import edu.kit.cloudSimStorage.helper.*;
 import edu.kit.cloudSimStorage.monitoring.*;
 import edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations.SequenceOperations;
@@ -167,7 +169,7 @@ public class Main {
 
 
 		//dump request statistics
-		FileWriter writer = new FileWriter(outputDir.getPath() + "/" + "requests.stats.csv");
+		FileWriter writer = new FileWriter(outputDir.getPath() + "/" + "request.stats.csv");
 		writer.write("started\tverb\tsize\tduration\tdelay\n");
 
 		for(StorageCloud c : clouds) {
@@ -176,13 +178,13 @@ public class Main {
 				writer.write("\t");
 			    writer.write(req.getDescriptor());
 				writer.write("\t");
-				if(((CloudScheduleEntry)req) instanceof GetObjectScheduleEntry )
-					if(((GetObjectResponse)(((GetObjectScheduleEntry)req).generateResponse())).getObject() != null)
-					writer.write(String.valueOf(((GetObjectResponse)(((GetObjectScheduleEntry)req).generateResponse())).getObject().getPhysicalSize()));
+				if(((CloudRequestState)req) instanceof GetObjectRequestState)
+					if(((GetObjectResponse)(((GetObjectRequestState)req).generateResponse())).getObject() != null)
+					writer.write(String.valueOf(((GetObjectResponse)(((GetObjectRequestState)req).generateResponse())).getObject().getPhysicalSize()));
 					else
 						writer.write("0");
 				else
-					writer.write(String.valueOf(((CloudScheduleEntry)req).getRequest().getSize()));
+					writer.write(String.valueOf(((CloudRequestState)req).getRequest().getSize()));
 				writer.write("\t");
 				writer.write(String.valueOf(req.getDuration()));
 				writer.write("\t");
@@ -209,10 +211,10 @@ public class Main {
 		unaligned.add(ReportGenerator.removeDoublicateValues(SequenceOperations.sum(succRequests), 5));
 		unaligned.add(ReportGenerator.removeDoublicateValues(meta.getSamples(TraceableResource.NUM_EVENTS_TOTAL)));
 		List<String> labels = new ArrayList<>();
-		labels.add("acked requests");
-		labels.add("failed requests");
-		labels.add("succ requests");
-		labels.add("declined requests");
+		labels.add("acked request");
+		labels.add("failed request");
+		labels.add("succ request");
+		labels.add("declined request");
 		CSVGenerator.writeTrackSequence(outputDir, "sla.stats", labels, unaligned);
 
 		//dump costs

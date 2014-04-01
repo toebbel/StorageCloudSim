@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.request;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
@@ -17,7 +17,7 @@ import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
  *
  * The name of the object can be empyt.
  *
- * Response is modeled as {@link edu.kit.cloudSimStorage.cloudOperations.PutObjectResponse}
+ * Response is modeled as {@link edu.kit.cloudSimStorage.cloudOperations.response.PutObjectResponse}
  *
  * @author Tobias Sturm, 5/22/13 2:21 PM */
 public class PutObjectRequest extends CloudRequest {
@@ -26,7 +26,7 @@ public class PutObjectRequest extends CloudRequest {
 	protected CdmiMetadata metadata;
 
 	public PutObjectRequest(String containerName, String objectName, CdmiMetadata metadata, int user) {
-		super(CdmiOperationVerbs.PUT, "/" + containerName + "/" + objectName, user, Long.valueOf(metadata.get(CdmiMetadata.SIZE)), CloudRequest.PUT);
+		super(CdmiOperationVerbs.PUT, "/" + containerName + "/" + objectName, user, Long.valueOf(metadata.get(CdmiMetadata.SIZE)), PUT);
 		this.containerName = containerName;
 		this.objectName = objectName;
 		this.metadata = metadata;

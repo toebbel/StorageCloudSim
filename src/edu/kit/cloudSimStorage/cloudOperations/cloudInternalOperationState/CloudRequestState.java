@@ -7,15 +7,17 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState;
 
 
+import edu.kit.cloudSimStorage.cloudOperations.request.CloudRequest;
+import edu.kit.cloudSimStorage.cloudOperations.response.CloudResponse;
 import edu.kit.cloudSimStorage.monitoring.OperationTimeTraceSample;
 
 /**
- * Cloud internal state representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.CloudRequest}
+ * Cloud internal state representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.request.CloudRequest}
  * @author Tobias Sturm, 5/27/13 4:25 PM */
-public class CloudScheduleEntry<T extends CloudRequest> extends OperationTimeTraceSample {
+public class CloudRequestState<T extends CloudRequest> extends OperationTimeTraceSample {
 
 	T request;
 	int inquiringPartner = 0;
@@ -37,11 +39,11 @@ public class CloudScheduleEntry<T extends CloudRequest> extends OperationTimeTra
 	}
 
 	/**
-	 * Creates an instance of {@link edu.kit.cloudSimStorage.cloudOperations.CloudScheduleEntry} with a given request and user
+	 * Creates an instance of {@link CloudRequestState} with a given request and user
 	 * @param request request that will be processed
 	 * @param inquiringPartner user that created the request
 	 */
-	public CloudScheduleEntry(T request, int inquiringPartner) {
+	public CloudRequestState(T request, int inquiringPartner) {
 		super(request.toString());
 		assert request != null;
 

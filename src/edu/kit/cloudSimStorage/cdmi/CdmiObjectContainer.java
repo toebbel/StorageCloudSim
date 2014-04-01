@@ -138,7 +138,7 @@ public class CdmiObjectContainer extends CdmiContainer<CdmiDataObject> {
 	/**
 	 * Creates possible allocations for a new {@link CdmiDataObject}.
 	 * <p/>
-	 * This method creates different disk probe requests for every associated server, that this container is scheduled on
+	 * This method creates different disk probe request for every associated server, that this container is scheduled on
 	 * The {@link edu.kit.cloudSimStorage.storageModel.StorageBlobLocation}s are sorted by best match to worst match.
 	 * <p/>
 	 * Overwrite this method to change the policy. these conditions have to be met:

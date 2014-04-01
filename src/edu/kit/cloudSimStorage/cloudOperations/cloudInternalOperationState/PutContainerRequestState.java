@@ -7,21 +7,24 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiObjectContainer;
+import edu.kit.cloudSimStorage.cloudOperations.response.CloudResponse;
+import edu.kit.cloudSimStorage.cloudOperations.request.PutContainerRequest;
+import edu.kit.cloudSimStorage.cloudOperations.response.PutContainerResponse;
 
 /**
- * Cloud internal representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.PutContainerRequest}
+ * Cloud internal representation of the processing of a {@link edu.kit.cloudSimStorage.cloudOperations.request.PutContainerRequest}
  *
  * @author Tobias Sturm, 6/5/13 3:37 PM */
-public class PutContainerScheduleEntry extends CloudScheduleEntry<PutContainerRequest> {
+public class PutContainerRequestState extends CloudRequestState<PutContainerRequest> {
 
 
 	/** Stores the created Container to generate the response */
 	private CdmiObjectContainer container;
 
-	public PutContainerScheduleEntry(PutContainerRequest request, int requestor) {
+	public PutContainerRequestState(PutContainerRequest request, int requestor) {
 		super(request, requestor);
 	}
 

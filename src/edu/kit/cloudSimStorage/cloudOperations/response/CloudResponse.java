@@ -7,10 +7,12 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.response;
+
+import edu.kit.cloudSimStorage.cloudOperations.request.CloudRequest;
 
 /**
- * General model for responses to {@link edu.kit.cloudSimStorage.cloudOperations.CloudRequest}
+ * General model for responses to {@link edu.kit.cloudSimStorage.cloudOperations.request.CloudRequest}
  *
  * @author Tobias Sturm, 5/27/13 4:22 PM */
 public class CloudResponse<T extends CloudRequest> {

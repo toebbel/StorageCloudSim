@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage.cloudBroker;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import edu.kit.cloudSimStorage.UsageSequence;
-import edu.kit.cloudSimStorage.cloudOperations.CloudDiscoveryResponse;
+import edu.kit.cloudSimStorage.cloudOperations.response.CloudDiscoveryResponse;
 import edu.kit.cloudSimStorage.monitoring.ILoggable;
 
 import java.util.ArrayList;

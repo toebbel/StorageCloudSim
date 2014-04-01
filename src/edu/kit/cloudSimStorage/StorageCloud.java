@@ -10,7 +10,8 @@
 package edu.kit.cloudSimStorage;
 
 import edu.kit.cloudSimStorage.cdmi.*;
-import edu.kit.cloudSimStorage.cloudOperations.*;
+import edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState.*;
+import edu.kit.cloudSimStorage.cloudOperations.request.*;
 import edu.kit.cloudSimStorage.helper.TimeHelper;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 import edu.kit.cloudSimStorage.monitoring.*;
@@ -41,7 +42,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 	private final CdmiCloudCharacteristics characteristics;
 	protected String regionalCisName;
 
-	protected HashMap<String, CloudScheduleEntry> runningOperations;
+	protected HashMap<String, CloudRequestState> runningOperations;
 	protected EventTracker<OperationTimeTraceSample> requestTracker;
 
 	protected String rootUrl;
@@ -72,7 +73,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 		userDebts = new HashMap<>();
 		this.pricingPolicy = pricingPolicy;
 		this.cloudIOLimits = cloudIO;
-		requestTracker = new EventTracker<>("all cloud requests", "all cloud requests to " + name);
+		requestTracker = new EventTracker<>("all cloud request", "all cloud request to " + name);
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 		if (ev.getData() == null)
 			return;
 		switch (ev.getTag()) {
-			//delegate handling of external requests
+			//delegate handling of external request
 			case CloudRequest.GET:
 				if (ev.getData() instanceof GetContainerRequest)
 					handleGetContainerRequest((GetContainerRequest) ev.getData(), ev.getSource());
@@ -149,7 +150,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 	}
 
 	private void handleCloudDiscoveryRequest(CloudDiscoverRequest request, int requestor) {
-		CloudDiscoveryScheduleEntry scheduleEntry = new CloudDiscoveryScheduleEntry(request, requestor);
+		CloudDiscoveryRequestState scheduleEntry = new CloudDiscoveryRequestState(request, requestor);
 		runningOperations.put(request.getOperationID(), scheduleEntry);
 		logger.info(request.toString() + " -> operation '" + scheduleEntry.getOperationID() + "'");
 
@@ -173,7 +174,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 	private void handleSucceededOperation(String operationID) {
 		assert runningOperations.containsKey(operationID);
 
-		CloudScheduleEntry entry = runningOperations.get(operationID);
+		CloudRequestState entry = runningOperations.get(operationID);
 		logger.fine("Operation '" + operationID + "' succeeded (callback)");
 		runningOperations.remove(operationID);
 		scheduleNow(entry.getInquiringPartner(), CloudRequest.SUCC, entry.generateResponse());
@@ -182,7 +183,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 	private void handleFailedOperation(String operationID) {
 		assert runningOperations.containsKey(operationID);
 
-		CloudScheduleEntry entry = runningOperations.get(operationID);
+		CloudRequestState entry = runningOperations.get(operationID);
 		logger.fine("Operation '" + operationID + "' failed (callback)");
 		runningOperations.remove(operationID);
 		scheduleNow(entry.getInquiringPartner(), CloudRequest.FAIL, entry.getOperationID());
@@ -219,7 +220,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 	 * @param scheduleEntry The scheduleEntry that was created by a user and has to be checked
 	 * @return true if user exists
 	 */
-	private boolean checkUser(CloudScheduleEntry scheduleEntry) {
+	private boolean checkUser(CloudRequestState scheduleEntry) {
 		return checkUser(scheduleEntry, false);
 	}
 
@@ -230,7 +231,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 	 * @param createIfFails true to create a user, if the user des not exist yet
 	 * @return false if user does not exist and {@code createIfFails} is {@code false}. True in all other cases.
 	 */
-	private boolean checkUser(CloudScheduleEntry scheduleEntry, boolean createIfFails) {
+	private boolean checkUser(CloudRequestState scheduleEntry, boolean createIfFails) {
 		if (userToRootContainerMapping.containsKey(scheduleEntry.getRequest().getUser()))
 			return true;
 
@@ -244,21 +245,21 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 		}
 	}
 
-	private void letOperationFail(CloudScheduleEntry entry, String reason) {
+	private void letOperationFail(CloudRequestState entry, String reason) {
 		logger.info("Operation '" + entry.getOperationID() + "' fails, because: " + reason);
 		entry.endsNow();
 		requestTracker.addEvent(entry.getOmmittedTimestamp(), entry);
 		scheduleNow(getId(), CloudRequest.FAIL, entry.getOperationID());
 	}
 
-	private void letOperationSucceed(CloudScheduleEntry entry) {
+	private void letOperationSucceed(CloudRequestState entry) {
 		logger.info("operation " + entry.getOperationID() + " succeeds");
 		entry.endsNow();
 		requestTracker.addEvent(entry.getOmmittedTimestamp(), entry);
 		scheduleNow(getId(), CloudRequest.SUCC, entry.getOperationID());
 	}
 
-	private void letOperationSucceed(CloudScheduleEntry entry, int delay, int duration) {
+	private void letOperationSucceed(CloudRequestState entry, int delay, int duration) {
 		logger.info("operation " + entry.getOperationID() + " succeeds with a delay of " + delay + "ms and a duration of " + duration + " ms");
 		entry.setDuration(duration);
 		entry.setDelay(delay);
@@ -266,7 +267,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 		schedule(getId(), delay + duration, CloudRequest.SUCC, entry.getOperationID());
 	}
 
-	private void sendAckToSender(CloudScheduleEntry entry) {
+	private void sendAckToSender(CloudRequestState entry) {
 		logger.info("operation " + entry.getOperationID() + " is acked");
 		entry.startsNow();
 		scheduleNow(entry.getInquiringPartner(), CloudRequest.ACK, entry.getOperationID());
@@ -274,7 +275,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 
 	private void handlePutContainerRequest(PutContainerRequest request, int requestor) {
 		//create internalOperation entry
-		PutContainerScheduleEntry scheduleEntry = new PutContainerScheduleEntry(request, requestor);
+		PutContainerRequestState scheduleEntry = new PutContainerRequestState(request, requestor);
 		runningOperations.put(request.getOperationID(), scheduleEntry);
 		logger.info(request.toString() + " -> operation '" + scheduleEntry.getOperationID() + "'");
 
@@ -328,7 +329,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 
 	private void handlePutObjectRequest(PutObjectRequest request, int requestor) {
 		//create internal operation entry
-		PutObjectScheduleEntry scheduleEntry = new PutObjectScheduleEntry(request, requestor);
+		PutObjectRequestState scheduleEntry = new PutObjectRequestState(request, requestor);
 		runningOperations.put(scheduleEntry.getOperationID(), scheduleEntry);
 		logger.info(request.toString() + " -> operation '" + scheduleEntry.getOperationID() + "'");
 
@@ -370,7 +371,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 		if (request.getObjectName().isEmpty() ||
 				!request.getObjectName().isEmpty() && !container.containsChildWithName(request.getObjectName())) {
 			//the PUT is a put of a new object
-			scheduleEntry.setType(PutObjectScheduleEntry.PutObjectRequestType.Creation);
+			scheduleEntry.setType(PutObjectRequestState.PutObjectRequestType.Creation);
 			logger.fine(request + " will create a new object");
 
 			//create the metadata for the object by merging the parent's metadata and overwrite with request's metadata
@@ -466,7 +467,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 		} else if (container.containsChildWithName(request.getObjectName())) {
 			//the PUT is an update of the object
 			logger.fine(request + " will update an existing");
-			scheduleEntry.setType(PutObjectScheduleEntry.PutObjectRequestType.Update);
+			scheduleEntry.setType(PutObjectRequestState.PutObjectRequestType.Update);
 			dataObject = container.getChild(container.getChildId(request.getObjectName()));
 
 			//TODO check capabilities if metadata can be changed. If not -> throw away
@@ -569,7 +570,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 
 	private void handleDeleteObjectRequest(DeleteObjectRequest request, int requestor) {
 		//create internal operation entry
-		CloudScheduleEntry<DeleteObjectRequest> scheduleEntry = new CloudScheduleEntry<>(request, requestor);
+		CloudRequestState<DeleteObjectRequest> scheduleEntry = new CloudRequestState<>(request, requestor);
 		logger.fine(request + "-> operation '" + scheduleEntry.getOperationID() + "'");
 		runningOperations.put(scheduleEntry.getOperationID(), scheduleEntry);
 
@@ -621,7 +622,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 
 	private void handleDeleteContainerRequest(DeleteContainerRequest request, int requestor) {
 		//create internal operation entry
-		CloudScheduleEntry<DeleteContainerRequest> scheduleEntry = new CloudScheduleEntry<>(request, requestor);
+		CloudRequestState<DeleteContainerRequest> scheduleEntry = new CloudRequestState<>(request, requestor);
 		logger.fine(request + "-> operation '" + scheduleEntry.getOperationID() + "'");
 		runningOperations.put(scheduleEntry.getOperationID(), scheduleEntry);
 
@@ -668,14 +669,14 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 
 	private void handleGetObjectRequest(GetObjectRequest request, int requestor) {
 		//create internal operation entry
-		GetObjectScheduleEntry scheduleEntry = new GetObjectScheduleEntry(request, requestor);
+		GetObjectRequestState scheduleEntry = new GetObjectRequestState(request, requestor);
 		logger.fine(request + "-> operation '" + scheduleEntry.getOperationID() + "'");
 		runningOperations.put(scheduleEntry.getOperationID(), scheduleEntry);
 
 		if (!checkUser(scheduleEntry))
 			return;
 
-		//accounting (even for failed requests)
+		//accounting (even for failed request)
 		userDebts.get(scheduleEntry.getRequest().getUser()).query(CdmiOperationVerbs.GET);
 
 		//find the object by container+name or id
@@ -780,7 +781,7 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 
 	private void handleGetContainerRequest(GetContainerRequest request, int requestor) {
 		//create internal operation entry
-		GetContainerScheduleEntry scheduleEntry = new GetContainerScheduleEntry(request, requestor);
+		GetContainerRequestState scheduleEntry = new GetContainerRequestState(request, requestor);
 		logger.fine(request + "-> operation '" + scheduleEntry.getOperationID() + "'");
 		runningOperations.put(scheduleEntry.getOperationID(), scheduleEntry);
 

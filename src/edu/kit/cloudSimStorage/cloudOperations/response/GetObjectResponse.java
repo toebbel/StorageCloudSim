@@ -7,12 +7,13 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.response;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
+import edu.kit.cloudSimStorage.cloudOperations.request.GetObjectRequest;
 
 /**
- * Response of a {@link edu.kit.cloudSimStorage.cloudOperations.GetObjectRequest}.
+ * Response of a {@link edu.kit.cloudSimStorage.cloudOperations.request.GetObjectRequest}.
  *
  * Contains a {@link edu.kit.cloudSimStorage.cdmi.CdmiDataObject} that carries information about the
  * object that is stored in the {@link edu.kit.cloudSimStorage.StorageCloud}

@@ -7,13 +7,13 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.request;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
 
 /**
  * CDMI request for retrieving the characteristics of a Cloud.
- * Response is sent via {@link edu.kit.cloudSimStorage.cloudOperations.CloudDiscoveryResponse}
+ * Response is sent via {@link edu.kit.cloudSimStorage.cloudOperations.response.CloudDiscoveryResponse}
  *
  * @author Tobias Sturm, 6/26/13 3:55 PM */
 public class CloudDiscoverRequest extends CloudRequest {

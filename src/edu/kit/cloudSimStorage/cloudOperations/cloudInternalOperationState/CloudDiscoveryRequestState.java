@@ -7,19 +7,22 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudOperations;
+package edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
+import edu.kit.cloudSimStorage.cloudOperations.request.CloudDiscoverRequest;
+import edu.kit.cloudSimStorage.cloudOperations.response.CloudDiscoveryResponse;
+import edu.kit.cloudSimStorage.cloudOperations.response.CloudResponse;
 
 /**
- * Cloud internal state of a {@link edu.kit.cloudSimStorage.cloudOperations.CloudDiscoverRequest}
+ * Cloud internal state of a {@link edu.kit.cloudSimStorage.cloudOperations.request.CloudDiscoverRequest}
  *
  * @author Tobias Sturm, 6/26/13 4:00 PM */
-public class CloudDiscoveryScheduleEntry extends CloudScheduleEntry<CloudDiscoverRequest> {
+public class CloudDiscoveryRequestState extends CloudRequestState<CloudDiscoverRequest> {
 
 	CdmiCloudCharacteristics characteristics;
 
-	public CloudDiscoveryScheduleEntry(CloudDiscoverRequest request, int inquiringPartner) {
+	public CloudDiscoveryRequestState(CloudDiscoverRequest request, int inquiringPartner) {
 		super(request, inquiringPartner);
 	}
 
@@ -29,8 +32,7 @@ public class CloudDiscoveryScheduleEntry extends CloudScheduleEntry<CloudDiscove
 
 	@Override
 	public CloudResponse<CloudDiscoverRequest> generateResponse() {
-		CloudDiscoveryResponse rsp = new CloudDiscoveryResponse(request);
-		rsp.characteristics = characteristics;
+		CloudDiscoveryResponse rsp = new CloudDiscoveryResponse(request, characteristics);
 		return rsp;
 	}
 }

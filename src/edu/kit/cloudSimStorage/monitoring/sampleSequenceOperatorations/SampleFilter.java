@@ -10,7 +10,7 @@
 package edu.kit.cloudSimStorage.monitoring.sampleSequenceOperatorations;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiOperationVerbs;
-import edu.kit.cloudSimStorage.cloudOperations.CloudRequest;
+import edu.kit.cloudSimStorage.cloudOperations.request.CloudRequest;
 import edu.kit.cloudSimStorage.monitoring.Tuple;
 import edu.kit.cloudSimStorage.monitoring.TupleSequence;
 
