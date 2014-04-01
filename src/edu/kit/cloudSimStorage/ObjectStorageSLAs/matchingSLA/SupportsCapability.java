@@ -7,14 +7,14 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.ObjectStorageSLAs;
+package edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 /**
- * Represents a {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.SLARequirement} that must be met by a Cloud before the attached {@link edu.kit.cloudSimStorage.UsageSequence} can be dispatched to it.
+ * Represents a {@link SLARequirement} that must be met by a Cloud before the attached {@link edu.kit.cloudSimStorage.UsageSequence} can be dispatched to it.
  *
  * Requires a cloud to  support a given capability or property. The key that describes the capability must be present and it's value must be true.
  *

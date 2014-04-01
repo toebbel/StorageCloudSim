@@ -7,14 +7,14 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.ObjectStorageSLAs;
+package edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
- * Used to logical link two {@link edu.kit.cloudSimStorage.ObjectStorageSLAs.SLARequirement}s with each other.
+ * Used to logical link two {@link SLARequirement}s with each other.
  *
  * One or both of the requirements must be fulfilled to match a {@link edu.kit.cloudSimStorage.StorageCloud} against a {@link edu.kit.cloudSimStorage.UsageSequence}'s attached SLA
  *
