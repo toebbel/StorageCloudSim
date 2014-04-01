@@ -44,19 +44,19 @@ public abstract class UniquifyPolicy<T>
 
 			for(int i = 0; i < sampleStream.size(); i++)
 			{
-				if(lastIndex != sampleStream.get(i).x)
+				if(lastIndex != sampleStream.get(i).x && bucket.hasElements())
 				{
-					if(bucket.hasElements())
-					{
-						result.add(bucket.get());
-						bucket = uniquifyPolicy.newInstance();
-						lastIndex = sampleStream.get(i).x;
-					}
-					else
-						bucket.add(sampleStream.get(i));
+					result.add(bucket.get());
+					bucket = uniquifyPolicy.newInstance();
+					lastIndex = sampleStream.get(i).x;
 				}
+				bucket.add(sampleStream.get(i));
 			}
+			if(bucket.hasElements())
+				result.add(bucket.get());
+
 			return result;
+
 		} catch (InstantiationException | IllegalAccessException e) {
 			throw new IllegalStateException("Could not instantiate key uniquify policy");
 		}
