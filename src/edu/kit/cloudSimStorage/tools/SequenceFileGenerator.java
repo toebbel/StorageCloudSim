@@ -36,7 +36,11 @@ import static edu.kit.cloudSimStorage.helper.FileSizeHelper.toHumanReadable;
 public class SequenceFileGenerator {
 
 	public static void main(String[] args) throws Exception {
-		assert args.length >= 2;
+		if(args.length < 2)
+		{
+			System.err.print("Please select a target directory and number of sequences to generate. For example: 'java -jar SequenceGenerator big_set 1000'/n");
+			System.exit(1);
+		}
 
 		//read parameters
 		File targetDir = new File(args[0]);
