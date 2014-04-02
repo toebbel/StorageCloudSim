@@ -121,7 +121,7 @@ public class GenerateCloud {
 		}
 
 		if(out == null) {
-			System.err.println("no output specified. Will use './cloudname" + CLOUD_FILE_EXTENTION + "'");
+			System.err.println("no output specified. Will use './" + cloudName + "." + CLOUD_FILE_EXTENTION + "'");
 			out = new FileOutputStream(cloudName + CLOUD_FILE_EXTENTION);
 		}
 
