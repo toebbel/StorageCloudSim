@@ -76,7 +76,7 @@ public class GenerateCloud {
 			} else if ((args.length >= i) && args[i].toLowerCase().equals("-hw") || args[i].toLowerCase().equals("--hddwritebandwidth")) {
 				diskWriteBandwidth = Integer.parseInt(args[i + 1]);
 				i++;
-			} else if ((args.length >= i) && args[i].toLowerCase().equals("-d") || args[i].toLowerCase().equals("--diskcapacity")) {
+			} else if ((args.length >= i) && args[i].toLowerCase().equals("-dc") || args[i].toLowerCase().equals("--diskcapacity")) {
 				diskCapacity = Double.parseDouble(args[i + 1]);
 				i++;
 			} else if ((args.length >= i) && args[i].toLowerCase().equals("-drl") || args[i].toLowerCase().equals("--diskreadlatency")) {
@@ -110,7 +110,7 @@ public class GenerateCloud {
 						"-b  | --serverbandwidth   of servers in MB/s [128]\n" +
 						"-hr | --hddreadbandwidth  of disks in MB/s [210]\n" +
 						"-hw | --hddwritebandwidth of disks in MB/s [210]\n" +
-						"-d  | --diskcapacity      in GB [1024]\n" +
+						"-dc | --diskcapacity      in GB [1024]\n" +
 						"-drl| --diskreadlatency   in ms [8.5]\n" +
 						"-dwl| --diskwritelatency  in ms [8.5]\n" +
 						"-dio| --diskiolimit       in MB/s [210]\n" +
