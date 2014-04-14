@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage;
 
 import edu.kit.cloudSimStorage.cloudBroker.StorageBroker;
 import edu.kit.cloudSimStorage.cloudBroker.StorageMetaBroker;
-import edu.kit.cloudSimStorage.cloudFactory.StorageCloudFactory;
+import edu.kit.cloudSimStorage.helper.StorageCloudFactory;
 import edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState.CloudRequestState;
 import edu.kit.cloudSimStorage.cloudOperations.cloudInternalOperationState.GetObjectRequestState;
 import edu.kit.cloudSimStorage.cloudOperations.response.GetObjectResponse;

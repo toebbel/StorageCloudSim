@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudFactory;
+package edu.kit.cloudSimStorage.cloudScenarioModels;
 
 import edu.kit.cloudSimStorage.storageModel.resourceUtilization.TimeawareResourceLimitation;
 import org.simpleframework.xml.Default;

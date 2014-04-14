@@ -7,12 +7,14 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudFactory;
+package edu.kit.cloudSimStorage.helper;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import edu.kit.cloudSimStorage.StorageCloud;
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
-import edu.kit.cloudSimStorage.helper.FileSizeHelper;
+import edu.kit.cloudSimStorage.cloudScenarioModels.CloudModel;
+import edu.kit.cloudSimStorage.cloudScenarioModels.ObjectStorageDiskModel;
+import edu.kit.cloudSimStorage.cloudScenarioModels.ObjectStorageServerModel;
 import edu.kit.cloudSimStorage.pricing.SimplePricing;
 import edu.kit.cloudSimStorage.storageModel.IObjectStorageDrive;
 import edu.kit.cloudSimStorage.storageModel.ObjectStorageServer;
