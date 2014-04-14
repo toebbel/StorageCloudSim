@@ -21,7 +21,10 @@ import org.simpleframework.xml.Root;
 import static edu.kit.cloudSimStorage.helper.FileSizeHelper.Magnitude.MEGA_BYTE;
 import static edu.kit.cloudSimStorage.helper.FileSizeHelper.toBytes;
 
-/** @author Tobias Sturm, 6/7/13 1:31 PM */
+/**
+ * Represents one specific disk model.
+ *
+ * @author Tobias Sturm, 6/7/13 1:31 PM */
 @Root
 public class SeagateST2000DM001_2TB extends ObjectStorageDrive {
 

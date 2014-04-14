@@ -17,7 +17,12 @@ import org.simpleframework.xml.Default;
 
 import java.util.List;
 
-/** @author Tobias Sturm, 8/6/13 4:15 PM */
+/**
+ * Models a cloud that can be serialized to XML.
+ *
+ * Use {@link edu.kit.cloudSimStorage.cloudFactory.StorageCloudFactory} to generate a {@link edu.kit.cloudSimStorage.StorageCloud} instance from a given model or to generate the model itself.
+ *
+ * @author Tobias Sturm, 8/6/13 4:15 PM */
 @Default
 public class CloudModel {
 	@Attribute

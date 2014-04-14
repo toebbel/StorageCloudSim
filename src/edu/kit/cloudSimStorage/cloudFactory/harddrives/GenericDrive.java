@@ -17,11 +17,12 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
 
-/** @author Tobias Sturm, 8/7/13 12:57 PM */
+/**
+ * Represents a disk model that can be deserialized/serialized to XML
+ *
+ * @author Tobias Sturm, 8/7/13 12:57 PM
+ */
 public class GenericDrive extends ObjectStorageDrive {
-
-
-	private int busLimit;
 
 	public GenericDrive(@Attribute(name = "name") String name) {
 		super(name);

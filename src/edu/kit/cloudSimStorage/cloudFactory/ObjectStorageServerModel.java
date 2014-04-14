@@ -14,9 +14,24 @@ import org.simpleframework.xml.Default;
 
 import java.util.List;
 
+/**
+ * Models a object storage server that can be serialized/deserialized from XML
+ * @author Tobias Sturm
+ */
 @Default
 public class ObjectStorageServerModel {
+	/**
+	 * name of the server
+	 */
 	public String name;
+
+	/**
+	 * IO limits of the server
+	 */
 	public TimeawareResourceLimitation ioLimitations;
+
+	/**
+	 * disks attached to this server
+	 */
 	public List<ObjectStorageDiskModel> disks;
 }
