@@ -18,3 +18,27 @@ Requirements
 Patched Cloudsim
 ----------------
 Since the original Cloudsim 3.0.3 misses a method for retrieving bandwidth information from the network topology, we patched the original version and included it for convenience. The actual diff is inside the cloudsim source directory.
+
+Build the Project
+-----------------
+//TODO
+
+Getting Started
+---------------
+Before you can run a simulation, you have to set up a scenario (or you use the default scenario that we provided in the 'example-scenario' folder).
+
+## Creating a Cloud model
+//TODO How to build
+Cloud models are defined as XML files. You will pass these models into the StorageCloudSim.jar, when you start the simulation.
+Use the CloudGenerator to generate a fresh XML file or modify one of the provided examples.
+To see all parameters type
+   java -jar CloudGenerator.jar -h
+
+We used the following commands to generate the example cloud:
+   java -jar CloudGenerator.jar --name RainyCloud -rootUrl rainy.org --location de --servers 3 --disks 3
+That will generate a cloud that has 3 servers where each has 3 disks and each of them  has 1 TB capacity, which makes a total capacity of 9TB.
+
+Remember: Whenever you should amend one of the following models, you have to re-generate the XML files so they can be parsed: CDMICloudCharacteristics, pricingPolicy, objectStorageServerModel, objectStorageDiskModel, ioLimits.
+
+## Creating UsageSequences
+

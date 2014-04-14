@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage.storageModel;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
-import edu.kit.cloudSimStorage.cloudFactory.harddrives.SeagateST2000DM001_2TB;
+import edu.kit.cloudSimStorage.cloudFactory.harddrives.GenericDrive;
 import edu.kit.cloudSimStorage.storageModel.resourceUtilization.UnlimitedResource;
 
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ public class TestObjectStorageServer {
 	public void setUp() throws Exception {
 		String root = "cloud";
 		candidate = new ObjectStorageServer(root, "127.0.0.1", new UnlimitedResource());
-		driveA = new SeagateST2000DM001_2TB(root, candidate, "/dev/sda1");
-		driveB = new SeagateST2000DM001_2TB(root, candidate, "/dev/sda2");
-		driveC = new SeagateST2000DM001_2TB(root, candidate, "/dev/sda3");
+		driveA = new GenericDrive("dev/sda1");
+		driveB = new GenericDrive("dev/sda2");
+		driveC = new GenericDrive("dev/sda3");
 	}
 
 	@org.junit.Test
