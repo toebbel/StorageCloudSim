@@ -114,7 +114,7 @@ public class Main {
 		//read cloud definitions
 		List<StorageCloud> clouds = new ArrayList<>();
 		for(File f : getFilesThatEndWithSorted(SharedConstants.CLOUD_FILE_EXTENTION, inputDir)) {
-			StorageCloud cloud = StorageCloudFactory.createCloud(StorageCloudFactory.deserialize(new FileInputStream(f)));
+			StorageCloud cloud = StorageCloudFactory.createCloud(StorageCloudFactory.deserializeCloudModel(new FileInputStream(f)));
 
 			clouds.add(cloud);
 			if(!preventLogging)

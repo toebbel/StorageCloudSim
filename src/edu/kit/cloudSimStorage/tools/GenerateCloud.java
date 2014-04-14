@@ -130,6 +130,6 @@ public class GenerateCloud {
 
 		CloudModel m = StorageCloudFactory.createModel(cloudName, rootUrl, location, servers, harddrivesPerServer, drive, uploadPrice,downloadPrice,storagePrice, serverBandwidth);
 
-		StorageCloudFactory.serialize(m, out);
+		StorageCloudFactory.serializeCloudModel(m, out);
 	}
 }

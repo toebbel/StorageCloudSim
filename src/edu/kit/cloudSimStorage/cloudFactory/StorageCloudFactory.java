@@ -11,9 +11,8 @@ package edu.kit.cloudSimStorage.cloudFactory;
 
 import edu.kit.cloudSimStorage.CdmiCloudCharacteristics;
 import edu.kit.cloudSimStorage.StorageCloud;
-import edu.kit.cloudSimStorage.helper.FileSizeHelper;
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
-import edu.kit.cloudSimStorage.monitoring.IUsageHistory;
+import edu.kit.cloudSimStorage.helper.FileSizeHelper;
 import edu.kit.cloudSimStorage.pricing.SimplePricing;
 import edu.kit.cloudSimStorage.storageModel.IObjectStorageDrive;
 import edu.kit.cloudSimStorage.storageModel.ObjectStorageServer;
@@ -29,25 +28,11 @@ import java.util.ArrayList;
 /** @author Tobias Sturm, 6/7/13 1:28 PM */
 public class StorageCloudFactory {
 
-	public static StorageCloud createCloud(String cloudName, String rootUrl, String location, int numServers, int numHddsPerServer, IObjectStorageDrive exampleDrive, IUsageHistory debtManager, int MBperSecondThroughputPerServer) {
-
-		CdmiCloudCharacteristics cloudCharacteristics = CdmiCloudCharacteristics.getDefault();
-		cloudCharacteristics.set(CdmiMetadata.LOCATION, location);
-
-		StorageCloud StorageCloud = new StorageCloud(cloudName, cloudCharacteristics, location, rootUrl, debtManager, new UnlimitedResource());
-
-		for (int numServer = 0; numServer < numServers; numServer++) {
-			ObjectStorageServer currentServer = new ObjectStorageServer(rootUrl, "server" + numServer + rootUrl, FirstFitAllocation.create(MBperSecondThroughputPerServer, FileSizeHelper.Magnitude.MEGA_BYTE));
-
-			for (int numDrive = 0; numDrive < numHddsPerServer; numDrive++) {
-				currentServer.installHarddrive(exampleDrive.clone(currentServer, "/dev/sda" + numDrive));
-			}
-			StorageCloud.installServer(currentServer);
-		}
-
-		return StorageCloud;
-	}
-
+	/**
+	 * Creates a {@link edu.kit.cloudSimStorage.StorageCloud instance from a model}
+	 * @param model existing cloud model
+	 * @return deep copy of the model
+	 */
 	public static StorageCloud createCloud(CloudModel model) {
 		assert model.characteristics != null;
 		assert model.cloudIOLimits != null;
@@ -66,6 +51,20 @@ public class StorageCloudFactory {
 		return cloud;
 	}
 
+	/**
+	 * Creates a model from the given parameters.
+	 * @param cloudName name of the cloud
+	 * @param rootUrl rootUrl of the cloud
+	 * @param location location of the cloud (eg "de" or "us-east1")
+	 * @param numServers number of servers in the cloud
+	 * @param numHddsPerServer number of disks per server
+	 * @param exampleDrive instance of a drive that will be used in each server
+	 * @param upCost costs per uploaded GB in $
+	 * @param downCost costs per downloaded GB in $
+	 * @param storeCost costs per stored GB $ per time frame
+	 * @param MBperSecondThroughputPerServer throughput of each server in MB/s (inter-cloud connectivity)
+	 * @return model instance
+	 */
 	public static CloudModel createModel(String cloudName, String rootUrl, String location, int numServers, int numHddsPerServer, IObjectStorageDrive exampleDrive, double upCost, double downCost, double storeCost, int MBperSecondThroughputPerServer) {
 
 		CdmiCloudCharacteristics cloudCharacteristics = CdmiCloudCharacteristics.getDefault();
@@ -99,12 +98,12 @@ public class StorageCloudFactory {
 		return model;
 	}
 
-	public static void serialize(CloudModel m, OutputStream out) throws Exception {
+	public static void serializeCloudModel(CloudModel m, OutputStream out) throws Exception {
 		Serializer serializer = new Persister();
 		serializer.write(m, out);
 	}
 
-	public static CloudModel deserialize(InputStream in) throws Exception {
+	public static CloudModel deserializeCloudModel(InputStream in) throws Exception {
 		Serializer serializer = new Persister();
 		return serializer.read(CloudModel.class, in);
 	}
