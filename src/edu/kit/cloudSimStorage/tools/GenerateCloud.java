@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage.tools;
 
 import edu.kit.cloudSimStorage.cloudFactory.CloudModel;
 import edu.kit.cloudSimStorage.cloudFactory.StorageCloudFactory;
-import edu.kit.cloudSimStorage.cloudFactory.harddrives.GenericDrive;
+import edu.kit.cloudSimStorage.cloudFactory.GenericDrive;
 import edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation;
 
 import java.io.FileOutputStream;

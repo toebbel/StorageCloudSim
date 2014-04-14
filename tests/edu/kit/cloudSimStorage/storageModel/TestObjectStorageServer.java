@@ -11,7 +11,7 @@ package edu.kit.cloudSimStorage.storageModel;
 
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
-import edu.kit.cloudSimStorage.cloudFactory.harddrives.GenericDrive;
+import edu.kit.cloudSimStorage.cloudFactory.GenericDrive;
 import edu.kit.cloudSimStorage.storageModel.resourceUtilization.UnlimitedResource;
 
 import java.util.ArrayList;

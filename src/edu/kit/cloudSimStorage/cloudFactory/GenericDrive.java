@@ -7,7 +7,7 @@
  * https://github.com/toebbel/StorageCloudSim
  * http://www.tobiassturm.de/projects/storagecloudsim.html
  */
-package edu.kit.cloudSimStorage.cloudFactory.harddrives;
+package edu.kit.cloudSimStorage.cloudFactory;
 
 import edu.kit.cloudSimStorage.storageModel.IObjectStorageDrive;
 import edu.kit.cloudSimStorage.storageModel.ObjectStorageDrive;
