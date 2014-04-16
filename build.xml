@@ -1,0 +1,47 @@
+<project name="StorageCloudSim" basedir="." default="main">
+    <property name="dir.src"     value="src"/>
+    <property name="dir.build"   value="build"/>
+    <property name="dir.classes" value="${dir.build}/classes"/>
+    <property name="dir.jar"     value="${dir.build}/jar"/>
+    <property name="dir.lib"     value="jars/"/>
+
+    <path id="classpath">
+        <fileset dir="${dir.lib}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${dir.build}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${dir.classes}"/>
+        <javac destdir="${dir.classes}">
+            <src path="${dir.src}"/>
+            <src path="cloudsim-3.0.3-patched"/>
+            <classpath refid="classpath"/>
+        </javac>
+        <unjar dest="${dir.classes}">
+            <path refid="classpath" />
+        </unjar>
+    </target>
+
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${dir.jar}"/>
+        <jar destfile="${dir.jar}/${ant.project.name}.jar" basedir="${dir.classes}">
+            <manifest>
+                <attribute name="Main-Class" value="edu.kit.cloudSimStorage.Main"/>
+                <attribute name="Class-Path" value="${dir.lib}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${dir.jar}/${ant.project.name}.jar" fork="true">
+            <classpath refid="classpath"/>
+        </java>
+    </target>
+
+    <target name="clean-build" depends="clean,jar"/>
+    <target name="main" depends="clean,run"/>
+</project>
