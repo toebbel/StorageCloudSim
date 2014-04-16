@@ -118,20 +118,6 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 		userRequests.add(request);
 	}
 
-	/**
-	 * Adds a {@link UserRequest} to the beginning of the execution queue.
-	 *
-	 * @param request the request to add
-	 */
-	public void enqueueUserRequestNext(UserRequest request) {
-		logger.fine("enqueue user request as next " + request);
-		List<UserRequest> tmp = new ArrayList<>();
-		while (!userRequests.isEmpty())
-			tmp.add(userRequests.poll());
-		userRequests.add(request);
-		for(UserRequest r : tmp)
-			userRequests.add(r);
-	}
 
 	@Override
 	public void startEntity() {
