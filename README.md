@@ -1,6 +1,8 @@
 StorageCloudSim
 ===============
 
+[![Build Status](https://travis-ci.org/toebbel/StorageCloudSim.svg?branch=master)](https://travis-ci.org/toebbel/StorageCloudSim)
+
 This is an extension to to existing toolkit [CloudSim](http://code.google.com/p/cloudsim/). Features for modeling and simulation of Storage as a Service (STaaS) Clouds were added. The currently available documentation can be found in the source code ([java doc](http://downloads.tobiassturm.de/projects/storagecloudsim/doc/index.html)) and in the bachelor thesis, that will be linked in the near future [here](http://tobiassturm.de/projects/StorageCloudSim.html).
 
 Status
