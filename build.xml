@@ -1,9 +1,12 @@
 <project name="StorageCloudSim" basedir="." default="main">
     <property name="dir.src"     value="src"/>
+    <property name="dir.test"    value="tests"/>
     <property name="dir.build"   value="build"/>
+    <property name="dir.lib"     value="jars/"/>
+
     <property name="dir.classes" value="${dir.build}/classes"/>
     <property name="dir.jar"     value="${dir.build}/jar"/>
-    <property name="dir.lib"     value="jars/"/>
+    <property name="dir.report"  value="${dir.build}/junitreport"/>
 
     <path id="classpath">
         <fileset dir="${dir.lib}" includes="**/*.jar"/>
@@ -13,9 +16,9 @@
         <delete dir="${dir.build}"/>
     </target>
 
-    <target name="compile">
+    <target name="compile" description="compile application">
         <mkdir dir="${dir.classes}"/>
-        <javac destdir="${dir.classes}">
+        <javac destdir="${dir.classes}" includeantruntime="true">
             <src path="${dir.src}"/>
             <src path="cloudsim-3.0.3-patched"/>
             <classpath refid="classpath"/>
@@ -25,6 +28,11 @@
         </unjar>
     </target>
 
+    <target name="compileTests" depends="compile" description="compile the jUnit test cases">
+        <javac srcdir="${dir.test}" destdir="${dir.classes}" includeantruntime="true" />
+    </target>
+
+    <path id="application" location="${dir.jar}/${ant.project.name}.jar" />
 
     <target name="jar" depends="compile">
         <mkdir dir="${dir.jar}"/>
@@ -40,6 +48,35 @@
         <java jar="${dir.jar}/${ant.project.name}.jar" fork="true">
             <classpath refid="classpath"/>
         </java>
+    </target>
+
+    <target name="junit" depends="jar,compileTests">
+        <mkdir dir="${dir.report}" />
+        <junit printsummary="yes" showoutput="true" enabletestlistenerevents="true">
+            <classpath>
+                <path refid="classpath" />
+                <path refid="application" />
+                <pathelement path="${dir.build}" />
+                <pathelement path="${dir.jar}" />
+                <pathelement path="${dir.test}" />
+            </classpath>
+            <formatter type="xml" />
+            <batchtest fork="yes" todir="${dir.report}">
+                <fileset dir="${dir.test}">
+                    <include name="**/*.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+     <target name="junitreport" depends="junit">
+        <junitreport todir="${dir.report}">
+            <fileset dir="${dir.report}" includes="TEST-*.xml"/>
+            <report todir="${dir.report}"/>
+        </junitreport>
+        <delete>
+            <fileset dir="${dir.report}" includes="TEST-*.xml" />
+        </delete>
     </target>
 
     <target name="clean-build" depends="clean,jar"/>
