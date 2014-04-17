@@ -12,6 +12,7 @@ package edu.kit.cloudSimStorage.storageModel;
 import edu.kit.cloudSimStorage.cdmi.CdmiDataObject;
 import edu.kit.cloudSimStorage.cdmi.CdmiMetadata;
 import edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive;
+import edu.kit.cloudSimStorage.helper.FileSizeHelper;
 import edu.kit.cloudSimStorage.storageModel.resourceUtilization.UnlimitedResource;
 
 import java.util.ArrayList;
@@ -30,9 +31,12 @@ public class TestObjectStorageServer {
 	public void setUp() throws Exception {
 		String root = "cloud";
 		candidate = new ObjectStorageServer(root, "127.0.0.1", new UnlimitedResource());
-		driveA = new GenericDrive("dev/sda1");
-		driveB = new GenericDrive("dev/sda2");
-		driveC = new GenericDrive("dev/sda3");
+		driveA = new GenericDrive("/dev/sda1");
+		driveB = new GenericDrive("/dev/sda2");
+		driveC = new GenericDrive("/dev/sda3");
+		((GenericDrive)driveA).init(FileSizeHelper.toBytes(1, FileSizeHelper.Magnitude.TERA_BYTE), 1,1,1,1,new UnlimitedResource());
+		((GenericDrive)driveB).init(FileSizeHelper.toBytes(1, FileSizeHelper.Magnitude.TERA_BYTE), 1,1,1,1,new UnlimitedResource());
+		((GenericDrive)driveC).init(FileSizeHelper.toBytes(1, FileSizeHelper.Magnitude.TERA_BYTE), 1,1,1,1,new UnlimitedResource());
 	}
 
 	@org.junit.Test

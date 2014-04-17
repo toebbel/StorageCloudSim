@@ -74,13 +74,14 @@ public abstract class ObjectStorageDrive implements IObjectStorageDrive {
 		storedObjects = new HashMap<>();
 		capacity = reservedSpace = usedSpace = 0;
 		readLatency = writeLatency = 0;
+		storageUsageHistory = new StorageUsageHistory("not attached disk " + name , FileSizeHelper.Magnitude.BYTE);
 	}
 
 	public ObjectStorageDrive(String rootUrl, ObjectStorageServer location, String name) {
 		init();
 		this.location = location;
 		this.name = name;
-		if (location != null)
+		if (location != null) //overwrite history object if location is known
 			storageUsageHistory = new StorageUsageHistory(rootUrl + " " + location.getId() + "/" + name, FileSizeHelper.Magnitude.BYTE);
 	}
 
