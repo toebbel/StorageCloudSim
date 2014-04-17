@@ -50,7 +50,7 @@
         </java>
     </target>
 
-    <target name="test" depends="jar,compileTests">
+    <target name="test" depends="compileTests, jar">
         <mkdir dir="${dir.report}" />
         <junit printsummary="yes" showoutput="true" enabletestlistenerevents="true" haltonfailure="true">
             <classpath>
