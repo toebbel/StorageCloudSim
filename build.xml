@@ -52,7 +52,7 @@
 
     <target name="test" depends="jar,compileTests">
         <mkdir dir="${dir.report}" />
-        <junit printsummary="yes" showoutput="true" enabletestlistenerevents="true">
+        <junit printsummary="yes" showoutput="true" enabletestlistenerevents="true" haltonfailure="true">
             <classpath>
                 <path refid="classpath" />
                 <path refid="application" />
