@@ -88,9 +88,8 @@ public class TestSampleCombinator {
 		expected.add(new Tuple<>(0l, 1.0));
 		expected.add(new Tuple<>(1l, 1.0));
 		expected.add(new Tuple<>(3l, 2.0));
-		expected.add(new Tuple<>(3l, 8.0));
+		expected.add(new Tuple<>(4l, 11.0));
 		expected.add(new Tuple<>(5l, 7.0));
-		expected.add(new Tuple<>(6l, 10.0));
 		assertEquals(expected, SequenceOperations.sum(in));
 	}
 
