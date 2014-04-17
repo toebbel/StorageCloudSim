@@ -22,6 +22,6 @@ public class MinValuePolicy<T extends Comparable<T>> extends UniquifyPolicy<T>
 	@Override
 	protected Tuple<Long, T> choose() {
 		Collections.sort(elements, Tuple.<T>ValueComparator());
-		return elements.get(elements.size() - 1);
+		return elements.get(0);
 	}
 }
