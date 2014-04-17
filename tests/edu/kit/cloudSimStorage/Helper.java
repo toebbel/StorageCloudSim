@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.fail;
 
 /** @author Tobias Sturm, 6/7/13 5:05 PM */
-public class TestHelper {
+public class Helper {
 	public static void assertSameItemsInSet(List expected, List actual) {
 		if(actual == null && expected != null)
 			junit.framework.Assert.fail("expected list is NULL - did not expect that :-?");

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static edu.kit.cloudSimStorage.TestHelper.*;
+import static edu.kit.cloudSimStorage.Helper.*;
 
 /** @author Tobias Sturm, 6/7/13 4:50 PM */
 public class TestObjectStorageServer {

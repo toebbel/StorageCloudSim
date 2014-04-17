@@ -50,7 +50,7 @@
         </java>
     </target>
 
-    <target name="junit" depends="jar,compileTests">
+    <target name="test" depends="jar,compileTests">
         <mkdir dir="${dir.report}" />
         <junit printsummary="yes" showoutput="true" enabletestlistenerevents="true">
             <classpath>
@@ -63,13 +63,13 @@
             <formatter type="xml" />
             <batchtest fork="yes" todir="${dir.report}">
                 <fileset dir="${dir.test}">
-                    <include name="**/*.java" />
+                    <include name="**/Test*.java" />
                 </fileset>
             </batchtest>
         </junit>
     </target>
 
-     <target name="junitreport" depends="junit">
+     <target name="junitreport" depends="test">
         <junitreport todir="${dir.report}">
             <fileset dir="${dir.report}" includes="TEST-*.xml"/>
             <report todir="${dir.report}"/>
