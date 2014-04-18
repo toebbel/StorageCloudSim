@@ -1,5 +1,5 @@
 language: java
-
+install: ant init-ivy
 jdk:
   - openjdk7
   - oraclejdk7

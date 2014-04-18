@@ -1,35 +1,65 @@
-<project name="StorageCloudSim" basedir="." default="main">
+<project name="StorageCloudSim" basedir="." default="main" xmlns:ivy="antlib:org.apache.ivy.ant">
     <property name="dir.src"     value="src"/>
     <property name="dir.test"    value="tests"/>
     <property name="dir.build"   value="build"/>
-    <property name="dir.lib"     value="jars/"/>
 
     <property name="dir.classes" value="${dir.build}/classes"/>
     <property name="dir.jar"     value="${dir.build}/jar"/>
     <property name="dir.report"  value="${dir.build}/junitreport"/>
 
-    <path id="classpath">
-        <fileset dir="${dir.lib}" includes="**/*.jar"/>
-    </path>
-
     <target name="clean">
         <delete dir="${dir.build}"/>
     </target>
 
-    <target name="compile" description="compile application">
+    <property name="ivy.install.version" value="2.1.0-rc2" />
+    <condition property="ivy.home" value="${env.IVY_HOME}">
+        <isset property="env.IVY_HOME" />
+    </condition>
+    <property name="ivy.home" value="${user.home}/.ant" />
+    <property name="ivy.jar.dir" value="${ivy.home}/lib" />
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+
+    <target name="download-ivy" unless="offline">
+
+        <mkdir dir="${ivy.jar.dir}"/>
+        <!-- download Ivy from web site so that it can be used even without any special installation -->
+        <get    src="http://repo2.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+                dest="${ivy.jar.file}"
+                usetimestamp="true"/>
+    </target>
+
+    <target name="init-ivy" depends="download-ivy">
+    <!-- try to load ivy here from ivy home, in case the user has not
+    already dropped it into ant's lib dir (note that the latter copy
+    will always take precedence). We will not fail as long as local
+    lib dir exists (it may be empty) and ivy is in at least one of
+    ant's lib dir or the local lib dir. -->
+    <path id="ivy.lib.path">
+        <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+    </path>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml"
+             uri="antlib:org.apache.ivy.ant"
+             classpathref="ivy.lib.path"/>
+    </target>
+
+    <target name="resolve">
+        <ivy:retrieve />
+        <ivy:cachepath pathid="default.classpath" conf="default" useOrigin="true" />
+    </target>
+
+    <target name="compile" description="compile application" depends="resolve">
         <mkdir dir="${dir.classes}"/>
         <javac destdir="${dir.classes}" includeantruntime="true">
             <src path="${dir.src}"/>
             <src path="cloudsim-3.0.3-patched"/>
-            <classpath refid="classpath"/>
+            <classpath refid="default.classpath" />
         </javac>
-        <unjar dest="${dir.classes}">
-            <path refid="classpath" />
-        </unjar>
     </target>
 
     <target name="compileTests" depends="compile" description="compile the jUnit test cases">
-        <javac srcdir="${dir.test}" destdir="${dir.classes}" includeantruntime="true" />
+        <javac srcdir="${dir.test}" destdir="${dir.classes}" includeantruntime="true">
+            <classpath refid="default.classpath" />
+        </javac>
     </target>
 
     <path id="application" location="${dir.jar}/${ant.project.name}.jar" />
@@ -39,26 +69,20 @@
         <jar destfile="${dir.jar}/${ant.project.name}.jar" basedir="${dir.classes}">
             <manifest>
                 <attribute name="Main-Class" value="edu.kit.cloudSimStorage.Main"/>
-                <attribute name="Class-Path" value="${dir.lib}"/>
             </manifest>
         </jar>
     </target>
 
     <target name="run" depends="jar">
-        <java jar="${dir.jar}/${ant.project.name}.jar" fork="true">
-            <classpath refid="classpath"/>
-        </java>
+        <java jar="${dir.jar}/${ant.project.name}.jar" fork="true" /> 
     </target>
 
     <target name="test" depends="compileTests, jar">
         <mkdir dir="${dir.report}" />
         <junit printsummary="yes" showoutput="true" enabletestlistenerevents="true" haltonfailure="true">
             <classpath>
-                <path refid="classpath" />
                 <path refid="application" />
-                <pathelement path="${dir.build}" />
-                <pathelement path="${dir.jar}" />
-                <pathelement path="${dir.test}" />
+                <path refid="default.classpath" />
             </classpath>
             <formatter type="xml" />
             <batchtest fork="yes" todir="${dir.report}">

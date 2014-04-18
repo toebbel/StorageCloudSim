@@ -12,7 +12,7 @@ More work to be done ... To be continued
 Requirements
 ------------
 * Java 7 Update 21
-* CloudSim (tested with [version 3.0.3](http://code.google.com/p/cloudsim/downloads/list)) (patched)
+* CloudSim (tested with [version 3.0.3](http://code.google.com/p/cloudsim/downloads/list)) (patched and included in this repo)
 * [Simple 2.7.1](http://simple.sourceforge.net/download.php)
 * [Apache Commons CLI](http://commons.apache.org/proper/commons-cli/index.html)
 * and [commons-math3-3.2](http://commons.apache.org/proper/commons-math/download_math.cgi)
@@ -23,11 +23,21 @@ Since the original Cloudsim 3.0.3 misses a method for retrieving bandwidth infor
 
 Build the Project
 -----------------
-//TODO
+We provided tasks in the ant build file to bootstrap ivy if oyu have not installed it. [Ivy](https://ant.apache.org/ivy/) will fetch all dependencies for you :)
+```
+ant init-ivy
+```
+After doing this, just type any of these commands to build/test/run the project
+```
+ant compile
+ant test
+ant run
+```
+
 
 Getting Started
 ---------------
-Before you can run a simulation, you have to set up a scenario (or you use the default scenario that we provided in the 'example-scenario' folder).
+Before you can run a simulation, you have to set up a scenario (or you use the default scenario that we provided in the 'example-scenario' folder). //TODO do that actually
 
 ## Creating a Cloud model
 //TODO How to build

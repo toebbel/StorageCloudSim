@@ -1,0 +1,14 @@
+<ivy-module version="2.0">
+    <info organisation="edu.kit" module="StorageCloudSim">
+        <license name="GNU GPL" url="http://www.gnu.org/copyleft/gpl.html" />
+        <license name="GNU LGPL" url="http://www.gnu.org/copyleft/lgpl.html" />
+        <ivyauthor name="Tobias Sturm" url="http://tobiassturm.de" />
+        <description homepage="http://www.tobiassturm.de/projects/StorageCloudSim.html"/>
+    </info>
+    <dependencies>
+        <dependency org="org.apache.commons" name="commons-math3" rev="3.2"/>
+        <dependency org="commons-cli" name="commons-cli" rev="1.2"/>
+        <dependency org="junit" name="junit" rev="4.11"/>
+        <dependency org="org.simpleframework" name="simple-xml" rev="2.7.1"/>
+    </dependencies>
+</ivy-module>
