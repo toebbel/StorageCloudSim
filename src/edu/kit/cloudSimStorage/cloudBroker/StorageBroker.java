@@ -61,7 +61,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 	 * @param metaBroker the simID of the {@link StorageMetaBroker}
 	 */
 	public StorageBroker(int associatedCloudID, int metaBroker) {
-		super("StorageCloudBroker on behalf of " + metaBroker  + " to access Cloud " + associatedCloudID);
+		super("StorageCloudBrokerOnBehalfOf" + metaBroker  + "ToAccessCloud" + associatedCloudID);
 		logger = Logger.getLogger("StorageCloudBroker_" + metaBroker + "-" + getId() + "-" + associatedCloudID);
 		logger.info("Create StorageCloudBroker, with ID " + getId() + " that serves on behalf of " + metaBroker + " and interacts with cloud " + associatedCloudID);
 
@@ -85,7 +85,7 @@ public class StorageBroker extends SimEntity implements ILoggable, TraceableReso
 	 * @param associatedCloudID the simID of the {@link StorageCloud}
 	 */
 	public StorageBroker(int associatedCloudID) {
-		super("StorageCloudBroker to access Cloud " + associatedCloudID);
+		super("StorageCloudBrokerToAccessCloud" + associatedCloudID);
 		logger = Logger.getLogger("StorageCloudBroker" + getId() + "-" + associatedCloudID);
 		logger.info("Create StorageCloudBroker, with ID " + getId() + " that interacts with cloud " + associatedCloudID);
 
