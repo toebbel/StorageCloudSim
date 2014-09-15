@@ -16,6 +16,7 @@ import edu.kit.cloudSimStorage.helper.FileSizeHelper;
 import edu.kit.cloudSimStorage.storageModel.resourceUtilization.UnlimitedResource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -50,10 +51,10 @@ public class TestObjectStorageServer {
 	@org.junit.Test
 	public void testGetAvailableDiskLabels() throws Exception {
 		candidate.installHarddrive(driveA);
-		assertArrayEquals(new String[] {"/dev/sda1"}, candidate.getAvailableDiskLabels().toArray());
+        assertSameItemsInSet(Arrays.asList(new String[]{"/dev/sda1"}), Arrays.asList(candidate.getAvailableDiskLabels().toArray()));
 
 		candidate.installHarddrive(driveB);
-		assertArrayEquals(new String[] {"/dev/sda1", "/dev/sda2"}, candidate.getAvailableDiskLabels().toArray());
+        assertSameItemsInSet(Arrays.asList(new String[] {"/dev/sda1", "/dev/sda2"}), Arrays.asList(candidate.getAvailableDiskLabels().toArray()));
 	}
 
 	@org.junit.Test
