@@ -39,7 +39,7 @@ public class Main {
 						"Use file extentions '" + SharedConstants.CLOUD_FILE_EXTENTION + "'" +
 						" and  '" + SharedConstants.SEQUENCE_FILE_EXTENTION + "'")
 				.create("i")
-		);
+		); 
 		options.addOption(OptionBuilder
 				.withArgName("output-directory")
 				.withDescription("directory for log outputs")
