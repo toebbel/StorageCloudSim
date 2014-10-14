@@ -292,13 +292,17 @@ public class StorageCloud extends SimEntity implements TraceableResource, ILogga
 
 		CdmiRootContainer root = userToRootContainerMapping.get(request.getUser());
 		if(root.getMetadata().contains(CdmiMetadata.MAX_CHILD_COUNT)) {
-			if(root.getChildren().size() >= Integer.parseInt(root.getMetadata().get(CdmiMetadata.MAX_CHILD_COUNT)));
+			if(root.getChildren().size() >= Integer.parseInt(root.getMetadata().get(CdmiMetadata.MAX_CHILD_COUNT))) {
 				letOperationFail(scheduleEntry, "Maximum number of containers reached");
+				return;
+			}
 		}
 
 		if(root.getMetadata().contains(CdmiMetadata.MAX_CONTAINER_SIZE)) {
-			if(root.getSize() >= Integer.parseInt(root.getMetadata().get(CdmiMetadata.MAX_CONTAINER_SIZE)));
-			letOperationFail(scheduleEntry, "Maximum used storage of container 'root' reached");
+			if(root.getSize() >= Integer.parseInt(root.getMetadata().get(CdmiMetadata.MAX_CONTAINER_SIZE))) {
+				letOperationFail(scheduleEntry, "Maximum used storage of container 'root' reached");
+				return;
+			}
 		}
 
 		if (root.containsChildWithName(request.getContainerName())) {

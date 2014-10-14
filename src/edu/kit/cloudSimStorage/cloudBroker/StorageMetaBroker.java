@@ -72,6 +72,7 @@ public class StorageMetaBroker extends SimEntity implements TraceableResource {
 		StorageBroker broker = new StorageBroker(cloudID, getId());
 		availableBrokers.add(broker);
 		cloudToBrokerMapping.put(cloudID, broker.getId());
+		availableClouds.add(cloudID);
 	}
 
 
