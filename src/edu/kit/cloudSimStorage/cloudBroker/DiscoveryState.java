@@ -30,6 +30,8 @@ class DiscoveryState implements ILoggable {
 	public DiscoveryState(UsageSequence sequence, int metaBrokerId) {
 
 		discoveredCharacteristics = new HashMap<>();
+		this.activeRequests = new ArrayList<String>();
+		this.returnedRequests = new ArrayList<String>();
 		this.sequence = sequence;
 
 		logger = Logger.getLogger("DiscoveryProcess_seq" + sequence + "_meta" + metaBrokerId);
