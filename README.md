@@ -11,11 +11,11 @@ More work to be done ... To be continued
 
 Requirements
 ------------
-* Java 7 Update 21
+* Java 7 Update 21 (runs with OpenJDK 7 and OracleJDK 7 + 8)
 * CloudSim (tested with [version 3.0.3](http://code.google.com/p/cloudsim/downloads/list)) (patched and included in this repo)
-* [Simple 2.7.1](http://simple.sourceforge.net/download.php)
-* [Apache Commons CLI](http://commons.apache.org/proper/commons-cli/index.html)
-* and [commons-math3-3.2](http://commons.apache.org/proper/commons-math/download_math.cgi)
+* [Simple 2.7.1](http://simple.sourceforge.net/download.php) (download via ivy)
+* [Apache Commons CLI](http://commons.apache.org/proper/commons-cli/index.html) (download via ivy)
+* and [commons-math3-3.2](http://commons.apache.org/proper/commons-math/download_math.cgi) (download via ivy)
 
 Patched Cloudsim
 ----------------
