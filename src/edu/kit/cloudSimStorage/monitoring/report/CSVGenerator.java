@@ -116,7 +116,8 @@ public class CSVGenerator extends ReportGenerator {
 			bw.deleteCharAt(bw.length() - 1);
 			bw.append(DELIMITER);
 		}
-		bw.deleteCharAt(bw.length() - 1);
+        if (bw.length() > 0)
+		    bw.deleteCharAt(bw.length() - 1);
 		bw.append("\n");
 
 		while(finished.size() < content.size()) {
