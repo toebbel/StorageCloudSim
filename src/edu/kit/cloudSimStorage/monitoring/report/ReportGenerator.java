@@ -107,9 +107,12 @@ public abstract class ReportGenerator {
 
 	public static TupleSequence<Double> changeMagnitude(TupleSequence<Double> raw, double scale) {
 		TupleSequence<Double> result = new TupleSequence<>();
-		for(Tuple<Long, Double> t : raw) {
-			result.add(new Tuple<>(t.x, t.y * scale));
-		}
+        if (raw != null)
+        {
+            for(Tuple<Long, Double> t : raw) {
+                result.add(new Tuple<>(t.x, t.y * scale));
+            }
+        }
 		return result;
 	}
 
