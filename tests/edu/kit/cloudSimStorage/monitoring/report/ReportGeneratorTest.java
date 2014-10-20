@@ -29,11 +29,59 @@ public class ReportGeneratorTest extends TestCase {
         assertEquals(expected, result);
     }
 
-    public void testRemoveDoublicateValues() throws Exception {
 
+    public void testRemoveDoublicateValues_noDupes() throws Exception {
+        TupleSequence<Double> input = new TupleSequence<Double>();
+        input.add(1, -1.0);
+        input.add(2,  0.0);
+
+        TupleSequence<Double> expected = new TupleSequence<Double>();
+        expected.add(1,  -1.5);
+        expected.add(2,  0.0);
+
+        TupleSequence<Double> result = ReportGenerator.removeDoublicateValues(input);
+        assertEquals(expected, result);
     }
 
-    public void testRemoveDoublicateValues1() throws Exception {
+    public void testRemoveDoublicateValues_null() throws Exception {
+        TupleSequence<Double> expected = new TupleSequence<Double>();
 
+        TupleSequence<Double> result = ReportGenerator.removeDoublicateValues(null);
+        assertEquals(expected, result);
+    }
+
+    public void testRemoveDoublicateValues_dupesSameXValue() throws Exception {
+        TupleSequence<Double> input = new TupleSequence<Double>();
+        input.add(1, -1.0);
+        input.add(1, -1.0);
+        input.add(1,  0.0);
+        input.add(1,  1.0);
+
+        TupleSequence<Double> expected = new TupleSequence<Double>();
+        expected.add(1, -1.0);
+        expected.add(1,  0.0);
+        expected.add(1,  1.0);
+
+        TupleSequence<Double> result = ReportGenerator.removeDoublicateValues(input);
+        assertEquals(expected, result);
+    }
+
+    public void testRemoveDoublicateValues_dupesDifferentXValue() throws Exception {
+        TupleSequence<Double> input = new TupleSequence<Double>();
+        input.add(1, -1.0);
+        input.add(2, -1.0);
+        input.add(3,  0.0);
+        input.add(4,  1.0);
+        input.add(5,  1.0);
+
+        TupleSequence<Double> expected = new TupleSequence<Double>();
+        expected.add(1, -1.0);
+        expected.add(2, -1.0);
+        expected.add(3,  0.0);
+        expected.add(4,  1.0);
+        expected.add(5,  1.0);
+
+        TupleSequence<Double> result = ReportGenerator.removeDoublicateValues(input);
+        assertEquals(expected, result);
     }
 }
