@@ -118,13 +118,17 @@ public abstract class ReportGenerator {
 
 	public static TupleSequence<Double> removeDoublicateValues(TupleSequence<Double> in, double epsilon) {
 		TupleSequence<Double> result = new TupleSequence<>();
-		double lastValue = Double.NEGATIVE_INFINITY;
-		for(Tuple<Long, Double> t : in) {
-			if(Math.abs(t.y - lastValue) >= epsilon) {
-				result.add(new Tuple<>(t.x, t.y));
-				lastValue = t.y;
-			}
-		}
+        if (in != null) {
+            double lastValue = Double.NEGATIVE_INFINITY;
+            long lastX = Long.MIN_VALUE;
+            for (Tuple<Long, Double> t : in) {
+                if (Math.abs(t.y - lastValue) >= epsilon || lastX != t.x) {
+                    result.add(new Tuple<>(t.x, t.y));
+                    lastValue = t.y;
+                    lastX = t.x;
+                }
+            }
+        }
 		return result;
 	}
 
