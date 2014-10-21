@@ -27,9 +27,10 @@ We provided tasks in the ant build file to bootstrap ivy if oyu have not install
 ```
 ant init-ivy
 ```
-After doing this, just type any of these commands to build/test/run the project
+After doing this, just type any of these commands to build/test/run the project. Use the jar command to generate stand-alone jar files (simulation jar and generator tools).
 ```
 ant compile
+ant jar
 ant test
 ant run
 ```
@@ -40,9 +41,8 @@ Getting Started
 Before you can run a simulation, you have to set up a scenario (or you use the default scenario that we provided in the 'example-scenario' folder). //TODO do that actually
 
 ## Creating a Cloud model
-//TODO How to build
 Cloud models are defined as XML files. You will pass these models into the StorageCloudSim.jar, when you start the simulation.
-Use the CloudGenerator to generate a fresh XML file or modify one of the provided examples.
+Use the CloudGenerator to generate a fresh XML file or modify one of the provided examples. The jar file will be generated when you use the '''ant jar''' command.
 To see all parameters type
    java -jar CloudGenerator.jar -h
 
@@ -53,4 +53,6 @@ That will generate a cloud that has 3 servers where each has 3 disks and each of
 Remember: Whenever you should amend one of the following models, you have to re-generate the XML files so they can be parsed: CDMICloudCharacteristics, pricingPolicy, objectStorageServerModel, objectStorageDiskModel, ioLimits.
 
 ## Creating UsageSequences
-
+A UsageSequence is a sequence of requests that might depend on each other (a download can only happen, when you uploaded that file before by the same Cloud user). Sequence generators produce such sequences and store them as XML, so one scenario can be replayed multiple times. Since you have your own idea of your sequences, you should amend the generator. There are two:
+[SimpleSequenceFileGenerator](https://github.com/toebbel/StorageCloudSim/blob/master/src/edu/kit/cloudSimStorage/tools/SimpleSequenceFileGenerator.java) and [SequenceFileGenerator](https://github.com/toebbel/StorageCloudSim/blob/master/src/edu/kit/cloudSimStorage/tools/SequenceFileGenerator.java). I recommend to have a look at the first one, because it covers all the basic steps you'll need to have some sequences to start with. Look at the XML output to try to understand their purpose. I
+also recommend to have a look in the [thesis](http://downloads.tobiassturm.de/projects/storagecloudsim/thesis.pdf), page 23. The simple generator takes two arguments: output folder and number of sequences to generate. Each sequence will produce a total of 25GB in traffic, where files inside each sequence vary from 1KB to 10GB.
