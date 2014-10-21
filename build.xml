@@ -1,5 +1,6 @@
 <project name="StorageCloudSim" basedir="." default="main" xmlns:ivy="antlib:org.apache.ivy.ant">
     <property name="dir.src"     value="src"/>
+    <property name="dir.lib"     value="src"/>
     <property name="dir.test"    value="tests"/>
     <property name="dir.build"   value="build"/>
 
@@ -47,6 +48,12 @@
         <ivy:cachepath pathid="default.classpath" conf="default" useOrigin="true" />
     </target>
 
+    <path id="build-classpath">
+        <fileset dir="${dir.lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
     <target name="compile" description="compile application" depends="resolve">
         <mkdir dir="${dir.classes}"/>
         <javac destdir="${dir.classes}" includeantruntime="true">
@@ -64,17 +71,43 @@
 
     <path id="application" location="${dir.jar}/${ant.project.name}.jar" />
 
+
     <target name="jar" depends="compile">
         <mkdir dir="${dir.jar}"/>
+        <manifestclasspath property="lib.list" jarfile="${dir.jar}/${ant.project.name}.jar">
+            <classpath refid="build-classpath"/>
+        </manifestclasspath>
         <jar destfile="${dir.jar}/${ant.project.name}.jar" basedir="${dir.classes}">
+            <zipgroupfileset dir="lib" includes="*.jar"/>
             <manifest>
                 <attribute name="Main-Class" value="edu.kit.cloudSimStorage.Main"/>
+                <attribute name="Class-Path" value="${lib.list}"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dir.jar}/CloudGenerator.jar" basedir="${dir.classes}">
+            <zipgroupfileset dir="lib" includes="*.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="edu.kit.cloudSimStorage.tools.GenerateCloud"/>
+                <attribute name="Class-Path" value="${lib.list}"/>
+            </manifest>
+        </jar>
+        <jar destfile="${dir.jar}/SequenceGenerator.jar" basedir="${dir.classes}">
+            <zipgroupfileset dir="lib" includes="*.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="edu.kit.cloudSimStorage.tools.SimpleFileSequenceGenerator"/>
+                <attribute name="Class-Path" value="${lib.list}"/>
             </manifest>
         </jar>
     </target>
 
     <target name="run" depends="jar">
-        <java jar="${dir.jar}/${ant.project.name}.jar" fork="true" /> 
+        <java jar="${dir.jar}/${ant.project.name}.jar" fork="true"/> 
+    </target>
+    <target name="generateCloud" depends="jar">
+        <java jar="${dir.jar}/CloudGenerator.jar" fork="true" /> 
+    </target>
+    <target name="generateSequences" depends="jar">
+        <java jar="${dir.jar}/SequenceGenerator.jar" fork="true" /> 
     </target>
 
     <target name="test" depends="compileTests, jar">
