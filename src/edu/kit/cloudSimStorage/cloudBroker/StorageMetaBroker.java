@@ -102,7 +102,7 @@ public class StorageMetaBroker extends SimEntity implements TraceableResource {
 	@Override
 	public void processEvent(SimEvent ev) {
 		switch(ev.getTag()) {
-			case UserMetaRequest.DISCOVER_CLOUD:
+			case CloudRequest.SUCC:
 				String requestOperationID = ((CloudDiscoveryResponse)ev.getData()).getOperationID();
 				for(DiscoveryState ds : runningDiscoveries) {
 					if(ds.isWaitingForOperation(requestOperationID)) {
@@ -135,6 +135,7 @@ public class StorageMetaBroker extends SimEntity implements TraceableResource {
 		for(UserRequest u : ds.sequence.getRequests()) {
 			connectedBroker.enqueueUserRequest(u);
 		}
+        connectedBroker.startEntity();
 	}
 
 	private StorageBroker getBrokerWithID(int id) {
