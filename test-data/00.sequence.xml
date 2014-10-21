@@ -1,0 +1,103 @@
+<usageSequence sequenceID="0">
+   <SLA>
+      <requirements class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SLARequirementAND">
+         <a class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SLARequirementAND">
+            <a class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SupportsCapability" description="cdmi_create_container!" capability_key="cdmi_create_container"/>
+            <b class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SupportsCapability" description="cdmi_delete_container!" capability_key="cdmi_delete_container"/>
+         </a>
+         <b class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.MinimumCharactersisticValue" description="SLA available capacity&gt;=2.9446190051E10" key="SLA available capacity" min="2.9446190051E10"/>
+      </requirements>
+      <ratings class="edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA.RateByPrice">
+         <description>rate 1/price for up and download and storage costs</description>
+      </ratings>
+   </SLA>
+   <request class="java.util.ArrayList">
+      <userRequest delay="0" blockingCall="true" opCode="1" size="0">
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata/>
+         </metadata>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="475731841">
+         <objectName>tr-w5co9yrb0d84s8</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>475731841</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="8927" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="6602320195">
+         <objectName>zkklg0l9uz4yycr</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>6602320195</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="7058" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="7884703583">
+         <objectName>thrr78ie9bciuemgd3</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>7884703583</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="5195" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="3162272718">
+         <objectName>t2p5c2lzgmku-u8p</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>3162272718</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="1819" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="9503252986">
+         <objectName>fy3at561d6hb3d6</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>9503252986</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="7162" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+   </request>
+</usageSequence>

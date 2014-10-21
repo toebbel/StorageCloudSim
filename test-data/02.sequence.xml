@@ -1,0 +1,87 @@
+<usageSequence sequenceID="2">
+   <SLA>
+      <requirements class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SLARequirementAND">
+         <a class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SLARequirementAND">
+            <a class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SupportsCapability" description="cdmi_create_container!" capability_key="cdmi_create_container"/>
+            <b class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.SupportsCapability" description="cdmi_delete_container!" capability_key="cdmi_delete_container"/>
+         </a>
+         <b class="edu.kit.cloudSimStorage.ObjectStorageSLAs.matchingSLA.MinimumCharactersisticValue" description="SLA available capacity&gt;=2.9580779979E10" key="SLA available capacity" min="2.9580779979E10"/>
+      </requirements>
+      <ratings class="edu.kit.cloudSimStorage.ObjectStorageSLAs.ratingSLA.RateByPrice">
+         <description>rate 1/price for up and download and storage costs</description>
+      </ratings>
+   </SLA>
+   <request class="java.util.ArrayList">
+      <userRequest delay="0" blockingCall="true" opCode="1" size="0">
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata/>
+         </metadata>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="7590974917">
+         <objectName>rg5oan02bng6n</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>7590974917</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="3793" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="8309256298">
+         <objectName>hurohjy751iou</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>8309256298</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="2372" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="8735287245">
+         <objectName>t4bf0z6cwqgik6zsl0</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>8735287245</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="2627" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+      <userRequest delay="0" blockingCall="false" opCode="0" size="5717152117">
+         <objectName>dba5fvhjy8gb5b3</objectName>
+         <containerName>files</containerName>
+         <objectID>UNKNOWN</objectID>
+         <metadata>
+            <metadata>
+               <entry>
+                  <string>cdmi_size</string>
+                  <string>5717152117</string>
+               </entry>
+            </metadata>
+         </metadata>
+      </userRequest>
+      <userRequest delay="8934" blockingCall="false" opCode="6" size="0">
+         <objectID>UNKNOWN</objectID>
+      </userRequest>
+   </request>
+</usageSequence>

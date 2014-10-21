@@ -1,0 +1,229 @@
+<cloudModel name="RainyCloud" location="de" rootUrl="rainy.org">
+   <characteristics>
+      <metadata>
+         <entry>
+            <string>cdmi_queues</string>
+            <string>false</string>
+         </entry>
+         <entry>
+            <string>SLA download costs</string>
+            <string>0.1</string>
+         </entry>
+         <entry>
+            <string>cdmi_export_webdav</string>
+            <string>false</string>
+         </entry>
+         <entry>
+            <string>cdmi_notification</string>
+            <string>false</string>
+         </entry>
+         <entry>
+            <string>keep_n_versions</string>
+            <string>1</string>
+         </entry>
+         <entry>
+            <string>cdmi_create_container</string>
+            <string>true</string>
+         </entry>
+         <entry>
+            <string>cdmi_modify_metadata</string>
+            <string>true</string>
+         </entry>
+         <entry>
+            <string>cdmi_export_nfs</string>
+            <string>false</string>
+         </entry>
+         <entry>
+            <string>SLA storage costs</string>
+            <string>0.1</string>
+         </entry>
+         <entry>
+            <string>number_replicas</string>
+            <string>3</string>
+         </entry>
+         <entry>
+            <string>cdmi_read_metadata</string>
+            <string>true</string>
+         </entry>
+         <entry>
+            <string>SLA upload costs</string>
+            <string>0.1</string>
+         </entry>
+         <entry>
+            <string>cdmi_metadata_maxitems</string>
+            <string>1024</string>
+         </entry>
+         <entry>
+            <string>cdmi_domains</string>
+            <string>false</string>
+         </entry>
+         <entry>
+            <string>location</string>
+            <string>de</string>
+         </entry>
+         <entry>
+            <string>cdmi_delete_container</string>
+            <string>true</string>
+         </entry>
+         <entry>
+            <string>cdmi_metadata_maxsize</string>
+            <string>4096</string>
+         </entry>
+         <entry>
+            <string>cdmi_query</string>
+            <string>false</string>
+         </entry>
+         <entry>
+            <string>cdmi_list_children</string>
+            <string>true</string>
+         </entry>
+         <entry>
+            <string>cdmi_export_iscsi</string>
+            <string>false</string>
+         </entry>
+      </metadata>
+   </characteristics>
+   <pricingPolicy class="edu.kit.cloudSimStorage.pricing.SimplePricing">
+      <centsPerUploadedGB>0.1</centsPerUploadedGB>
+      <centsPerDownloadedGB>0.1</centsPerDownloadedGB>
+      <centsPerStoredGBperPeriod>0.1</centsPerStoredGBperPeriod>
+   </pricingPolicy>
+   <servers class="java.util.ArrayList">
+      <objectStorageServerModel>
+         <name>server0</name>
+         <ioLimitations class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="1.34217728E11"/>
+         <disks class="java.util.ArrayList">
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda0">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda0</name>
+            </objectStorageDiskModel>
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda1">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda1</name>
+            </objectStorageDiskModel>
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda2">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda2</name>
+            </objectStorageDiskModel>
+         </disks>
+      </objectStorageServerModel>
+      <objectStorageServerModel>
+         <name>server1</name>
+         <ioLimitations class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="1.34217728E11"/>
+         <disks class="java.util.ArrayList">
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda0">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda0</name>
+            </objectStorageDiskModel>
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda1">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda1</name>
+            </objectStorageDiskModel>
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda2">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda2</name>
+            </objectStorageDiskModel>
+         </disks>
+      </objectStorageServerModel>
+      <objectStorageServerModel>
+         <name>server2</name>
+         <ioLimitations class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="1.34217728E11"/>
+         <disks class="java.util.ArrayList">
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda0">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda0</name>
+            </objectStorageDiskModel>
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda1">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda1</name>
+            </objectStorageDiskModel>
+            <objectStorageDiskModel>
+               <drive class="edu.kit.cloudSimStorage.cloudScenarioModels.GenericDrive" name="/dev/sda2">
+                  <capacity>1099511627776</capacity>
+                  <reserverdSpace>0</reserverdSpace>
+                  <usedSpace>0</usedSpace>
+                  <readRate>2.2020096E8</readRate>
+                  <writeRate>2.2020096E8</writeRate>
+                  <readLatency>8.5</readLatency>
+                  <writeLatency>9.5</writeLatency>
+                  <ioLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.FirstFitAllocation" maxRate="2.2020096E11"/>
+               </drive>
+               <name>/dev/sda2</name>
+            </objectStorageDiskModel>
+         </disks>
+      </objectStorageServerModel>
+   </servers>
+   <cloudIOLimits class="edu.kit.cloudSimStorage.storageModel.resourceUtilization.UnlimitedResource"/>
+</cloudModel>
