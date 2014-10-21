@@ -70,8 +70,8 @@ public class Main {
 		CommandLine cmd = parser.parse( options, args);
 
 		//read parameters
-		File outputDir = new File(cmd.hasOption("i") ? cmd.getOptionValue("i") : ".");
-		File inputDir = new File(cmd.hasOption("o") ? cmd.getOptionValue("o") : ".");
+		File outputDir = new File(cmd.hasOption("o") ? cmd.getOptionValue("o") : ".");
+		File inputDir = new File(cmd.hasOption("i") ? cmd.getOptionValue("i") : ".");
 		if(!inputDir.exists() && inputDir.mkdirs()) {
 			System.err.println("Could not create input directory '" + inputDir.getPath() + "'");
 		}
