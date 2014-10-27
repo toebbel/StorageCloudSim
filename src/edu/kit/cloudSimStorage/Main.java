@@ -33,18 +33,9 @@ import java.util.logging.Level;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		Options options = new Options();
-		options.addOption(OptionBuilder
-				.withArgName("input-directory")
-				.withDescription("directory that contains simulation scenario. " +
-						"Use file extentions '" + SharedConstants.CLOUD_FILE_EXTENTION + "'" +
-						" and  '" + SharedConstants.SEQUENCE_FILE_EXTENTION + "'")
-				.create("i")
-		); 
-		options.addOption(OptionBuilder
-				.withArgName("output-directory")
-				.withDescription("directory for log outputs")
-				.create("o")
-		);
+        options.addOption("i", "input-directory", true, "input directory");
+        options.addOption("o", "output-directory", true, "output directory");
+
 		options.addOption(OptionBuilder
 				.withDescription("enable cloud dumps at end of simulation")
 				.create("clouddump")
@@ -66,16 +57,17 @@ public class Main {
 				.create("n")
 		);
 
+
 		CommandLineParser parser = new BasicParser();
 		CommandLine cmd = parser.parse( options, args);
 
 		//read parameters
 		File outputDir = new File(cmd.hasOption("o") && cmd.getOptionValue("o") != null? cmd.getOptionValue("o") : ".");
 		File inputDir = new File(cmd.hasOption("i") && cmd.getOptionValue("i") != null ? cmd.getOptionValue("i") : ".");
-		if(!inputDir.exists() && inputDir.mkdirs()) {
+		if(!inputDir.exists() && !inputDir.mkdirs()) {
 			System.err.println("Could not create input directory '" + inputDir.getPath() + "'");
 		}
-		if(!outputDir.exists() && outputDir.mkdirs()) {
+		if(!outputDir.exists() && !outputDir.mkdirs()) {
 			System.err.println("Could not create output directory '" + outputDir.getPath() + "'");
 		}
 		int nSequences = -1;
