@@ -34,7 +34,7 @@ public class TraceableResourceAliasing implements TraceableResource {
 
 	@Override
 	public TupleSequence<Double> getSamples(String key) {
-		if (externalKeyResourceMapping.containsKey(key) && externalKeyInternalKeyMapping.containsKey(key)) {
+		if (externalKeyResourceMapping.containsKey(key) && externalKeyResourceMapping.get(key) != null && externalKeyInternalKeyMapping.containsKey(key)) {
 			return externalKeyResourceMapping.get(key).getSamples(externalKeyInternalKeyMapping.get(key));
 		}
 		return null;

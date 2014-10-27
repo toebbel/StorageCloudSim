@@ -85,11 +85,13 @@ public class CdmiRootContainer extends CdmiContainer<CdmiObjectContainer> {
 			case USED_STORAGE_PHYSICAL_ABS:
 			case USED_STORAGE_VIRTUAL_ABS:
 				for(TraceableResource c : getChildren().values())
-					sampleStreams.add(c.getSamples(key));
+                    if(c.getSamples(key) != null)
+					    sampleStreams.add(c.getSamples(key));
 				return SequenceOperations.sum(sampleStreams);
 			case AVAILABLE_STORAGE_VIRTUAL:
 				for(TraceableResource c : getChildren().values())
-					sampleStreams.add(c.getSamples(key));
+                    if(c.getSamples(key) != null)
+					    sampleStreams.add(c.getSamples(key));
 				sampleStreams.add(SequenceOperations.sum(sampleStreams));
 				sampleStreams.add(virtualStorageHistory.getSamples(AVAILABLE_STORAGE));
 				return SequenceOperations.min(sampleStreams);
