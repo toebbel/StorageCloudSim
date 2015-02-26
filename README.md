@@ -38,7 +38,10 @@ ant run
 
 Getting Started
 ---------------
-Before you can run a simulation, you have to set up a scenario (or you use the default scenario that we provided in the 'example-scenario' folder). //TODO do that actually
+Before you can run a simulation, you have to set up a scenario (or you use the default scenario that we provided in the 'test-data' folder).
+To run a scenario, first build the StorageCloudSim jar and then run it from the project root:
+
+    java -jar build/jar/StorageCloudSim.jar -i test-data -o out
 
 ## Creating a Cloud model
 Cloud models are defined as XML files. You will pass these models into the StorageCloudSim.jar, when you start the simulation.
